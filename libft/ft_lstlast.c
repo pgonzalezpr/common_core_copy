@@ -9,11 +9,14 @@
 /*   Updated: 2023/09/13 14:43:49 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
 t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*current;
 
+	if (!lst)
+		return (NULL);
 	current = lst;
 	while (current->next)
 		current = current->next;
