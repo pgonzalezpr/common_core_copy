@@ -21,7 +21,7 @@ makelibft:
 	@mv $(LIBFTNAME) $(NAME)
 
 $(NAME): makelibft $(OBJS)
-	@ar -r $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 clean:
 	@rm -f $(OBJS)
