@@ -19,9 +19,11 @@ SRC	=	ft_atoi.c ft_putendl_fd.c ft_strncmp.c \
 BONUSF = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
 		 ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c 
 
+HEADERS = libft.h
+
 SRC_OBJ = $(SRC:.c=.o)
 
-BONUS_OBJ = $(SRC:.c=.o)
+BONUS_OBJ = $(BONUSF:.c=.o)
 
 all: $(NAME)
 
@@ -30,6 +32,9 @@ $(NAME): $(SRC_OBJ)
 
 bonus: $(SRC_OBJ) $(BONUS_OBJ)
 	$(LIB) $(NAME) $(SRC_OBJ) $(BONUS_OBJ)
+
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) $(SRC_OBJ) $(BONUS_OBJ)
