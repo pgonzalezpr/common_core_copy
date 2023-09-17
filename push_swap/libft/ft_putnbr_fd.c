@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:05 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:07 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	ft_putnbr_fd(int n, int fd)
 {
-	va_list	args;
-	int		count;
+	char			nbr[12];
+	int				len;
+	unsigned int	value;
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	len = 11;
+	nbr[len--] = '\0';
+	value = n;
+	if (n < 0)
+		value = -n;
+	while (value >= 10)
 	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		nbr[len--] = (value % 10) + '0';
+		value = value / 10;
 	}
-	va_end(args);
-	return (count);
+	nbr[len--] = (value % 10) + '0';
+	if (n < 0)
+		nbr[len--] = '-';
+	ft_putstr_fd(nbr + len + 1, fd);
 }

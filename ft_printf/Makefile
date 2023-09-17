@@ -8,14 +8,14 @@ SRC_DIR = srcs/
 OBJ_DIR = obj/
 INCLUDE = include
 
-SRC_FILES = ft_printf utils \
+SRC_FILES = ft_printf utils
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-OBJF		=	.cache_exists
-
 all:		$(NAME)	
+
+OBJF = 		.cache_exists
 
 $(NAME):	$(OBJ)
 				@make -C $(LIBFT)
@@ -23,7 +23,7 @@ $(NAME):	$(OBJ)
 				@mv libft.a $(NAME)
 				@$(AR) $(NAME) $(OBJ)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+$(OBJ_DIR)%.o: 	$(SRC_DIR)%.c | $(OBJF) 
 				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJF):

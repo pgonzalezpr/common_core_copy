@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:20 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:20 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	va_list	args;
-	int		count;
+	char	*ptr;
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	while (*s && start > 0)
 	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		s++;
+		start--;
 	}
-	va_end(args);
-	return (count);
+	if (ft_strlen(s) < len)
+		len = ft_strlen(s);
+	ptr = (char *)malloc((len + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	ft_strlcpy(ptr, s, len + 1);
+	return (ptr);
 }

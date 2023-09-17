@@ -1,4 +1,4 @@
-#include "../includes/utils.h"
+#include "../include/utils.h"
 
 int	check_range(char *str, int max)
 {

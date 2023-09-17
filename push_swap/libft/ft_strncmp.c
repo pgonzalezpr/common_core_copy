@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:15 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:17 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	va_list	args;
-	int		count;
-
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	while (*s1 != '\0' && *s1 == *s2 && n > 0)
 	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		s1++;
+		s2++;
+		n--;
 	}
-	va_end(args);
-	return (count);
+	if (n == 0)
+		return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

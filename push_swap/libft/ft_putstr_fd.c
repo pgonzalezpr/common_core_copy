@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:07 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:08 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	ft_putstr_fd(char *s, int fd)
 {
-	va_list	args;
-	int		count;
-
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	while (*s)
 	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		ft_putchar_fd(*s, fd);
+		s++;
 	}
-	va_end(args);
-	return (count);
 }

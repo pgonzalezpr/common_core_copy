@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:39:45 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:39:46 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	va_list	args;
-	int		count;
+	size_t	b;
+	void	*p;
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	if (nmemb == 0 || size == 0)
 	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		nmemb = 1;
+		size = 1;
 	}
-	va_end(args);
-	return (count);
+	b = nmemb * size;
+	p = malloc(b);
+	if (p == NULL)
+		return (NULL);
+	else
+		ft_bzero(p, b);
+	return (p);
 }

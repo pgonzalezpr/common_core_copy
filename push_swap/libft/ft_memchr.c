@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:00 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:01 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	va_list	args;
-	int		count;
+	unsigned char	*str;
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	str = (unsigned char *)s;
+	while (n > 0)
 	{
-		if (*format == '%')
+		if (*str == (unsigned char)c)
 		{
-			format++;
-			count += convert(*format, args);
+			return (str);
 		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		str++;
+		n--;
 	}
-	va_end(args);
-	return (count);
+	return (NULL);
 }

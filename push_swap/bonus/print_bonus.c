@@ -1,4 +1,4 @@
-#include "../includes/libftprintf.h"
+#include "../include/libft.h"
 
 void	print(char *message)
 {

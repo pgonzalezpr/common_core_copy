@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 13:40:46 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/17 13:42:05 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef PRINTF_UTILS_H
+# define PRINTF_UTILS_H
 
-int	ft_printf(const char *format, ...)
-{
-	va_list	args;
-	int		count;
+# include "libft.h"
+# include <limits.h>
+# include <stdarg.h>
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
-	}
-	va_end(args);
-	return (count);
-}
+int	ft_printf_int(int nbr);
+int	ft_putnbr_base(unsigned long nbr, char *base);
+int	ft_printf_string(char *s);
+int	ft_printf_pointer(void *ptr);
+int	convert(const char conv, va_list args);
+
+#endif // PRINTF_UTILS_H

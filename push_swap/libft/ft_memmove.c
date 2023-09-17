@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:02 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:03 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	va_list	args;
-	int		count;
+	size_t	len;
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	if (!src && !dest)
+		return (dest);
+	len = 0;
+	if (src < dest)
 	{
-		if (*format == '%')
+		len = n;
+		while (len > 0)
 		{
-			format++;
-			count += convert(*format, args);
+			len--;
+			((char *)dest)[len] = ((char *)src)[len];
 		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
 	}
-	va_end(args);
-	return (count);
+	else
+	{
+		len = 0;
+		while (len < n)
+		{
+			((char *)dest)[len] = ((char *)src)[len];
+			len++;
+		}
+	}
+	return (dest);
 }

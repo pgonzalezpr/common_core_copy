@@ -6,11 +6,10 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:40:39 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:22:54 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:41:21 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "utils.h"
+#include "printf_utils.h"
 
 int	ft_printf_int(int nbr)
 {

@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 13:40:17 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:17:19 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 11:40:10 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/16 11:40:11 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_strdup(const char *s)
 {
-	va_list	args;
-	int		count;
+	int		i;
+	int		len;
+	char	*str;
 
-	va_start(args, format);
-	count = 0;
-	while (*format)
+	i = 0;
+	len = ft_strlen(s);
+	str = (char *)malloc(sizeof(*str) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (i < len)
 	{
-		if (*format == '%')
-		{
-			format++;
-			count += convert(*format, args);
-		}
-		else
-		{
-			write(1, format, 1);
-			count++;
-		}
-		format++;
+		str[i] = s[i];
+		i++;
 	}
-	va_end(args);
-	return (count);
+	str[i] = '\0';
+	return (str);
 }
