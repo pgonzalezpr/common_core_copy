@@ -1,56 +1,75 @@
+# Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+LIBFT_DIR = libft
+OBJ_DIR = obj
+BONUS_OBJ_DIR = obj_bonus # Define the bonus object directory
 
+# Source files
 SRC_DIR = srcs
-BONUS_DIR = bonus
-INCLUDE_DIR = includes
-BUILD_DIR = build
-LIBFTPRINTF_DIR = ./libftprintf
+SRC_FILES = main.c input.c print_sort.c gen_utils.c \
+			stack.c stack_utils.c 
+SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
-# List of source files for the main program
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
+# Object files
+OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:.c=.o))
 
-# List of source files for the bonus program
-BONUS_SRCS = $(wildcard $(BONUS_DIR)/*.c)
-BONUS_OBJS = $(patsubst $(BONUS_DIR)/%.c,$(BUILD_DIR)/%.o,$(BONUS_SRCS))
+# Dependency files
+DEPS = $(OBJS:.o=.d)
 
-MAIN_TARGET = push_swap
-BONUS_TARGET = checker
+# Library
+LIBFT = $(LIBFT_DIR)/libft.a
 
-# Default target, builds only the main executable
-all: $(MAIN_TARGET)
+# Executables
+NAME = push_swap
+BONUS_NAME = checker
 
-$(MAIN_TARGET): $(OBJS) makelibft
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFTPRINTF_DIR) -lftprintf -o $@
+# Bonus source files and object files
+BONUS_SRC_DIR = bonus
+BONUS_SRC_FILES = main_bonus.c print_bonus.c
+BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/,$(BONUS_SRC_FILES))
+BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR)/,$(BONUS_SRC_FILES:.c=.o))
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+# Rules
+all: $(NAME)
 
-$(BUILD_DIR)/%.o: $(BONUS_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(LIBFT_DIR) -lft
 
-$(BUILD_DIR):
-	@mkdir -p $(BUILD_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
 
-makelibft:
-	@make -C $(LIBFTPRINTF_DIR)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $@ $(BONUS_OBJS) -L$(LIBFT_DIR) -lft
+
+# Rule for bonus source files
+$(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c | $(BONUS_OBJ_DIR)
+	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
+
+$(BONUS_OBJ_DIR):
+	mkdir -p $(BONUS_OBJ_DIR)
 
 clean:
-	@rm -rf $(BUILD_DIR)
-	@cd $(LIBFTPRINTF_DIR) && make clean
+	rm -rf $(OBJ_DIR)
+	rm -rf $(BONUS_OBJ_DIR)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(MAIN_TARGET) $(BONUS_TARGET)
-	@cd $(LIBFTPRINTF_DIR) && make fclean
+	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
+	@make fclean -C $(LIBFT_DIR)
 
-re: fclean all 
+re: fclean all
 
-# Target to build the bonus program
-bonus: $(BONUS_TARGET)
-
-$(BONUS_TARGET): $(BONUS_OBJS) makelibft
-	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(LIBFTPRINTF_DIR) -lftprintf -o $@
+# Include dependency files
+-include $(DEPS)
 
 .PHONY: all clean fclean re bonus
-
