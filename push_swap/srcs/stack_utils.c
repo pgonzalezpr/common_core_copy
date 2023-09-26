@@ -12,6 +12,44 @@
 
 #include "../include/utils.h"
 
+int		is_sorted(t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	while (i < stack->size - 1)
+	{
+		if (stack->values[i] > stack->values[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int     max_or_min(t_stack *stack, char *flag)
+{
+	int	max;
+	int	min;
+	int	i;
+
+	i = 0;
+	max = INT_MIN;
+	min = INT_MAX;
+	while (i < stack->size)
+	{
+		if (stack->values[i] > max)
+			max = stack->values[i];
+		if (stack->values[i] < min)
+			min = stack->values[i];
+		i++;
+	}
+	if (ft_strncmp(flag, "max", 3))
+		return (max);
+	if (ft_strncmp(flag, "min", 3))
+		return (min);
+	return (-1);
+}
+
 void	print_stack(t_stack *stack)
 {
 	int	i;
@@ -27,4 +65,18 @@ void	free_stack(t_stack *stack)
 {
 	free(stack->values);
 	free(stack);
+}
+
+t_stack	*new_stack(int *arr, int size)
+{
+	t_stack	*stack;
+
+	if (!arr)
+		return (NULL);
+	stack = malloc(sizeof(stack));
+	if (!stack)
+		return (NULL);
+	stack->values = arr;
+	stack->size = size;
+	return (stack);
 }

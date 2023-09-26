@@ -12,6 +12,20 @@
 
 #include "../include/utils.h"
 
+int		is_sorted(t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	while (i < stack->size - 1)
+	{
+		if (stack->values[i] > stack->values[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	*zero_array(int len)
 {
 	int	*arr;

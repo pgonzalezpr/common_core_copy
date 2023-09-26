@@ -12,7 +12,7 @@
 
 #include "../include/utils.h"
 
-void	swap(t_stack *stack)
+void	*swap(t_stack *stack)
 {
 	int	tmp;
 
@@ -24,7 +24,7 @@ void	swap(t_stack *stack)
 	}
 }
 
-void	push(t_stack *stack, t_stack *other)
+char	*push(t_stack *stack, t_stack *other)
 {
 	if (other->size > 0)
 	{

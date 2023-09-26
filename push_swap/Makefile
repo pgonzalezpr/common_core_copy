@@ -7,8 +7,8 @@ BONUS_OBJ_DIR = obj_bonus # Define the bonus object directory
 
 # Source files
 SRC_DIR = srcs
-SRC_FILES = main.c input.c print_sort.c gen_utils.c \
-			stack.c stack_utils.c 
+SRC_FILES = main.c input.c run_sort.c gen_utils.c \
+			stack.c stack_utils.c sort_utils.c
 SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
 # Object files
