@@ -43,9 +43,9 @@ int     max_or_min(t_stack *stack, char *flag)
 			min = stack->values[i];
 		i++;
 	}
-	if (ft_strncmp(flag, "max", 3))
+	if (ft_strncmp(flag, "max", 3) == 0)
 		return (max);
-	if (ft_strncmp(flag, "min", 3))
+	if (ft_strncmp(flag, "min", 3) == 0)
 		return (min);
 	return (-1);
 }

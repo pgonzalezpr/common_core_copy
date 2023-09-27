@@ -12,27 +12,26 @@
 
 #include "../include/utils.h"
 
-void	*sort(t_stack *stack_a, t_stack *stack_b)
+void	sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int	cheapest;
 
 	if (stack_a->size <= 3)
-	{
 		sort_three(stack_a);
-		return ;
-	}
-	push(stack_b, stack_a);
-	push(stack_b, stack_a);
-	ft_printf("pb\npb\n");
-	while (stack_a->size > 3)
+	else
 	{
-		cheapest = find_cheapest(stack_a, stack_b);
-		push_cheapest(stack_a, stack_b, cheapest);
+		push(stack_b, stack_a, "pb\n");
+		push(stack_b, stack_a, "pb\n");
+		while (stack_a->size > 3)
+		{
+			cheapest = find_cheapest(stack_a, stack_b);
+			push_cheapest(stack_a, stack_b, cheapest);
+		}
+		sort_three(stack_a);
+		while (stack_b->size > 0)
+			push_back(stack_a, stack_b);
+		move_min_top(stack_a);
 	}
-	sort_three(stack_a);
-	while (stack_b->size > 0)
-		push_back(stack_a, stack_b);
-	move_min_top(stack_a);
 }
 
 void	run_sort(int *arr, int len)

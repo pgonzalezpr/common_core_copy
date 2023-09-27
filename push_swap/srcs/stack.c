@@ -12,8 +12,8 @@
 
 #include "../include/utils.h"
 
-void	*swap(t_stack *stack)
-{
+void	swap(t_stack *stack, char *msg)
+{	
 	int	tmp;
 
 	if (stack->size > 1)
@@ -21,10 +21,12 @@ void	*swap(t_stack *stack)
 		tmp = stack->values[0];
 		stack->values[0] = stack->values[1];
 		stack->values[1] = tmp;
+		if (msg)
+			ft_printf("%s", msg);
 	}
 }
 
-char	*push(t_stack *stack, t_stack *other)
+void	push(t_stack *stack, t_stack *other, char *msg)
 {
 	if (other->size > 0)
 	{
@@ -35,10 +37,12 @@ char	*push(t_stack *stack, t_stack *other)
 		ft_memmove(&other->values[0], &other->values[1], (other->size - 1)
 			* sizeof(int));
 		other->size--;
+		if (msg)
+			ft_printf("%s", msg);
 	}
 }
 
-void	rotate(t_stack *stack)
+void	rotate(t_stack *stack, char *msg)
 {
 	int	first;
 
@@ -48,10 +52,12 @@ void	rotate(t_stack *stack)
 		ft_memmove(&stack->values[0], &stack->values[1], (stack->size - 1)
 			* sizeof(int));
 		stack->values[stack->size - 1] = first;
+		if (msg)
+			ft_printf("%s", msg);
 	}
 }
 
-void	reverse_rotate(t_stack *stack)
+void	reverse_rotate(t_stack *stack, char *msg)
 {
 	int	last;
 
@@ -61,5 +67,7 @@ void	reverse_rotate(t_stack *stack)
 		ft_memmove(&stack->values[1], &stack->values[0], (stack->size - 1)
 			* sizeof(int));
 		stack->values[0] = last;
+		if (msg)
+			ft_printf("%s", msg);
 	}
 }

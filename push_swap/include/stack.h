@@ -21,9 +21,9 @@ typedef struct s_stack
 	int	size;
 }		t_stack;
 
-void	swap(t_stack *stack);
-void	push(t_stack *stack, t_stack *other);
-void	rotate(t_stack *stack);
-void	reverse_rotate(t_stack *stack);
+void	swap(t_stack *stack, char *msg);
+void	push(t_stack *stack, t_stack *other, char *msg);
+void	rotate(t_stack *stack, char *msg);
+void	reverse_rotate(t_stack *stack, char *msg);
 
 #endif // STACK_H

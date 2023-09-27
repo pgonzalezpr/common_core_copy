@@ -12,18 +12,25 @@
 
 #include "../include/utils.h"
 
-int		is_sorted(t_stack *stack)
+int	min_greater_value(t_stack *stack, int value)
 {
-	int	i;
+	if (stack && value)
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	while (i < stack->size - 1)
+int	index_of(t_stack *stack, int value)
+{
+	int	idx;
+
+	idx = 0;
+	while (idx < stack->size)
 	{
-		if (stack->values[i] > stack->values[i + 1])
-			return (0);
-		i++;
+		if (stack->values[idx] == value)
+			return (idx);
+		idx++;
 	}
-	return (1);
+	return (-1);
 }
 
 int	*zero_array(int len)
