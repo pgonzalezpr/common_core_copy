@@ -32,8 +32,10 @@ instructions=$(./push_swap "${random_args[@]}")
 # Count the number of instructions
 num_instructions=$(echo "$instructions" | wc -l)
 
-# Print the instructions and the number of instructions
-# echo "Instructions:"
-# echo "$instructions"
-echo "Number of Instructions: $num_instructions"
+# Run checker_linux with the generated instructions and the original list
+checker_output=$(echo "$instructions" | ./checker_linux "${random_args[@]}")
+
+# Print the number of instructions followed by checker_linux output
+echo "$num_instructions"
+echo "$checker_output"
 

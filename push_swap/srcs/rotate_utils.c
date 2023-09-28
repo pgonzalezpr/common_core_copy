@@ -1,6 +1,7 @@
 #include "../include/utils.h"
 
-void    dual_rotate(t_stack *stack_a, t_stack *stack_b, int a_value, int b_value)
+void	dual_rotate(t_stack *stack_a, t_stack *stack_b, int a_value,
+		int b_value)
 {
 	while (stack_a->values[0] != a_value && stack_b->values[0] != b_value)
 	{
@@ -14,7 +15,7 @@ void    dual_rotate(t_stack *stack_a, t_stack *stack_b, int a_value, int b_value
 		rotate(stack_b, "rb\n");
 }
 
-void    dual_reverse_rotate(t_stack *stack_a, t_stack *stack_b, int a_value,
+void	dual_reverse_rotate(t_stack *stack_a, t_stack *stack_b, int a_value,
 		int b_value)
 {
 	while (stack_a->values[0] != a_value && stack_b->values[0] != b_value)
@@ -37,7 +38,7 @@ void	move_to_top(t_stack *stack, int value, char *r_msg, char *rr_msg)
 	if (idx <= stack->size / 2)
 	{
 		while (stack->values[0] != value)
-		    rotate(stack, r_msg);
+			rotate(stack, r_msg);
 	}
 	else
 	{
