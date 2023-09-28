@@ -41,19 +41,20 @@ void	run_sort(int *arr, int len)
 
 	stack_a = new_stack(arr, len);
 	if (!stack_a)
-		exit (1);
+		exit(1);
 	if (is_sorted(stack_a))
 	{
 		free(stack_a);
-		exit (1);
+		exit(1);
 	}
 	stack_b = new_stack(zero_array(len), 0);
 	if (!stack_b)
 	{
 		free_stack(stack_a);
-		exit (1);
+		exit(1);
 	}
 	sort(stack_a, stack_b);
+	//print_stack(stack_a);
 	free_stack(stack_a);
 	free_stack(stack_b);
 }

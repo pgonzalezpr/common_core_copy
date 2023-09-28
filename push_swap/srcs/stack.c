@@ -13,7 +13,7 @@
 #include "../include/utils.h"
 
 void	swap(t_stack *stack, char *msg)
-{	
+{
 	int	tmp;
 
 	if (stack->size > 1)

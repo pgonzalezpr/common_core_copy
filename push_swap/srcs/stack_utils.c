@@ -12,7 +12,7 @@
 
 #include "../include/utils.h"
 
-int		is_sorted(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int		is_sorted(t_stack *stack)
 	return (1);
 }
 
-int     max_or_min(t_stack *stack, char *flag)
+int	max_or_min(t_stack *stack, char *flag)
 {
 	int	max;
 	int	min;
@@ -59,6 +59,20 @@ void	print_stack(t_stack *stack)
 		ft_printf("%d ", stack->values[i++]);
 	ft_printf("\n");
 	ft_printf("Size = %d\n", stack->size);
+}
+
+int	index_of(t_stack *stack, int value)
+{
+	int	idx;
+
+	idx = 0;
+	while (idx < stack->size)
+	{
+		if (stack->values[idx] == value)
+			return (idx);
+		idx++;
+	}
+	return (-1);
 }
 
 void	free_stack(t_stack *stack)

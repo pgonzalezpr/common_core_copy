@@ -14,23 +14,68 @@
 
 int	min_greater_value(t_stack *stack, int value)
 {
-	if (stack && value)
-		return (1);
-	return (0);
+	int	min_greater;
+	int	i;
+
+	if (value > max_or_min(stack, "max") || value < max_or_min(stack, "min"))
+		return (max_or_min(stack, "min"));
+	i = 0;
+	min_greater = INT_MAX;
+	while (i < stack->size)
+	{
+		if (stack->values[i] > value && stack->values[i] < min_greater)
+			min_greater = stack->values[i];
+		i++;
+	}
+	return (min_greater);
 }
 
-int	index_of(t_stack *stack, int value)
+int	max_smaller_value(t_stack *stack, int value)
 {
-	int	idx;
+	int	max_smaller;
+	int	i;
 
-	idx = 0;
-	while (idx < stack->size)
+	if (value > max_or_min(stack, "max") || value < max_or_min(stack, "min"))
+		return (max_or_min(stack, "max"));
+	i = 0;
+	max_smaller = INT_MIN;
+	while (i < stack->size)
 	{
-		if (stack->values[idx] == value)
-			return (idx);
-		idx++;
+		if (stack->values[i] < value && stack->values[i] > max_smaller)
+			max_smaller = stack->values[i];
+		i++;
 	}
-	return (-1);
+	return (max_smaller);
+}
+
+int	dist_from_top(t_stack *stack, int idx)
+{
+	if (idx <= stack->size / 2)
+		return (idx);
+	else
+		return (stack->size - idx);
+}
+
+int	count_inst(int a_idx, t_stack *stack_a, t_stack *stack_b)
+{
+	int	b_idx;
+	int	b_max_smaller;
+	int	a_dist;
+	int	b_dist;
+
+	b_max_smaller = max_smaller_value(stack_b, stack_a->values[a_idx]);
+	b_idx = index_of(stack_b, b_max_smaller);
+	a_dist = dist_from_top(stack_a, a_idx);
+	b_dist = dist_from_top(stack_b, b_idx);
+	if ((a_idx <= stack_a->size / 2 && b_idx <= stack_b->size / 2)
+		|| (a_idx > stack_a->size / 2 && b_idx > stack_b->size / 2))
+	{
+		if (a_dist >= b_dist)
+			return (a_dist);
+		else
+			return (b_dist);
+	}
+	return (a_dist + b_dist);
 }
 
 int	*zero_array(int len)

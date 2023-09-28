@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	int		*input_array;
+	int	*input_array;
 
 	if (argc == 1)
 		return (1);
@@ -26,24 +26,24 @@ int	main(int argc, char **argv)
 	}
 	run_sort(input_array, argc - 1);
 }
-	/*
-	push(stack_b, stack_a);
-	push(stack_b, stack_a);
-	push(stack_b, stack_a);
-	push(stack_b, stack_a);
-	rotate(stack_a);
-	rotate(stack_a);
-	reverse_rotate(stack_b);
-	reverse_rotate(stack_b);
-	swap(stack_a);
-	swap(stack_b);
-	push(stack_a, stack_b);
-	push(stack_a, stack_b);
-	push(stack_a, stack_b);
-	push(stack_a, stack_b);
-	print_stack(stack_a);
-	print_stack(stack_b);
-	free_stack(stack_a);
-	free_stack(stack_b);
-	return (1);
-	*/
+/*
+push(stack_b, stack_a);
+push(stack_b, stack_a);
+push(stack_b, stack_a);
+push(stack_b, stack_a);
+rotate(stack_a);
+rotate(stack_a);
+reverse_rotate(stack_b);
+reverse_rotate(stack_b);
+swap(stack_a);
+swap(stack_b);
+push(stack_a, stack_b);
+push(stack_a, stack_b);
+push(stack_a, stack_b);
+push(stack_a, stack_b);
+print_stack(stack_a);
+print_stack(stack_b);
+free_stack(stack_a);
+free_stack(stack_b);
+return (1);
+*/
