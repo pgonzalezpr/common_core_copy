@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*int main(void)
+int main(void)
 {
 	int		fd;
 	char	*line;
@@ -101,4 +101,4 @@ char	*get_next_line(int fd)
 	printf("\n");
 	close(fd);
 }
-*/
+
