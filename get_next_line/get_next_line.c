@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 	saved = extract_saved(line);
 	return (line);
 }
-
+/*
 int main(void)
 {
 	int		fd;
@@ -101,4 +101,4 @@ int main(void)
 	printf("\n");
 	close(fd);
 }
-
+*/
