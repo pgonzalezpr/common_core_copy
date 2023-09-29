@@ -89,22 +89,3 @@ void	push_back(t_stack *stack_a, t_stack *stack_b)
 	push(stack_a, stack_b, "pa\n");
 	return ;
 }
-
-void	move_min_top(t_stack *stack)
-{
-	int	min;
-	int	min_idx;
-
-	min = max_or_min(stack, "min");
-	min_idx = index_of(stack, min);
-	if (min_idx <= stack->size / 2)
-	{
-		while (stack->values[0] != min)
-			rotate(stack, "ra\n");
-	}
-	else
-	{
-		while (stack->values[0] != min)
-			reverse_rotate(stack, "rra\n");
-	}
-}

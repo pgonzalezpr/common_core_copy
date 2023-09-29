@@ -1,76 +1,57 @@
-# Compiler and flags
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-LIBFT_DIR = libft
-OBJ_DIR = obj
-BONUS_OBJ_DIR = obj_bonus # Define the bonus object directory
-
-# Source files
-SRC_DIR = srcs
-SRC_FILES = main.c input.c run_sort.c gen_utils.c \
-			stack.c stack_utils.c sort_utils.c \
-			rotate_utils.c 
-SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
-
-# Object files
-OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:.c=.o))
-
-# Dependency files
-DEPS = $(OBJS:.o=.d)
-
-# Library
-LIBFT = $(LIBFT_DIR)/libft.a
-
-# Executables
 NAME = push_swap
-BONUS_NAME = checker
+NAME_BONUS = checker
 
-# Bonus source files and object files
-BONUS_SRC_DIR = bonus
-BONUS_SRC_FILES = main_bonus.c print_bonus.c
-BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/,$(BONUS_SRC_FILES))
-BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR)/,$(BONUS_SRC_FILES:.c=.o))
+SRCS = ./srcs/main.c ./srcs/input.c ./srcs/run_sort.c ./srcs/gen_utils.c \
+    	./srcs/stack.c ./srcs/stack_utils.c ./srcs/sort_utils.c \
+        ./srcs/rotate_utils.c
 
-# Rules
-all: $(NAME)
+BONUS_SRC = ./bns/main_bonus.c
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(LIBFT_DIR) -lft
+INCLUDE = ./include/libft.h ./include/stack.h ./include/utils.h
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
+LIBFT_DIR = libft
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+CC = gcc
+RM = rm -f
+CFLAGS = -Wall -Wextra -Werror -MMD
 
-$(LIBFT):
+%.o: %.c
+	@${CC} ${CFLAGS} -c $< -o $@
+
+OBJS = ${SRCS:.c=.o}
+BONUS_OBJS = ${BONUS_SRC:.c=.o}
+DEPS = $(addsuffix .d, $(basename $(SRCS)))
+DEPS_BONUS = $(addsuffix .d, $(basename $(BONUS_SRC)))
+
+all: ${NAME}
+
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a $(INCLUDE)
+	@${CC} ${OBJS} -L${LIBFT_DIR} -lft -o ${NAME}
+
+bonus: ${BONUS_OBJS} ${LIBFT_DIR}/libft.a
+	@touch $@
+	@${CC} ${BONUS_OBJS} -L${LIBFT_DIR} -lft -o ${NAME_BONUS}
+
+$(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
 
-bonus: $(BONUS_NAME)
-
-$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $(BONUS_OBJS) -L$(LIBFT_DIR) -lft
-
-# Rule for bonus source files
-$(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c | $(BONUS_OBJ_DIR)
-	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
-
-$(BONUS_OBJ_DIR):
-	mkdir -p $(BONUS_OBJ_DIR)
+-include ${DEPS}
+-include ${DEPS_BONUS}
 
 clean:
-	rm -rf $(OBJ_DIR)
-	rm -rf $(BONUS_OBJ_DIR)
+	@${RM} ${OBJS} ${BONUS_OBJS}
+	@${RM} ${DEPS} ${DEPS_BONUS}
 	@make clean -C $(LIBFT_DIR)
 
-fclean: clean
-	rm -f $(NAME)
-	rm -f $(BONUS_NAME)
+fclean: 
+	@${RM} ${OBJS} ${BONUS_OBJS}
+	@${RM} ${DEPS} ${DEPS_BONUS}
+	@${RM} bonus
+	@${RM} ${NAME} ${NAME_BONUS}
 	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-# Include dependency files
--include $(DEPS)
+.PHONY: all clean fclean re
 
-.PHONY: all clean fclean re bonus
+	

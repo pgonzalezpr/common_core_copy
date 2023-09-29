@@ -9,10 +9,9 @@
 /*   Updated: 2023/09/23 14:03:17 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../include/utils.h"
 
 int	main(void)
 {
-	print("this is push_swap bonus!");
+	printf("this is push_swap bonus!\n");
 }

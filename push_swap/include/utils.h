@@ -22,7 +22,6 @@
 int		*process_input(char **input, int len);
 void	run_sort(int *arr, int len);
 int		*zero_array(int len);
-void	print_stack(t_stack *stack);
 void	free_stack(t_stack *stack);
 t_stack	*new_stack(int *arr, int size);
 int		is_sorted(t_stack *stack);
@@ -30,7 +29,6 @@ int		find_cheapest(t_stack *stack_a, t_stack *stack_b);
 void	push_cheapest(t_stack *stack_a, t_stack *stack_b, int cheapest);
 void	sort_three(t_stack *stack);
 void	push_back(t_stack *stack_a, t_stack *stack_b);
-void	move_min_top(t_stack *stack);
 int		max_or_min(t_stack *stack, char *flag);
 int		min_greater_value(t_stack *stack, int value);
 int		max_smaller_value(t_stack *stack, int value);

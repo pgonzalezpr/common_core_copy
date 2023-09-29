@@ -30,7 +30,7 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 		sort_three(stack_a);
 		while (stack_b->size > 0)
 			push_back(stack_a, stack_b);
-		move_min_top(stack_a);
+		move_to_top(stack_a, max_or_min(stack_a, "min"), "ra\n", "rra\n");
 	}
 }
 
