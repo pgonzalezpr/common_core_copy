@@ -54,7 +54,6 @@ void	run_sort(int *arr, int len)
 		exit(1);
 	}
 	sort(stack_a, stack_b);
-	//print_stack(stack_a);
 	free_stack(stack_a);
 	free_stack(stack_b);
 }

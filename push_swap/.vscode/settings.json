@@ -1,6 +1,19 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "utils.h": "c"
+        "utils.h": "c",
+        "array": "c",
+        "*.tcc": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "memory": "c",
+        "string_view": "c",
+        "ostream": "c",
+        "streambuf": "c",
+        "functional": "c",
+        "tuple": "c",
+        "random": "c",
+        "limits": "c",
+        "algorithm": "c"
     }
 }

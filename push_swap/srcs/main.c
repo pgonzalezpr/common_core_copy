@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 	input_array = process_input(argv + 1, argc - 1);
 	if (!input_array)
 	{
-		ft_printf("Error\n");
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	run_sort(input_array, argc - 1);
