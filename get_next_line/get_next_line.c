@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:19:30 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/16 12:19:30 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/09/30 13:13:19 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_next_line(int fd)
 	if (!line)
 	{
 		saved = NULL;
-		return (NULL);
+	return (NULL);
 	}
 	saved = extract_saved(line);
 	return (line);
