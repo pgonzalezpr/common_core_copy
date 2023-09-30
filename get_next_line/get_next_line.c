@@ -78,13 +78,13 @@ char	*get_next_line(int fd)
 	if (!line)
 	{
 		saved = NULL;
-	return (NULL);
+		return (NULL);
 	}
 	saved = extract_saved(line);
 	return (line);
 }
 /*
-int main(void)
+int	main(void)
 {
 	int		fd;
 	char	*line;
