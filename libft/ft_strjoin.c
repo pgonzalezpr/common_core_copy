@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:40:12 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/16 11:40:12 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/10/01 14:08:00 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memcpy(ptr + ft_strlen(s1), s2, ft_strlen(s2));
 	ptr[size - 1] = '\0';
 	return (ptr);
-}
+
