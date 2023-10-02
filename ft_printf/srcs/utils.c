@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../include/utils.h"
 
 int	ft_printf_int(int nbr)
 {
