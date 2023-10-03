@@ -30,6 +30,7 @@ INCLUDE = ./include/ft_printf.h ./include/libft.h ./include/utils.h
 
 %.o: %.c ${INCLUDE}
 			@${CC} ${CFLAGS} -c $< -o $@
+			@echo "$(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
 
 OBJS = ${SRCS:.c=.o}
 
