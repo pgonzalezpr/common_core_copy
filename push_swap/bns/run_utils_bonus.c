@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/bonus_utils.h"
+#include "../include/utils_bonus.h"
 
 char	*get_input(void)
 {

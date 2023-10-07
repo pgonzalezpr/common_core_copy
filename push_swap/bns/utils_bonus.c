@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/bonus_utils.h"
+#include "../include/utils_bonus.h"
 
 int	is_sorted(t_stack *stack)
 {

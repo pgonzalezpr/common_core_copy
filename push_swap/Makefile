@@ -5,12 +5,12 @@ SRCS = ./srcs/main.c ./srcs/input.c ./srcs/run_sort.c ./srcs/gen_utils.c \
     	./srcs/stack.c ./srcs/stack_utils.c ./srcs/sort_utils.c \
         ./srcs/rotate_utils.c
 
-BONUS_SRC = ./bns/bonus_main.c ./bns/bonus_input.c ./bns/bonus_stack.c \
-			./bns/bonus_utils.c ./bns/run_utils.c ./bns/bonus_stack_utils.c
+BONUS_SRC = ./bns/main_bonus.c ./bns/input_bonus.c ./bns/stack_bonus.c \
+			./bns/utils_bonus.c ./bns/run_utils_bonus.c ./bns/stack_utils_bonus.c
 
 INCLUDE = ./include/libft.h ./include/utils.h
 
-INCLUDE_BONUS = ./include/libft.h ./include/bonus_utils.h 
+INCLUDE_BONUS = ./include/libft.h ./include/utils_bonus.h 
 
 LIBFT_DIR = libft
 
@@ -49,11 +49,11 @@ DEPS_BONUS = $(addsuffix .d, $(basename $(BONUS_SRC)))
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a $(INCLUDE)
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a $(INCLUDE) Makefile
 	@${CC} ${OBJS} -L${LIBFT_DIR} -lft -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
-bonus: ${BONUS_OBJS} ${LIBFT_DIR}/libft.a ${INCLUDE_BONUS}
+bonus: ${BONUS_OBJS} ${LIBFT_DIR}/libft.a ${INCLUDE_BONUS} Makefile
 	@touch $@
 	@${CC} ${BONUS_OBJS} -L${LIBFT_DIR} -lft -o ${NAME_BONUS}
 	@echo "\n$(RED) Created $(NAME_BONUS) ✓ $(DEF_COLOR)\n"

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BONUS_UTILS_H
-# define BONUS_UTILS_H
+#ifndef UTILS_BONUS_H
+# define UTILS_BONUS_H
 
 # include "libft.h"
 # include "stack.h"
@@ -33,4 +33,4 @@ void	dual_swap(t_stack *stack_a, t_stack *stack_b, char *msg);
 void	dual_rotate(t_stack *stack_a, t_stack *stack_b, char *msg);
 void	dual_reverse_rotate(t_stack *stack_a, t_stack *stack_b, char *msg);
 
-#endif // BONUS_UTILS_H
+#endif // UTILS_BONUS_H

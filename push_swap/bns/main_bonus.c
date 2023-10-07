@@ -9,7 +9,7 @@
 /*   Updated: 2023/09/23 14:03:17 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/bonus_utils.h"
+#include "../include/utils_bonus.h"
 
 int	main(int argc, char **argv)
 {

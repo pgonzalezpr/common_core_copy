@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/bonus_utils.h"
+#include "../include/utils_bonus.h"
 
 void	dual_swap(t_stack *stack_a, t_stack *stack_b, char *msg)
 {
