@@ -9,5 +9,5 @@ int main(int argc, char **argv)
         return (1);
     infile = argv[1];
     outfile = argv[4];
-    ft_printf("Files OK. %s , %s\n", infile, outfile);
+    
 }
