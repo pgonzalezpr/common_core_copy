@@ -1,11 +1,11 @@
 NAME = pipex
 NAME_BONUS = pipex
 
-SRCS = ./srcs/main.c 
+SRCS = ./srcs/main.c ./srcs/check_input.c
 
 BONUS_SRCS = ./bns/main_bonus.c
 
-INCLUDE = ./include/libft.h 
+INCLUDE = ./include/libft.h ./include/pipex.h
 
 INCLUDE_BONUS = ./include/libft.h
 
