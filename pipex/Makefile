@@ -1,8 +1,13 @@
 NAME = pipex
+NAME_BONUS = pipex
 
 SRCS = ./srcs/main.c 
 
+BONUS_SRCS = ./bns/main_bonus.c
+
 INCLUDE = ./include/libft.h 
+
+INCLUDE_BONUS = ./include/libft.h
 
 LIBFT_DIR = libft
 
@@ -35,29 +40,38 @@ DARK_YELLOW =	\033[38;5;143m
 	@echo "$(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
 
 OBJS = ${SRCS:.c=.o}
+BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 DEPS = $(addsuffix .d, $(basename $(SRCS)))
+DEPS_BONUS = $(addsuffix .d, $(basename $(BONUS_SRCS)))
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a $(INCLUDE)
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a $(INCLUDE) Makefile
 	@${CC} ${OBJS} -L${LIBFT_DIR} -lft -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 $(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
 
+bonus: ${BONUS_OBJS} ${LIBFT_DIR}/libft.a ${INCLUDE_BONUS} Makefile
+	@touch $@
+	@${CC} ${BONUS_OBJS} -L${LIBFT_DIR} -lft -o ${NAME_BONUS}
+	@echo "\n$(RED) Created $(NAME_BONUS) ✓ $(DEF_COLOR)\n"
+
 -include ${DEPS}
+-include ${DEPS_BONUS}
 
 clean:
-	@${RM} ${OBJS} 
-	@${RM} ${DEPS}
+	@${RM} ${OBJS} ${BONUS_OBJS}
+	@${RM} ${DEPS} ${DEPS_BONUS}
 	@make clean -C $(LIBFT_DIR)
 	@echo "\n$(DARK_YELLOW) Removed all objects$(DEF_COLOR)\n"
 
 fclean: 
-	@${RM} ${OBJS} 
-	@${RM} ${DEPS}
-	@${RM} ${NAME}
+	@${RM} ${OBJS} ${BONUS_OBJS}
+	@${RM} ${DEPS} ${DEPS_BONUS}
+	@${RM} bonus
+	@${RM} ${NAME} ${NAME_BONUS}
 	@make fclean -C $(LIBFT_DIR)
 	@echo "\n$(DARK_YELLOW)Removed all objects and executable$(DEF_COLOR)\n"
 
