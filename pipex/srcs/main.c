@@ -1,13 +1,17 @@
 #include "../include/pipex.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    char    *infile;
-    char    *outfile;
+	t_pipex	*pipex_data;
 
-    if (!check_input(argc, argv))
-        return (1);
-    infile = argv[1];
-    outfile = argv[4];
-    
+	pipex_data = init_pipex();
+	if (!pipex_data)
+		return (0);
+	if (!check_args(argv, argc, pipex_data))
+	{
+		clean_pipex(pipex_data);
+		return (0);
+	}
+	print_pipex(pipex_data);
+	clean_pipex(pipex_data);
 }
