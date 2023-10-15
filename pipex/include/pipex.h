@@ -15,9 +15,11 @@ typedef struct s_pipex
 	int		cmd_count;
 }			t_pipex;
 
-int			check_args(char **argv, int argc, t_pipex *pipex_data);
+int			check_input(char **argv, int argc, t_pipex *pipex_data);
 void		clean_pipex(t_pipex *pipex_data);
 t_pipex		*init_pipex(void);
 void		print_pipex(t_pipex *pipex_data);
+int			parse_cmds(char **argv, int argc, t_pipex *pipex_data);
+int 		parse_args(char **argv, int argc, t_pipex *pipex_data);
 
 #endif

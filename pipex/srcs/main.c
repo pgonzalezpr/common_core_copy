@@ -7,7 +7,8 @@ int	main(int argc, char **argv)
 	pipex_data = init_pipex();
 	if (!pipex_data)
 		return (0);
-	if (!check_args(argv, argc, pipex_data))
+	if (!check_input(argv, argc, pipex_data) || !parse_cmds(argv, argc,
+			pipex_data) || !parse_args(argv, argc, pipex_data))
 	{
 		clean_pipex(pipex_data);
 		return (0);

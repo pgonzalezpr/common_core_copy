@@ -23,7 +23,7 @@ int	check_permissions(char *infile, char *outfile, t_pipex *pipex_data)
 	return (1);
 }
 
-int	check_args(char **argv, int argc, t_pipex *pipex_data)
+int	check_input(char **argv, int argc, t_pipex *pipex_data)
 {
 	int	in_fd;
 	int	out_fd;
