@@ -5,13 +5,9 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	*pipex_data;
 
 	pipex_data = init_pipex();
-	if (!pipex_data)
-		return (0);
-	if (!check_input(argv, argc, pipex_data))
-	{
-		clean_pipex(pipex_data);
-		return (0);
-	}
+	check_input(argv, argc, pipex_data);
+	parse_cmds(argv, argc, envp, pipex_data);
+	parse_args(argv, argc, pipex_data);
 	print_pipex(pipex_data);
-	clean_pipex(pipex_data);
+	exit_pipex(pipex_data, EXIT_SUCCESS);
 }

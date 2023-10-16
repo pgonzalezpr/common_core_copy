@@ -1,4 +1,4 @@
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 char	*build_path(char *cmd, char *dir)
 {
