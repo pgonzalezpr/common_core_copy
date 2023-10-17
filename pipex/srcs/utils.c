@@ -30,10 +30,8 @@ void	print_args(char ***args)
 		while (args[i])
 		{
 			print_str_arr(args[i]);
-			ft_printf(", ");
 			i++;
 		}
-		ft_printf("\n");
 	}
 }
 
