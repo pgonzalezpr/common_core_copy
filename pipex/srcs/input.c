@@ -20,7 +20,7 @@ int	check_permissions(char *infile, char *outfile)
 	return (1);
 }
 
-int	check_args(char **argv, int argc, t_pipex *pipex_data)
+void	check_input(char **argv, int argc, t_pipex *pipex_data)
 {
 	int	in_fd;
 	int	out_fd;
@@ -28,17 +28,16 @@ int	check_args(char **argv, int argc, t_pipex *pipex_data)
 	if (argc != 5)
 	{
 		ft_printf("Error. Incorrect number of arguments\n");
-		return (0);
+		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
 	if (!check_permissions(argv[1], argv[argc - 1]))
-		return (0);
+		exit_pipex(pipex_data, EXIT_FAILURE);
 	in_fd = open(argv[1], O_RDONLY);
 	if (in_fd == -1)
-		return (0);
+		exit_pipex(pipex_data, EXIT_FAILURE);
 	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT);
 	if (out_fd == -1)
-		return (0);
+		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->in_fd = in_fd;
 	pipex_data->out_fd = out_fd;
-	return (1);
 }

@@ -6,7 +6,7 @@ t_pipex	*init_pipex(void)
 
 	pipex_data = malloc(sizeof(t_pipex));
 	if (!pipex_data)
-		return (NULL);
+		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->in_fd = -1;
 	pipex_data->out_fd = -1;
 	pipex_data->here_doc = 0;
@@ -31,7 +31,7 @@ void	free_str_arr(char **arr)
 	free(arr);
 }
 
-void	free_args(char ***args)
+void	free_params(char ***args)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ void	free_args(char ***args)
 	free(args);
 }
 
-void	clean_pipex(t_pipex *pipex_data)
+void	exit_pipex(t_pipex *pipex_data, int status)
 {
 	if (pipex_data->in_fd >= 0)
 		close(pipex_data->in_fd);
@@ -55,6 +55,8 @@ void	clean_pipex(t_pipex *pipex_data)
 	if (pipex_data->cmd_paths)
 		free_str_arr(pipex_data->cmd_paths);
 	if (pipex_data->cmd_args)
-		free_args(pipex_data->cmd_args);
+		free_params(pipex_data->cmd_args);
 	free(pipex_data);
+	ft_printf("Exit code: %d\n", status);
+	exit(status);
 }
