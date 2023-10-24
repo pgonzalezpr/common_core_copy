@@ -46,8 +46,6 @@ char	*read_input(char *delimiter)
 		free(buffer);
 		buffer = get_next_line(1);
 	}
-	if (buffer)
-		free(buffer);
 	return (input);
 }
 
@@ -72,6 +70,17 @@ void	get_input(char *delimiter, t_pipex *pipex_data)
 	}
 	free(input);
 	pipex_data->in_fd = in_fd;
+}
+
+void	open_fds(char **argv, int argc, t_pipex *pipex_data)
+{
+	int	out_fd;
+
+	if (pipex_data->here_doc)
+	{
+		get_input(argv[2], pipex_data);
+		
+	}
 }
 
 void	check_input(char **argv, int argc, t_pipex *pipex_data)
