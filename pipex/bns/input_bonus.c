@@ -23,6 +23,57 @@ int	check_permissions(char *infile, char *outfile, t_pipex *pipex_data)
 	return (1);
 }
 
+char	*read_input(char *delimiter)
+{
+	char	*input;
+	char	*tmp;
+	char	*buffer;
+
+	input = ft_strdup("");
+	if (!input || !delimiter)
+		return (NULL);
+	buffer = get_next_line(1);
+	while (buffer)
+	{
+		if (ft_strequals(buffer, delimiter))
+		{
+			free(buffer);
+			break ;
+		}
+		tmp = input;
+		input = ft_strjoin(input, buffer);
+		free(tmp);
+		free(buffer);
+		buffer = get_next_line(1);
+	}
+	if (buffer)
+		free(buffer);
+	return (input);
+}
+
+void	get_input(char *delimiter, t_pipex *pipex_data)
+{
+	char	*input;
+	int	in_fd;
+
+	input = read_input(ft_strjoin(delimiter, "\n"));
+	if (!input)
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	in_fd = open("input.txt", O_RDWR | O_CREAT);
+	if (in_fd == -1)
+	{
+		free(input);
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	}
+	if (write(in_fd, input, ft_strlen(input)) == -1)
+	{
+		free(input);
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	}
+	free(input);
+	pipex_data->in_fd = in_fd;
+}
+
 void	check_input(char **argv, int argc, t_pipex *pipex_data)
 {
 	int	in_fd;
@@ -43,6 +94,8 @@ void	check_input(char **argv, int argc, t_pipex *pipex_data)
 			exit_pipex(pipex_data, EXIT_FAILURE);
 		pipex_data->in_fd = in_fd;
 	}
+	else
+		get_input(argv[2], pipex_data);
 	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT);
 	if (out_fd == -1)
 		exit_pipex(pipex_data, EXIT_FAILURE);

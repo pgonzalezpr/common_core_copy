@@ -1,5 +1,5 @@
 #include "../include/pipex_bonus.h"
-
+/*
 int	count_args(char **tokens)
 {
 	int	count;
@@ -89,6 +89,7 @@ char	**get_cmd_args(char *cmd)
 	free_str_arr(tokens);
 	return (args);
 }
+*/
 
 void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 {
@@ -103,7 +104,7 @@ void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 	i = 2 + pipex_data->here_doc;
 	while (i < argc - 1)
 	{
-		args = get_cmd_args(argv[i]);
+		args = ft_split(argv[i], ' ');
 		if (!args)
 			exit_pipex(pipex_data, EXIT_FAILURE);
 		i++;

@@ -57,6 +57,8 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 	if (pipex_data->cmd_args)
 		free_params(pipex_data->cmd_args);
 	free(pipex_data);
+	unlink("tmp.txt");
+	unlink("input.txt");
 	ft_printf("Exit code: %d\n", status);
 	exit(status);
 }
