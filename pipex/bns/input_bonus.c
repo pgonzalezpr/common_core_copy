@@ -46,8 +46,6 @@ char	*read_input(char *delimiter)
 		free(buffer);
 		buffer = get_next_line(1);
 	}
-	if (buffer)
-		free(buffer);
 	return (input);
 }
 
