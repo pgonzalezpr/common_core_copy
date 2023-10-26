@@ -2,7 +2,7 @@ NAME = pipex
 NAME_BONUS = pipex
 
 SRCS = ./srcs/main.c ./srcs/input.c ./srcs/utils.c ./srcs/init_clean.c \
-		./srcs/parse_cmds.c ./srcs/parse_args.c
+		./srcs/parse_cmds.c ./srcs/parse_args.c ./srcs/exec_pipex.c
 
 BONUS_SRCS = ./bns/main_bonus.c ./bns/input_bonus.c ./bns/utils_bonus.c \
 			./bns/init_clean_bonus.c ./bns/parse_cmds_bonus.c \

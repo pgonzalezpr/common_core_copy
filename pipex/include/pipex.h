@@ -22,5 +22,6 @@ void		print_pipex(t_pipex *pipex_data);
 void		parse_cmds(char **argv, int argc, char **envp, t_pipex *pipex_data);
 void		parse_args(char **argv, int argc, t_pipex *pipex_data);
 void		free_str_arr(char **arr);
+void		exec_pipex(t_pipex *pipex_data);
 
 #endif

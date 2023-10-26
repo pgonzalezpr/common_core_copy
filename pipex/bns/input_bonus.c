@@ -46,13 +46,14 @@ char	*read_input(char *delimiter)
 		free(buffer);
 		buffer = get_next_line(1);
 	}
+	free(delimiter);
 	return (input);
 }
 
 void	get_input(char *delimiter, t_pipex *pipex_data)
 {
 	char	*input;
-	int	in_fd;
+	int		in_fd;
 
 	input = read_input(ft_strjoin(delimiter, "\n"));
 	if (!input)
@@ -72,11 +73,35 @@ void	get_input(char *delimiter, t_pipex *pipex_data)
 	pipex_data->in_fd = in_fd;
 }
 
-void	check_input(char **argv, int argc, t_pipex *pipex_data)
+int	open_fds(char **argv, int argc, t_pipex *pipex_data)
 {
 	int	in_fd;
 	int	out_fd;
 
+	if (!pipex_data->here_doc)
+	{
+		in_fd = open(argv[1], O_RDONLY);
+		if (in_fd == -1)
+			return (0);
+		pipex_data->in_fd = in_fd;
+		out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT);
+		if (out_fd == -1)
+			return (0);
+		pipex_data->out_fd = out_fd;
+	}
+	else
+	{
+		get_input(argv[2], pipex_data);
+		out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND);
+		if (out_fd == -1)
+			return (0);
+		pipex_data->out_fd = out_fd;
+	}
+	return (1);
+}
+
+void	check_input(char **argv, int argc, t_pipex *pipex_data)
+{
 	pipex_data->here_doc = ft_strequals(argv[1], "here_doc");
 	if (argc < 5 || (pipex_data->here_doc && argc < 6))
 	{
@@ -85,17 +110,6 @@ void	check_input(char **argv, int argc, t_pipex *pipex_data)
 	}
 	if (!check_permissions(argv[1], argv[argc - 1], pipex_data))
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	if (!pipex_data->here_doc)
-	{
-		in_fd = open(argv[1], O_RDONLY);
-		if (in_fd == -1)
-			exit_pipex(pipex_data, EXIT_FAILURE);
-		pipex_data->in_fd = in_fd;
-	}
-	else
-		get_input(argv[2], pipex_data);
-	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT);
-	if (out_fd == -1)
+	if (!open_fds(argv, argc, pipex_data))
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	pipex_data->out_fd = out_fd;
 }
