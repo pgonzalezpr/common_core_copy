@@ -53,24 +53,16 @@ char	*read_input(char *delimiter)
 void	get_input(char *delimiter, t_pipex *pipex_data)
 {
 	char	*input;
-	int		in_fd;
 
 	input = read_input(ft_strjoin(delimiter, "\n"));
 	if (!input)
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	in_fd = open("input.txt", O_RDWR | O_CREAT);
-	if (in_fd == -1)
-	{
-		free(input);
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	}
-	if (write(in_fd, input, ft_strlen(input)) == -1)
+	if (write(pipex_data->in_fd, input, ft_strlen(input)) == -1)
 	{
 		free(input);
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
 	free(input);
-	pipex_data->in_fd = in_fd;
 }
 
 int	open_fds(char **argv, int argc, t_pipex *pipex_data)
@@ -84,19 +76,20 @@ int	open_fds(char **argv, int argc, t_pipex *pipex_data)
 		if (in_fd == -1)
 			return (0);
 		pipex_data->in_fd = in_fd;
-		out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT);
+		out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 		if (out_fd == -1)
 			return (0);
 		pipex_data->out_fd = out_fd;
+		return (1);
 	}
-	else
-	{
-		get_input(argv[2], pipex_data);
-		out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND);
-		if (out_fd == -1)
-			return (0);
-		pipex_data->out_fd = out_fd;
-	}
+	pipex_data->in_fd = pipex_data->input_fd;
+	pipex_data->input_fd = -1;
+	get_input(argv[2], pipex_data);
+	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND,
+			S_IRUSR | S_IWUSR);
+	if (out_fd == -1)
+		return (0);
+	pipex_data->out_fd = out_fd;
 	return (1);
 }
 
