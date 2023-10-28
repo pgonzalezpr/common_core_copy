@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_clean_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/28 17:19:36 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/10/28 17:19:37 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/pipex_bonus.h"
 
 t_pipex	*init_pipex(void)
 {
 	t_pipex	*pipex_data;
-	int	fd;
+	int		fd;
 
 	pipex_data = malloc(sizeof(t_pipex));
 	if (!pipex_data)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->in_fd = -1;
 	pipex_data->out_fd = -1;
-	fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR );
+	fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd == -1)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	close(fd);
@@ -34,7 +46,7 @@ void	free_str_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		//ft_printf("freeing %s\n", arr[i]);
+		// ft_printf("freeing %s\n", arr[i]);
 		free(arr[i]);
 		i++;
 	}

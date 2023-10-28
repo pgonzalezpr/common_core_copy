@@ -6,7 +6,7 @@ SRCS = ./srcs/main.c ./srcs/input.c ./srcs/utils.c ./srcs/init_clean.c \
 
 BONUS_SRCS = ./bns/main_bonus.c ./bns/input_bonus.c ./bns/utils_bonus.c \
 			./bns/init_clean_bonus.c ./bns/parse_cmds_bonus.c \
-			./bns/parse_args_bonus.c 
+			./bns/parse_args_bonus.c ./bns/exec_pipex_bonus.c
 
 INCLUDE = ./include/libft.h ./include/pipex.h
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_pipex.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/28 17:17:50 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/10/28 17:17:51 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/pipex.h"
 
 void	read_write_pipe(t_pipex *pipex_data, int out_fd, int end[])
@@ -12,7 +24,7 @@ void	read_write_pipe(t_pipex *pipex_data, int out_fd, int end[])
 		if (write(out_fd, &buffer, read_values) == -1)
 		{
 			close(out_fd);
-        	exit_pipex(pipex_data, EXIT_FAILURE);
+			exit_pipex(pipex_data, EXIT_FAILURE);
 		}
 		read_values = read(end[0], &buffer, sizeof(buffer));
 	}
@@ -26,11 +38,11 @@ void	read_write_pipe(t_pipex *pipex_data, int out_fd, int end[])
 
 void	parent(t_pipex *pipex_data, int index, int end[], pid_t p_id)
 {
-	int		status;
-	int		out_fd;
+	int	status;
+	int	out_fd;
 
 	waitpid(p_id, &status, 0);
-	if (!WIFEXITED(status) ||  WEXITSTATUS(status) == EXIT_FAILURE)
+	if (!WIFEXITED(status) || WEXITSTATUS(status) == EXIT_FAILURE)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	if (index == pipex_data->cmd_count - 1)
 		out_fd = pipex_data->out_fd;
