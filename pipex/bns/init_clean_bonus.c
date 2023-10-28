@@ -1,21 +1,23 @@
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 t_pipex	*init_pipex(void)
 {
 	t_pipex	*pipex_data;
+	int	fd;
 
 	pipex_data = malloc(sizeof(t_pipex));
 	if (!pipex_data)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->in_fd = -1;
 	pipex_data->out_fd = -1;
-	pipex_data->input_fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT,
-			S_IRUSR | S_IWUSR);
-	if (pipex_data->input_fd == -1)
+	fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR );
+	if (fd == -1)
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	pipex_data->tmp_fd = open(TMP_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-	if (pipex_data->tmp_fd == -1)
+	close(fd);
+	fd = open(TMP_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	if (fd == -1)
 		exit_pipex(pipex_data, EXIT_FAILURE);
+	close(fd);
 	pipex_data->here_doc = 0;
 	pipex_data->cmd_paths = NULL;
 	pipex_data->cmd_args = NULL;
@@ -32,6 +34,7 @@ void	free_str_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
+		//ft_printf("freeing %s\n", arr[i]);
 		free(arr[i]);
 		i++;
 	}
@@ -59,10 +62,6 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 		close(pipex_data->in_fd);
 	if (pipex_data->out_fd >= 0)
 		close(pipex_data->out_fd);
-	if (pipex_data->input_fd >= 0)
-		close(pipex_data->input_fd);
-	if (pipex_data->tmp_fd >= 0)
-		close(pipex_data->tmp_fd);
 	if (pipex_data->cmd_paths)
 		free_str_arr(pipex_data->cmd_paths);
 	if (pipex_data->cmd_args)

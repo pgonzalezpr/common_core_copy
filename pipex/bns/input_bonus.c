@@ -63,7 +63,6 @@ void	get_input(char *delimiter, t_pipex *pipex_data)
 	free(input);
 }
 
-<<<<<<< HEAD
 void	open_fds(char **argv, int argc, t_pipex *pipex_data)
 {
 	int	out_fd;
@@ -76,9 +75,6 @@ void	open_fds(char **argv, int argc, t_pipex *pipex_data)
 }
 
 void	check_input(char **argv, int argc, t_pipex *pipex_data)
-=======
-int	open_fds(char **argv, int argc, t_pipex *pipex_data)
->>>>>>> 3335eef271aed5da7755b390615f87319d92b65a
 {
 	int	in_fd;
 	int	out_fd;

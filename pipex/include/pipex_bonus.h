@@ -13,8 +13,6 @@ typedef struct s_pipex
 {
 	int		in_fd;
 	int		out_fd;
-	int		tmp_fd;
-	int		input_fd;
 	int		here_doc;
 	char	**cmd_paths;
 	char	***cmd_args;
@@ -29,5 +27,6 @@ void		parse_cmds(char **argv, int argc, char **envp, t_pipex *pipex_data);
 void		parse_args(char **argv, int argc, t_pipex *pipex_data);
 void		free_str_arr(char **arr);
 int			ft_strequals(char *str1, char *str2);
+void		exec_pipex(t_pipex *pipex_data);
 
 #endif

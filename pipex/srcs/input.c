@@ -35,7 +35,7 @@ void	check_input(char **argv, int argc, t_pipex *pipex_data)
 	in_fd = open(argv[1], O_RDONLY);
 	if (in_fd == -1)
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (out_fd == -1)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->in_fd = in_fd;
