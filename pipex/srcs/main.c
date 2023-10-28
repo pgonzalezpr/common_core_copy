@@ -12,7 +12,6 @@ int	main(int argc, char **argv, char **envp)
 	exec_pipex(pipex_data);
 	exit_pipex(pipex_data, EXIT_SUCCESS);
 }
-=======
 
 	/*
 	if (!(argc && argv && envp))
@@ -24,4 +23,3 @@ int	main(int argc, char **argv, char **envp)
 	ft_printf("fd: %d, fd2: %d\n", fd, fd2);
 	*/
 }
->>>>>>> 3335eef271aed5da7755b390615f87319d92b65a
