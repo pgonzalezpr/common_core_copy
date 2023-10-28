@@ -20,7 +20,7 @@ char	*get_bin_path(char *cmd, char **bin_paths)
 {
 	char	*path;
 
-	if (!cmd)
+	if (!cmd || !bin_paths)
 		return (NULL);
 	while (*bin_paths)
 	{
