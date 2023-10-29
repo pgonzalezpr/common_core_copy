@@ -40,5 +40,6 @@ void		parse_args(char **argv, int argc, t_pipex *pipex_data);
 void		free_str_arr(char **arr);
 int			ft_strequals(char *str1, char *str2);
 void		exec_pipex(t_pipex *pipex_data);
+char		**ft_shell_split(char const *s, char c);
 
 #endif

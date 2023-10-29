@@ -24,13 +24,3 @@ int	main(int argc, char **argv, char **envp)
 	//print_pipex(pipex_data);
 	exit_pipex(pipex_data, EXIT_SUCCESS);
 }
-
-/*
-if (!(argc && argv && envp))
-	exit(EXIT_FAILURE);
-int	fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT,
-		S_IRUSR | S_IWUSR);
-int	fd2 = open(TMP_FILE, O_RDWR | O_CREAT,
-		S_IRUSR | S_IWUSR);
-ft_printf("fd: %d, fd2: %d\n", fd, fd2);
-*/

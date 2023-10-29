@@ -143,7 +143,7 @@ void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 	i = 2 + pipex_data->here_doc;
 	while (i < argc - 1)
 	{
-		args = ft_split(argv[i], ' ');
+		args = ft_shell_split(argv[i], ' ');
 		if (!args)
 			exit_pipex(pipex_data, EXIT_FAILURE);
 		if (!trim_args(args))
