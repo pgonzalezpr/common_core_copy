@@ -46,7 +46,6 @@ void	free_str_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		// ft_printf("freeing %s\n", arr[i]);
 		free(arr[i]);
 		i++;
 	}

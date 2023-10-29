@@ -20,8 +20,8 @@ int	main(int argc, char **argv, char **envp)
 	check_input(argv, argc, pipex_data);
 	parse_cmds(argv, argc, envp, pipex_data);
 	parse_args(argv, argc, pipex_data);
-	//print_pipex(pipex_data);
 	exec_pipex(pipex_data);
+	//print_pipex(pipex_data);
 	exit_pipex(pipex_data, EXIT_SUCCESS);
 }
 

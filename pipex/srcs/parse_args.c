@@ -113,7 +113,6 @@ int		trim_args(char **args)
 	while (args[i] != NULL)
 	{
 		argument = args[i];
-		//ft_printf("%s\n", argument);
 		if (ft_strlen(argument) >= 2 && argument[0] == '\'' 
 			&& argument[ft_strlen(argument) - 1] == '\'')
 		{
@@ -126,7 +125,6 @@ int		trim_args(char **args)
 			}
 			free(argument);
 		}
-		//ft_printf("%s\n", argument);
 		i++;
 	}
 	return (1);

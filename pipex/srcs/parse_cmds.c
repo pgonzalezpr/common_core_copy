@@ -68,8 +68,8 @@ int	get_paths(char **inputs, int cmd_count, char **cmd_paths, char **bin_paths)
 		*cmd_paths = path;
 		cmd_paths++;
 		i++;
+		free_str_arr(tokens);
 	}
-	free_str_arr(tokens);
 	free_str_arr(bin_paths);
 	if (i < cmd_count)
 		return (0);
