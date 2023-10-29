@@ -104,6 +104,34 @@ char	**get_cmd_args(char *cmd)
 }
 */
 
+int		trim_args(char **args)
+{
+	int	i;
+	char *argument;
+
+	i = 0;
+	while (args[i] != NULL)
+	{
+		argument = args[i];
+		//ft_printf("%s\n", argument);
+		if (ft_strlen(argument) >= 2 && argument[0] == '\'' 
+			&& argument[ft_strlen(argument) - 1] == '\'')
+		{
+			args[i] = ft_strtrim(argument, "'");
+			if (args[i] == NULL)
+			{
+				free(argument);
+				free_str_arr(args);
+				return (0);
+			}
+			free(argument);
+		}
+		//ft_printf("%s\n", argument);
+		i++;
+	}
+	return (1);
+}
+
 void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 {
 	int		i;
@@ -119,6 +147,8 @@ void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 	{
 		args = ft_split(argv[i], ' ');
 		if (!args)
+			exit_pipex(pipex_data, EXIT_FAILURE);
+		if (!trim_args(args))
 			exit_pipex(pipex_data, EXIT_FAILURE);
 		i++;
 		*cmd_args = args;
