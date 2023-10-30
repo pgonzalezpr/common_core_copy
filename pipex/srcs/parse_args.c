@@ -104,16 +104,16 @@ char	**get_cmd_args(char *cmd)
 }
 */
 
-int		trim_args(char **args)
+int	trim_args(char **args)
 {
-	int	i;
-	char *argument;
+	int		i;
+	char	*argument;
 
 	i = 0;
 	while (args[i] != NULL)
 	{
 		argument = args[i];
-		if (ft_strlen(argument) >= 2 && argument[0] == '\'' 
+		if (ft_strlen(argument) >= 2 && argument[0] == '\''
 			&& argument[ft_strlen(argument) - 1] == '\'')
 		{
 			args[i] = ft_strtrim(argument, "'");
