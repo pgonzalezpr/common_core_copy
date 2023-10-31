@@ -67,6 +67,15 @@ void	free_params(char ***args)
 	free(args);
 }
 
+int	ft_strequals(char *str1, char *str2)
+{
+	if (ft_strlen(str1) != ft_strlen(str2))
+		return (0);
+	if (ft_strncmp(str1, str2, ft_strlen(str1)) == 0)
+		return (1);
+	return (0);
+}
+
 void	exit_pipex(t_pipex *pipex_data, int status)
 {
 	if (pipex_data->in_fd >= 0)
@@ -81,13 +90,4 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 	unlink(TMP_FILE);
 	unlink(USR_INPUT_FILE);
 	exit(status);
-}
-
-int	ft_strequals(char *str1, char *str2)
-{
-	if (ft_strlen(str1) != ft_strlen(str2))
-		return (0);
-	if (ft_strncmp(str1, str2, ft_strlen(str1)) == 0)
-		return (1);
-	return (0);
 }

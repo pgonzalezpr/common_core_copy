@@ -18,18 +18,18 @@ int	check_permissions(char *infile, char *outfile, t_pipex *pipex_data)
 	{
 		if (access(infile, F_OK) != 0)
 		{
-			ft_printf("Error. File not found: %s\n", infile);
+			ft_printf("%s: No such file or directory\n", infile);
 			return (0);
 		}
 		if (access(infile, R_OK) != 0)
 		{
-			ft_printf("Error. Permission denied: %s\n", infile);
+			ft_printf("%s: Permission denied\n", infile);
 			return (0);
 		}
 	}
 	if (access(outfile, F_OK) == 0 && access(outfile, W_OK) != 0)
 	{
-		ft_printf("Error. Permission denied: %s\n", outfile);
+		ft_printf("%s: Permission denied\n", outfile);
 		return (0);
 	}
 	return (1);
