@@ -1,58 +1,84 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init_clean.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 17:18:34 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/10/28 17:18:36 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/10/28 17:17:56 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/10/28 17:17:58 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	print_str_arr(char **arr)
+t_pipex	*init_pipex(void)
+{
+	t_pipex	*pipex_data;
+	int		fd;
+
+	pipex_data = malloc(sizeof(t_pipex));
+	if (!pipex_data)
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	pipex_data->in_fd = -1;
+	pipex_data->out_fd = -1;
+	fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	close(fd);
+	fd = open(TMP_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	close(fd);
+	pipex_data->here_doc = 0;
+	pipex_data->cmd_paths = NULL;
+	pipex_data->cmd_args = NULL;
+	pipex_data->cmd_count = 0;
+	return (pipex_data);
+}
+
+void	free_str_arr(char **arr)
 {
 	int	i;
 
 	if (!arr)
-		ft_printf("NULL\n");
-	else
+		return ;
+	i = 0;
+	while (arr[i])
 	{
-		i = 0;
-		while (arr[i])
-		{
-			ft_printf("%s ", arr[i]);
-			i++;
-		}
-		ft_printf("\n");
+		free(arr[i]);
+		i++;
 	}
+	free(arr);
 }
 
-void	print_args(char ***args)
+void	free_params(char ***args)
 {
 	int	i;
 
 	if (!args)
-		ft_printf("NULL\n");
-	else
+		return ;
+	i = 0;
+	while (args[i])
 	{
-		i = 0;
-		while (args[i])
-		{
-			print_str_arr(args[i]);
-			i++;
-		}
+		free_str_arr(args[i]);
+		i++;
 	}
+	free(args);
 }
 
-void	print_pipex(t_pipex *pipex_data)
+void	exit_pipex(t_pipex *pipex_data, int status)
 {
-	ft_printf("in_fd: %i\n", pipex_data->in_fd);
-	ft_printf("out_fd: %i\n", pipex_data->out_fd);
-	ft_printf("here_doc: %i\n", pipex_data->here_doc);
-	print_str_arr(pipex_data->cmd_paths);
-	print_args(pipex_data->cmd_args);
-	ft_printf("cmd_count: %i\n", pipex_data->cmd_count);
+	if (pipex_data->in_fd >= 0)
+		close(pipex_data->in_fd);
+	if (pipex_data->out_fd >= 0)
+		close(pipex_data->out_fd);
+	if (pipex_data->cmd_paths)
+		free_str_arr(pipex_data->cmd_paths);
+	if (pipex_data->cmd_args)
+		free_params(pipex_data->cmd_args);
+	free(pipex_data);
+	unlink(TMP_FILE);
+	unlink(USR_INPUT_FILE);
+	exit(status);
 }
