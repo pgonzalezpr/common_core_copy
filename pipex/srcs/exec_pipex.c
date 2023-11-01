@@ -17,7 +17,6 @@ void	read_write_pipe(t_pipex *pipex_data, int out_fd, int end[])
 	int		read_values;
 	char	buffer[1024];
 
-	close(end[1]);
 	read_values = read(end[0], &buffer, sizeof(buffer));
 	while (read_values > 0)
 	{
@@ -52,6 +51,7 @@ void	parent(t_pipex *pipex_data, int index, int end[], pid_t p_id)
 		if (out_fd == -1)
 			exit_pipex(pipex_data, EXIT_FAILURE);
 	}
+	close(end[1]);
 	read_write_pipe(pipex_data, out_fd, end);
 }
 

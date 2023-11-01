@@ -56,17 +56,17 @@ int	get_paths(char **inputs, int cmd_count, char **cmd_paths, char **bin_paths)
 	i = 0;
 	while (i < cmd_count)
 	{
-		tokens = ft_split(inputs[i], ' ');
+		tokens = ft_shell_split(inputs[i], ' ');
 		if (!tokens)
 			break ;
 		path = get_bin_path(tokens[0], bin_paths);
 		if (!path)
 		{
 			ft_printf("Error. Command not found: %s\n", tokens[0]);
+			free_str_arr(tokens);
 			break ;
 		}
-		*cmd_paths = path;
-		cmd_paths++;
+		*cmd_paths++ = path;
 		i++;
 		free_str_arr(tokens);
 	}
