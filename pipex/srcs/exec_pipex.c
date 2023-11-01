@@ -40,6 +40,7 @@ void	parent(t_pipex *pipex_data, int index, int end[], pid_t p_id)
 	int	status;
 	int	out_fd;
 
+	close(end[1]);
 	waitpid(p_id, &status, 0);
 	if (!WIFEXITED(status) || WEXITSTATUS(status) == EXIT_FAILURE)
 		exit_pipex(pipex_data, EXIT_FAILURE);
@@ -51,7 +52,6 @@ void	parent(t_pipex *pipex_data, int index, int end[], pid_t p_id)
 		if (out_fd == -1)
 			exit_pipex(pipex_data, EXIT_FAILURE);
 	}
-	close(end[1]);
 	read_write_pipe(pipex_data, out_fd, end);
 }
 
@@ -59,6 +59,7 @@ void	child(t_pipex *pipex_data, int index, int end[])
 {
 	int	in_fd;
 
+	close(end[0]);
 	if (index == 0)
 		in_fd = pipex_data->in_fd;
 	else
@@ -72,7 +73,6 @@ void	child(t_pipex *pipex_data, int index, int end[])
 		close(in_fd);
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
-	close(end[0]);
 	if (execve(pipex_data->cmd_paths[index], pipex_data->cmd_args[index],
 			NULL) == -1)
 	{

@@ -17,7 +17,6 @@ void	read_write_pipe(t_pipex *pipex_data, int out_fd, int end[])
 	int		read_values;
 	char	buffer[1024];
 
-	close(end[1]);
 	read_values = read(end[0], &buffer, sizeof(buffer));
 	while (read_values > 0)
 	{
@@ -41,6 +40,7 @@ void	parent(t_pipex *pipex_data, int index, int end[], pid_t p_id)
 	int	status;
 	int	out_fd;
 
+	close(end[1]);
 	waitpid(p_id, &status, 0);
 	if (!WIFEXITED(status) || WEXITSTATUS(status) == EXIT_FAILURE)
 		exit_pipex(pipex_data, EXIT_FAILURE);
@@ -59,6 +59,7 @@ void	child(t_pipex *pipex_data, int index, int end[])
 {
 	int	in_fd;
 
+	close(end[0]);
 	if (index == 0)
 		in_fd = pipex_data->in_fd;
 	else
@@ -72,7 +73,6 @@ void	child(t_pipex *pipex_data, int index, int end[])
 		close(in_fd);
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
-	close(end[0]);
 	if (execve(pipex_data->cmd_paths[index], pipex_data->cmd_args[index],
 			NULL) == -1)
 	{
