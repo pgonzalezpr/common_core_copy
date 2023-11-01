@@ -107,7 +107,7 @@ void	exec_pipex(t_pipex *pipex_data)
 	index = 0;
 	while (index < pipex_data->cmd_count)
 	{
-		exec_cmd(pipex_data, index);	
+		exec_cmd(pipex_data, index);
 		index++;
 	}
 }

@@ -37,24 +37,6 @@ t_pipex	*init_pipex(void)
 	return (pipex_data);
 }
 
-void	print_str_arr(char **arr)
-{
-	int	i;
-
-	if (!arr)
-		ft_printf("NULL\n");
-	else
-	{
-		i = 0;
-		while (arr[i])
-		{
-			ft_printf("%s ", arr[i]);
-			i++;
-		}
-		ft_printf("\n");
-	}
-}
-
 void	free_str_arr(char **arr)
 {
 	int	i;
@@ -62,11 +44,8 @@ void	free_str_arr(char **arr)
 	if (!arr)
 		return ;
 	i = 0;
-	ft_printf("Array to free: ");
-	print_str_arr(arr);
 	while (arr[i])
 	{
-		ft_printf("freeing %s, (%p)\n", arr[i], &arr[i]);
 		free(arr[i]);
 		i++;
 	}
@@ -103,7 +82,6 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 		close(pipex_data->in_fd);
 	if (pipex_data->out_fd >= 0)
 		close(pipex_data->out_fd);
-	ft_printf("cmd count: %d\n", pipex_data->cmd_count);
 	if (pipex_data->cmd_paths)
 		free_str_arr(pipex_data->cmd_paths);
 	if (pipex_data->cmd_args)

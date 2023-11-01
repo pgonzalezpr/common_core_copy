@@ -82,7 +82,7 @@ void	parse_cmds(char **argv, int argc, char **envp, t_pipex *pipex_data)
 	char	**bin_paths;
 
 	pipex_data->cmd_count = argc - 3 - pipex_data->here_doc;
-	cmd_paths = malloc((pipex_data->cmd_count + 1) * sizeof(char *));
+	cmd_paths = ft_calloc((pipex_data->cmd_count + 1), sizeof(char *));
 	if (!cmd_paths)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->cmd_paths = cmd_paths;
