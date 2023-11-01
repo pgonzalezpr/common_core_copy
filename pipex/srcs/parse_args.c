@@ -44,7 +44,7 @@ void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 	char	**args;
 	char	***cmd_args;
 
-	cmd_args = malloc((pipex_data->cmd_count + 1) * sizeof(char **));
+	cmd_args = ft_calloc((pipex_data->cmd_count + 1), sizeof(char **));
 	if (!cmd_args)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->cmd_args = cmd_args;
