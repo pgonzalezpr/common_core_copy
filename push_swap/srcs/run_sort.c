@@ -44,7 +44,7 @@ void	run_sort(int *arr, int len)
 		exit(1);
 	if (is_sorted(stack_a))
 	{
-		free(stack_a);
+		free_stack(stack_a);
 		exit(1);
 	}
 	stack_b = new_stack(zero_array(len), 0);
