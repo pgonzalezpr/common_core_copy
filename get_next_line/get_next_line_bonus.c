@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*extract_saved(char *line)
 {
@@ -64,7 +64,7 @@ static char	*build_line(int fd, char *saved, char *buff)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*saved[FOPEN_MAX];
+	static char	*saved[OPEN_MAX];
 	char		*buff;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
