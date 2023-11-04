@@ -1,4 +1,4 @@
-NAME = fdf
+AME = fdf
 
 SRCS = ./srcs/main.c 
 			
