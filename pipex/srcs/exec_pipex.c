@@ -12,102 +12,91 @@
 
 #include "../include/pipex.h"
 
-void	read_write_pipe(t_pipex *pipex_data, int out_fd, int end[])
+void	error(char *msg, t_pipex *pipex_data)
 {
-	int		read_values;
-	char	buffer[1024];
-
-	read_values = read(end[0], &buffer, sizeof(buffer));
-	while (read_values > 0)
-	{
-		if (write(out_fd, &buffer, read_values) == -1)
-		{
-			close(out_fd);
-			exit_pipex(pipex_data, EXIT_FAILURE);
-		}
-		read_values = read(end[0], &buffer, sizeof(buffer));
-	}
-	close(end[0]);
-	if (read_values == -1)
-	{
-		close(out_fd);
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	}
+	perror(msg);
+	exit_pipex(pipex_data, EXIT_FAILURE);
 }
 
-void	parent(t_pipex *pipex_data, int index, int end[], pid_t p_id)
+void	exec_cmd(t_pipex *pipex_data, char **envp, int index)
 {
-	int	status;
+	char	*cmd;
+	char	*path;
+
+	cmd = pipex_data->cmd_args[index][0];
+	path = get_bin_path(cmd, pipex_data->cmd_paths);
+	if (!path)
+	{
+		ft_printf(STDERR_FILENO, "%s: command not found\n", cmd);
+		exit_pipex(pipex_data, EXIT_CMD_NOT_FOUND);
+	}
+	execve(path, pipex_data->cmd_args[index], envp);
+	error("execve", pipex_data);
+}
+
+void	second(t_pipex *pipex_data, char **envp, int pipe_fd[])
+{
 	int	out_fd;
 
-	close(end[1]);
-	waitpid(p_id, &status, 0);
-	if (!WIFEXITED(status) || WEXITSTATUS(status) == EXIT_FAILURE)
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	if (index == pipex_data->cmd_count - 1)
-		out_fd = pipex_data->out_fd;
-	else
+	out_fd = open(pipex_data->outfile, O_WRONLY | O_CREAT | O_TRUNC,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+	if (out_fd == -1)
 	{
-		out_fd = open(TMP_FILE, O_WRONLY | O_TRUNC);
-		if (out_fd == -1)
-			exit_pipex(pipex_data, EXIT_FAILURE);
+		perror(pipex_data->outfile);
+		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
-	read_write_pipe(pipex_data, out_fd, end);
+	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
+		error("dup2", pipex_data);
+	close(pipe_fd[1]);
+	if (dup2(out_fd, STDOUT_FILENO) == -1)
+		error("dup2", pipex_data);
+	close(out_fd);
+	exec_cmd(pipex_data, envp, 1);
 }
 
-void	child(t_pipex *pipex_data, int index, int end[])
+void	first(t_pipex *pipex_data, char **envp, int pipe_fd[])
 {
 	int	in_fd;
 
-	close(end[0]);
-	if (index == 0)
-		in_fd = pipex_data->in_fd;
-	else
+	in_fd = open(pipex_data->infile, O_RDONLY);
+	if (in_fd == -1)
 	{
-		in_fd = open(TMP_FILE, O_RDONLY);
-		if (in_fd == -1)
-			exit_pipex(pipex_data, EXIT_FAILURE);
-	}
-	if (dup2(in_fd, STDIN_FILENO) == -1 || dup2(end[1], STDOUT_FILENO) == -1)
-	{
-		close(in_fd);
+		perror(pipex_data->infile);
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
-	if (execve(pipex_data->cmd_paths[index], pipex_data->cmd_args[index],
-			NULL) == -1)
-	{
-		perror("Error executing command: ");
-		exit(EXIT_FAILURE);
-	}
+	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+		error("dup2", pipex_data);
+	close(pipe_fd[0]);
+	if (dup2(in_fd, STDIN_FILENO) == -1)
+		error("dup2", pipex_data);
+	close(in_fd);
+	exec_cmd(pipex_data, envp, 0);
 }
 
-void	exec_cmd(t_pipex *pipex_data, int index)
+void	exec_pipex(t_pipex *pipex_data, char **envp)
 {
-	int		end[2];
-	pid_t	p_id;
+	int		pipe_fd[2];
+	pid_t	first_id;
+	pid_t	second_id;
+	int		status;
 
-	if (pipe(end) == -1)
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	p_id = fork();
-	if (p_id < 0)
+	if (pipe(pipe_fd) == -1)
+		error("pipe", pipex_data);
+	first_id = fork();
+	if (first_id == -1)
+		error("fork", pipex_data);
+	if (first_id == 0)
+		first(pipex_data, envp, pipe_fd);
+	second_id = fork();
+	if (second_id == -1)
+		error("fork", pipex_data);
+	if (second_id == 0)
 	{
-		perror("Error. Fork: ");
-		exit_pipex(pipex_data, EXIT_FAILURE);
+		waitpid(first_id, NULL, 0);
+		second(pipex_data, envp, pipe_fd);
 	}
-	else if (p_id == 0)
-		child(pipex_data, index, end);
-	else
-		parent(pipex_data, index, end, p_id);
-}
-
-void	exec_pipex(t_pipex *pipex_data)
-{
-	int	index;
-
-	index = 0;
-	while (index < pipex_data->cmd_count)
-	{
-		exec_cmd(pipex_data, index);
-		index++;
-	}
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	waitpid(second_id, &status, 0);
+	exit_pipex(pipex_data, WEXITSTATUS(status));
 }

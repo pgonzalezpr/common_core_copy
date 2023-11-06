@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 #include "printf_utils.h"
 
-int	ft_printf_int(int nbr)
+int	ft_printf_int(int nbr, int fd)
 {
 	char	*nbr_str;
 	int		len;
 
-	ft_putnbr_fd(nbr, 1);
+	ft_putnbr_fd(nbr, fd);
 	nbr_str = ft_itoa(nbr);
 	len = ft_strlen(nbr_str);
 	free(nbr_str);
 	return (len);
 }
 
-int	ft_putnbr_base(unsigned long nbr, char *base)
+int	ft_putnbr_base(unsigned long nbr, char *base, int fd)
 {
 	char	buffer[65];
 	size_t	offset;
@@ -43,57 +43,59 @@ int	ft_putnbr_base(unsigned long nbr, char *base)
 	else
 		buffer[offset] = base[nbr % base_len];
 	nbr_len = ft_strlen(buffer + offset);
-	ft_putstr_fd(buffer + offset, 1);
+	ft_putstr_fd(buffer + offset, fd);
 	return (nbr_len);
 }
 
-int	ft_printf_string(char *s)
+int	ft_printf_string(char *s, int fd)
 {
 	if (!s)
 	{
-		ft_putstr_fd("(null)", 1);
+		ft_putstr_fd("(null)", fd);
 		return (6);
 	}
-	ft_putstr_fd(s, 1);
+	ft_putstr_fd(s, fd);
 	return (ft_strlen(s));
 }
 
-int	ft_printf_pointer(void *ptr)
+int	ft_printf_pointer(void *ptr, int fd)
 {
 	unsigned long	ptr_nbr;
 
 	if (!ptr)
 	{
-		ft_putstr_fd("0x0", 1);
+		ft_putstr_fd("0x0", fd);
 		return (3);
 	}
 	ptr_nbr = (unsigned long)ptr;
-	ft_putstr_fd("0x", 1);
-	return (ft_putnbr_base(ptr_nbr, "0123456789abcdef") + 2);
+	ft_putstr_fd("0x", fd);
+	return (ft_putnbr_base(ptr_nbr, "0123456789abcdef", fd) + 2);
 }
 
-int	convert(const char conv, va_list args)
+int	convert(int fd, const char conv, va_list args)
 {
 	if (conv == 'c')
 	{
-		ft_putchar_fd((char)va_arg(args, int), 1);
+		ft_putchar_fd((char)va_arg(args, int), fd);
 		return (1);
 	}
 	if (conv == 's')
-		return (ft_printf_string(va_arg(args, char *)));
+		return (ft_printf_string(va_arg(args, char *), fd));
 	if (conv == 'p')
-		return (ft_printf_pointer(va_arg(args, void *)));
+		return (ft_printf_pointer(va_arg(args, void *), fd));
 	if (conv == 'u')
-		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789"));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789", fd));
 	if (conv == 'd' || conv == 'i')
-		return (ft_printf_int(va_arg(args, int)));
+		return (ft_printf_int(va_arg(args, int), fd));
 	if (conv == 'x')
-		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef"));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef",
+				fd));
 	if (conv == 'X')
-		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF",
+				fd));
 	if (conv == '%')
 	{
-		write(1, "%", 1);
+		write(fd, "%", 1);
 		return (1);
 	}
 	return (0);

@@ -15,26 +15,26 @@
 t_pipex	*init_pipex(void)
 {
 	t_pipex	*pipex_data;
-	int		fd;
 
 	pipex_data = malloc(sizeof(t_pipex));
 	if (!pipex_data)
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	pipex_data->in_fd = -1;
-	pipex_data->out_fd = -1;
-	fd = open(USR_INPUT_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-	if (fd == -1)
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	close(fd);
-	fd = open(TMP_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-	if (fd == -1)
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	close(fd);
-	pipex_data->here_doc = 0;
+	pipex_data->infile = NULL;
+	pipex_data->outfile = NULL;
 	pipex_data->cmd_paths = NULL;
 	pipex_data->cmd_args = NULL;
-	pipex_data->cmd_count = 0;
 	return (pipex_data);
+}
+
+void	check_input(char **argv, int argc, t_pipex *pipex_data)
+{
+	if (argc != 5)
+	{
+		ft_printf(STDOUT_FILENO, "Error. Incorrect number of arguments\n");
+		exit_pipex(pipex_data, EXIT_FAILURE);
+	}
+	pipex_data->infile = argv[1];
+	pipex_data->outfile = argv[4];
 }
 
 void	free_str_arr(char **arr)
@@ -69,16 +69,10 @@ void	free_params(char ***args)
 
 void	exit_pipex(t_pipex *pipex_data, int status)
 {
-	if (pipex_data->in_fd >= 0)
-		close(pipex_data->in_fd);
-	if (pipex_data->out_fd >= 0)
-		close(pipex_data->out_fd);
 	if (pipex_data->cmd_paths)
 		free_str_arr(pipex_data->cmd_paths);
 	if (pipex_data->cmd_args)
 		free_params(pipex_data->cmd_args);
 	free(pipex_data);
-	unlink(TMP_FILE);
-	unlink(USR_INPUT_FILE);
 	exit(status);
 }

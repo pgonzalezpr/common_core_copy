@@ -44,11 +44,11 @@ void	parse_args(char **argv, int argc, t_pipex *pipex_data)
 	char	**args;
 	char	***cmd_args;
 
-	cmd_args = ft_calloc((pipex_data->cmd_count + 1), sizeof(char **));
+	cmd_args = ft_calloc(3, sizeof(char **));
 	if (!cmd_args)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	pipex_data->cmd_args = cmd_args;
-	i = 2 + pipex_data->here_doc;
+	i = 2;
 	while (i < argc - 1)
 	{
 		args = ft_shell_split(argv[i], ' ');

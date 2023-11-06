@@ -17,10 +17,10 @@
 # include <limits.h>
 # include <stdarg.h>
 
-int	ft_printf_int(int nbr);
-int	ft_putnbr_base(unsigned long nbr, char *base);
-int	ft_printf_string(char *s);
-int	ft_printf_pointer(void *ptr);
-int	convert(const char conv, va_list args);
+int	ft_printf_int(int nbr, int fd);
+int	ft_putnbr_base(unsigned long nbr, char *base, int fd);
+int	ft_printf_string(char *s, int fd);
+int	ft_printf_pointer(void *ptr, int fd);
+int	convert(int fd, const char conv, va_list args);
 
 #endif // PRINTF_UTILS_H

@@ -1,7 +1,7 @@
 NAME = pipex
 NAME_BONUS = pipex
 
-SRCS = ./srcs/main.c ./srcs/input.c ./srcs/utils.c \
+SRCS = ./srcs/main.c ./srcs/utils.c \
 		./srcs/parse_cmds.c ./srcs/parse_args.c ./srcs/exec_pipex.c \
 		./srcs/custom_split.c 
 

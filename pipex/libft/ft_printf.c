@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "printf_utils.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(int fd, const char *format, ...)
 {
 	va_list	args;
 	int		count;
@@ -23,11 +23,11 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			count += convert(*format, args);
+			count += convert(fd, *format, args);
 		}
 		else
 		{
-			write(1, format, 1);
+			write(fd, format, 1);
 			count++;
 		}
 		format++;

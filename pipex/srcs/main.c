@@ -18,8 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	pipex_data = init_pipex();
 	check_input(argv, argc, pipex_data);
-	parse_cmds(argv, argc, envp, pipex_data);
+	get_paths(envp, pipex_data);
 	parse_args(argv, argc, pipex_data);
-	exec_pipex(pipex_data);
-	exit_pipex(pipex_data, EXIT_SUCCESS);
+	exec_pipex(pipex_data, envp);
 }
