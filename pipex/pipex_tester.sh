@@ -20,6 +20,10 @@
 ./pipex infile.txt "cat -q" "wc -l" outfile.txt
 ./pipex infile.txt "cat -q" "ls -l" outfile.txt 
 
+# Absolute path
+
+./pipex infile.txt "/usr/bin/cat" "wc -l" outfile.txt
+
 # Combined
 
 ./pipex unreadablefile.txt "cat" "wc -l" unwriteablefile.txt
