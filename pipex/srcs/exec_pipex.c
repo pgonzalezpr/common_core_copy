@@ -38,8 +38,7 @@ void	second(t_pipex *pipex_data, char **envp, int pipe_fd[])
 {
 	int	out_fd;
 
-	out_fd = open(pipex_data->outfile, O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+	out_fd = open(pipex_data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (out_fd == -1)
 	{
 		perror(pipex_data->outfile);

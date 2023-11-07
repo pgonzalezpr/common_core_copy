@@ -17,28 +17,36 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 
-# define TMP_FILE "tmp.txt"
-# define USR_INPUT_FILE "here_doc.txt"
-
 typedef struct s_pipex
 {
-	int		in_fd;
-	int		out_fd;
+	char	*infile;
+	char	*outfile;
 	int		here_doc;
+	char	*delimiter;
 	char	**cmd_paths;
+	char	**envp;
 	char	***cmd_args;
+	int		**pipe_fds;
 	int		cmd_count;
 }			t_pipex;
 
-void		check_input(char **argv, int argc, t_pipex *pipex_data);
+# define EXIT_CMD_NOT_FOUND 127
+
+void		check_input(char **argv, int argc, char **envp,
+				t_pipex *pipex_data);
 void		exit_pipex(t_pipex *pipex_data, int status);
 t_pipex		*init_pipex(void);
-void		print_pipex(t_pipex *pipex_data);
-void		parse_cmds(char **argv, int argc, char **envp, t_pipex *pipex_data);
+void		get_paths(char **envp, t_pipex *pipex_data);
+char		*get_bin_path(char *cmd, char **cmd_paths);
 void		parse_args(char **argv, int argc, t_pipex *pipex_data);
 void		free_str_arr(char **arr);
 int			ft_strequals(char *str1, char *str2);
 void		exec_pipex(t_pipex *pipex_data);
 char		**ft_shell_split(char const *s, char c);
+void		error(char *msg, t_pipex *pipex_data);
+void		dup_input(t_pipex *pipex_data, int index);
+void		dup_output(t_pipex *pipex_data, int index);
+void		init_pipes(t_pipex *pipex_data);
+void		close_pipes(t_pipex *pipex_data);
 
 #endif

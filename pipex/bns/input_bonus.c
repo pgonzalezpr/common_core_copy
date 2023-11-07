@@ -12,29 +12,6 @@
 
 #include "../include/pipex_bonus.h"
 
-int	check_permissions(char *infile, char *outfile, t_pipex *pipex_data)
-{
-	if (!pipex_data->here_doc)
-	{
-		if (access(infile, F_OK) != 0)
-		{
-			ft_printf("%s: No such file or directory\n", infile);
-			return (0);
-		}
-		if (access(infile, R_OK) != 0)
-		{
-			ft_printf("%s: Permission denied\n", infile);
-			return (0);
-		}
-	}
-	if (access(outfile, F_OK) == 0 && access(outfile, W_OK) != 0)
-	{
-		ft_printf("%s: Permission denied\n", outfile);
-		return (0);
-	}
-	return (1);
-}
-
 char	*read_input(char *delimiter)
 {
 	char	*input;
@@ -62,58 +39,22 @@ char	*read_input(char *delimiter)
 	return (input);
 }
 
-void	get_input(char *delimiter, t_pipex *pipex_data)
+void	check_input(char **argv, int argc, char **envp, t_pipex *pipex_data)
 {
-	char	*input;
-	int		here_doc_fd;
-
-	here_doc_fd = open(USR_INPUT_FILE, O_WRONLY);
-	if (here_doc_fd == -1)
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	input = read_input(ft_strjoin(delimiter, "\n"));
-	if (!input)
+	if (argc < 5 || (ft_strequals(argv[1], "here_doc") && argc < 6))
 	{
-		close(here_doc_fd);
+		ft_printf(STDOUT_FILENO, "Error. Incorrect number of arguments\n");
 		exit_pipex(pipex_data, EXIT_FAILURE);
 	}
-	if (write(here_doc_fd, input, ft_strlen(input)) == -1)
-	{
-		close(here_doc_fd);
-		free(input);
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	}
-	free(input);
-	close(here_doc_fd);
-}
-
-void	open_fds(char **argv, int argc, t_pipex *pipex_data)
-{
-	if (pipex_data->here_doc)
-	{
-		get_input(argv[2], pipex_data);
-		pipex_data->in_fd = open(USR_INPUT_FILE, O_RDONLY);
-		pipex_data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND,
-				S_IRUSR | S_IWUSR);
-		if (pipex_data->in_fd == -1 || pipex_data->out_fd == -1)
-			exit_pipex(pipex_data, EXIT_FAILURE);
-		return ;
-	}
-	pipex_data->in_fd = open(argv[1], O_RDONLY);
-	pipex_data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR);
-	if (pipex_data->in_fd == -1 || pipex_data->out_fd == -1)
-		exit_pipex(pipex_data, EXIT_FAILURE);
-}
-
-void	check_input(char **argv, int argc, t_pipex *pipex_data)
-{
 	pipex_data->here_doc = ft_strequals(argv[1], "here_doc");
-	if (argc < 5 || (pipex_data->here_doc && argc < 6))
-	{
-		ft_printf("Error. Incorrect number of arguments\n");
+	if (pipex_data->here_doc)
+		pipex_data->delimiter = argv[2];
+	else
+		pipex_data->infile = argv[1];
+	pipex_data->envp = envp;
+	pipex_data->outfile = argv[argc - 1];
+	pipex_data->cmd_count = argc - 3 - pipex_data->here_doc;
+	pipex_data->pipe_fds = ft_calloc(pipex_data->cmd_count - 1, sizeof(int *));
+	if (!pipex_data->pipe_fds)
 		exit_pipex(pipex_data, EXIT_FAILURE);
-	}
-	if (!check_permissions(argv[1], argv[argc - 1], pipex_data))
-		exit_pipex(pipex_data, EXIT_FAILURE);
-	open_fds(argv, argc, pipex_data);
 }
