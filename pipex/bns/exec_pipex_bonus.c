@@ -46,13 +46,6 @@ pid_t	create_child(t_pipex *pipex_data, int index, pid_t p_id)
 		error("fork", pipex_data);
 	else if (child_id == 0)
 		exec_child(pipex_data, index, p_id);
-	else
-	{
-		if (index > 0)
-			close(pipex_data->pipe_fds[index - 1][0]);
-		if (index < pipex_data->cmd_count - 1)
-			close(pipex_data->pipe_fds[index][1]);
-	}
 	return (child_id);
 }
 
