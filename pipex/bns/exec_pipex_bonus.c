@@ -16,12 +16,17 @@ void	exec_cmd(t_pipex *pipex_data, int index)
 {
 	char	*cmd;
 	char	*path;
+	char	*err_msg;
 
 	cmd = pipex_data->cmd_args[index][0];
 	path = get_bin_path(cmd, pipex_data->cmd_paths);
 	if (!path)
 	{
-		ft_printf(STDERR_FILENO, "%s: command not found\n", cmd);
+		err_msg = ft_strjoin(cmd, ": command not found\n");
+		if (!err_msg)
+			exit_pipex(pipex_data, EXIT_FAILURE);
+		write(2, err_msg, ft_strlen(err_msg));
+		free(err_msg);
 		exit_pipex(pipex_data, EXIT_CMD_NOT_FOUND);
 	}
 	execve(path, pipex_data->cmd_args[index], pipex_data->envp);
