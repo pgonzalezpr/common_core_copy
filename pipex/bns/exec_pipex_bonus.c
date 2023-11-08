@@ -56,16 +56,16 @@ void	exec_pipex(t_pipex *pipex_data)
 	int		status;
 
 	init_pipes(pipex_data);
-	p_id = -1;
 	if (pipex_data->here_doc)
 		here_doc(pipex_data);
 	index = 0;
+	p_id = -1;
 	while (index < pipex_data->cmd_count)
 	{
 		p_id = create_child(pipex_data, index, p_id);
 		index++;
 	}
-	close_pipes(pipex_data);
 	waitpid(p_id, &status, 0);
+	close_pipes(pipex_data);
 	exit_pipex(pipex_data, WEXITSTATUS(status));
 }
