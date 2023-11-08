@@ -67,7 +67,7 @@ void	exec_pipex(t_pipex *pipex_data)
 		p_id = create_child(pipex_data, index, p_id);
 		index++;
 	}
-	waitpid(p_id, &status, 0);
 	close_pipes(pipex_data);
+	waitpid(p_id, &status, 0);
 	exit_pipex(pipex_data, WEXITSTATUS(status));
 }
