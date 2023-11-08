@@ -20,7 +20,7 @@ void	here_doc(t_pipex *pipex_data)
 	delimiter = pipex_data->delimiter;
 	while (1)
 	{
-		write(1, ">", 1);
+		write(1, "> ", 2);
 		input = get_next_line(1);
 		if (!input || ft_strequals(input, delimiter))
 			break ;
