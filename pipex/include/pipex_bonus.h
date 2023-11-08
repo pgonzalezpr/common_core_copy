@@ -31,7 +31,6 @@ typedef struct s_pipex
 }			t_pipex;
 
 # define EXIT_CMD_NOT_FOUND 127
-# define TMP_FILE ".here_doc_tmp"
 
 void		check_input(char **argv, int argc, char **envp,
 				t_pipex *pipex_data);

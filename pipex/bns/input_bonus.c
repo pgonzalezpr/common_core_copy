@@ -16,28 +16,22 @@ void	here_doc(t_pipex *pipex_data)
 {
 	char	*input;
 	char	*delimiter;
-	int		fd;
 
 	delimiter = pipex_data->delimiter;
-	fd = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (fd == -1)
-		return ;
 	while (1)
 	{
 		write(1, ">", 1);
 		input = get_next_line(1);
 		if (!input || ft_strequals(input, delimiter))
 			break ;
-		if (write(fd, input, ft_strlen(input)) == -1)
+		if (write(pipex_data->pipe_fds[0][1], input, ft_strlen(input)) == -1)
 			break ;
 		free(input);
 		input = NULL;
 	}
-	close(fd);
-	if (input)
-		free(input);
-	pipex_data->infile = TMP_FILE;
+	close_pipes(pipex_data);
 	free(delimiter);
+	exit_pipex(pipex_data, EXIT_SUCCESS);
 }
 
 void	check_input(char **argv, int argc, char **envp, t_pipex *pipex_data)
@@ -59,7 +53,8 @@ void	check_input(char **argv, int argc, char **envp, t_pipex *pipex_data)
 	pipex_data->envp = envp;
 	pipex_data->outfile = argv[argc - 1];
 	pipex_data->cmd_count = argc - 3 - pipex_data->here_doc;
-	pipex_data->pipe_fds = ft_calloc(pipex_data->cmd_count - 1, sizeof(int *));
+	pipex_data->pipe_fds = ft_calloc(pipex_data->cmd_count - 1
+			+ pipex_data->here_doc, sizeof(int *));
 	if (!pipex_data->pipe_fds)
 		exit_pipex(pipex_data, EXIT_FAILURE);
 }

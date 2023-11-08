@@ -22,7 +22,7 @@ void	dup_input(t_pipex *pipex_data, int index)
 {
 	int	in_fd;
 
-	if (index == 0)
+	if (index == 0 && !pipex_data->here_doc)
 	{
 		in_fd = open(pipex_data->infile, O_RDONLY);
 		if (in_fd == -1)
@@ -34,9 +34,15 @@ void	dup_input(t_pipex *pipex_data, int index)
 			error("dup2", pipex_data);
 		close(in_fd);
 	}
-	else
+	else if (index == 0 && pipex_data->here_doc)
 	{
-		if (dup2(pipex_data->pipe_fds[index - 1][0], STDIN_FILENO) == -1)
+		if (dup2(pipex_data->pipe_fds[0][0], STDIN_FILENO) == -1)
+			error("dup2", pipex_data);
+	}
+	else 
+	{
+		if (dup2(pipex_data->pipe_fds[index - 1 + pipex_data->here_doc][0], 
+			STDIN_FILENO) == -1)
 			error("dup2", pipex_data);
 	}
 }
@@ -64,7 +70,8 @@ void	dup_output(t_pipex *pipex_data, int index)
 	}
 	else
 	{
-		if (dup2(pipex_data->pipe_fds[index][1], STDOUT_FILENO) == -1)
+		if (dup2(pipex_data->pipe_fds[index + pipex_data->here_doc][1], 
+			STDOUT_FILENO) == -1)
 			error("dup2", pipex_data);
 	}
 }
@@ -76,7 +83,7 @@ void	init_pipes(t_pipex *pipex_data)
 
 	i = 0;
 	pipe_fds = pipex_data->pipe_fds;
-	while (i < pipex_data->cmd_count - 1)
+	while (i < pipex_data->cmd_count - 1 + pipex_data->here_doc)
 	{
 		pipe_fds[i] = malloc(2 * sizeof(int));
 		if (!pipe_fds[i])
@@ -92,7 +99,7 @@ void	close_pipes(t_pipex *pipex_data)
 	int	i;
 
 	i = 0;
-	while (i < pipex_data->cmd_count - 1)
+	while (i < pipex_data->cmd_count - 1 + pipex_data->here_doc)
 	{
 		close(pipex_data->pipe_fds[i][0]);
 		close(pipex_data->pipe_fds[i][1]);

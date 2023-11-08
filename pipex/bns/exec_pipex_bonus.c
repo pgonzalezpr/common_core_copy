@@ -50,7 +50,12 @@ pid_t	create_child(t_pipex *pipex_data, int index, pid_t p_id)
 	if (child_id < 0)
 		error("fork", pipex_data);
 	else if (child_id == 0)
-		exec_child(pipex_data, index, p_id);
+	{
+		if (index == -1)
+			here_doc(pipex_data);
+		else
+			exec_child(pipex_data, index, p_id);
+	}
 	return (child_id);
 }
 
@@ -60,12 +65,11 @@ void	exec_pipex(t_pipex *pipex_data)
 	int		index;
 	int		status;
 
-	if (pipex_data->here_doc)
-		here_doc(pipex_data);
 	init_pipes(pipex_data);
 	if (pipex_data->here_doc)
-		here_doc(pipex_data);
-	index = 0;
+		index = -1;
+	else
+		index = 0;
 	p_id = -1;
 	while (index < pipex_data->cmd_count)
 	{
