@@ -55,6 +55,8 @@ void	exec_pipex(t_pipex *pipex_data)
 	int		index;
 	int		status;
 
+	if (pipex_data->here_doc)
+		here_doc(pipex_data);
 	init_pipes(pipex_data);
 	if (pipex_data->here_doc)
 		here_doc(pipex_data);
