@@ -22,7 +22,7 @@ void	dup_input(t_pipex *pipex_data, int index)
 {
 	int	in_fd;
 
-	if (index == 0 && !pipex_data->here_doc)
+	if (index == 0)
 	{
 		in_fd = open(pipex_data->infile, O_RDONLY);
 		if (in_fd == -1)
@@ -47,7 +47,12 @@ void	dup_output(t_pipex *pipex_data, int index)
 
 	if (index == pipex_data->cmd_count - 1)
 	{
-		out_fd = open(pipex_data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+		if (pipex_data->here_doc)
+			out_fd = open(pipex_data->outfile, O_WRONLY | O_CREAT | O_APPEND,
+					0664);
+		else
+			out_fd = open(pipex_data->outfile, O_WRONLY | O_CREAT | O_TRUNC,
+					0664);
 		if (out_fd == -1)
 		{
 			perror(pipex_data->outfile);

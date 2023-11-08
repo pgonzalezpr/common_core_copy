@@ -12,31 +12,32 @@
 
 #include "../include/pipex_bonus.h"
 
-char	*read_input(char *delimiter)
+void	here_doc(t_pipex *pipex_data)
 {
 	char	*input;
-	char	*tmp;
-	char	*buffer;
+	char	*delimiter;
+	int		fd;
 
-	input = ft_strdup("");
-	if (!input || !delimiter)
-		return (NULL);
-	buffer = get_next_line(1);
-	while (buffer)
+	delimiter = pipex_data->delimiter;
+	fd = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fd == -1)
+		return ;
+	while (1)
 	{
-		if (ft_strequals(buffer, delimiter))
-		{
-			free(buffer);
+		write(1, ">", 1);
+		input = get_next_line(1);
+		if (!input || ft_strequals(input, delimiter))
 			break ;
-		}
-		tmp = input;
-		input = ft_strjoin(input, buffer);
-		free(tmp);
-		free(buffer);
-		buffer = get_next_line(1);
+		if (write(fd, input, ft_strlen(input)) == -1)
+			break ;
+		free(input);
+		input = NULL;
 	}
+	close(fd);
+	if (input)
+		free(input);
+	pipex_data->infile = TMP_FILE;
 	free(delimiter);
-	return (input);
 }
 
 void	check_input(char **argv, int argc, char **envp, t_pipex *pipex_data)
@@ -48,7 +49,11 @@ void	check_input(char **argv, int argc, char **envp, t_pipex *pipex_data)
 	}
 	pipex_data->here_doc = ft_strequals(argv[1], "here_doc");
 	if (pipex_data->here_doc)
-		pipex_data->delimiter = argv[2];
+	{
+		pipex_data->delimiter = ft_strjoin(argv[2], "\n");
+		if (!pipex_data->delimiter)
+			exit_pipex(pipex_data, EXIT_FAILURE);
+	}
 	else
 		pipex_data->infile = argv[1];
 	pipex_data->envp = envp;

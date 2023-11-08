@@ -88,6 +88,7 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 		}
 		free(pipex_data->pipe_fds);
 	}
+	unlink(TMP_FILE);
 	free(pipex_data);
 	exit(status);
 }

@@ -57,6 +57,8 @@ void	exec_pipex(t_pipex *pipex_data)
 
 	init_pipes(pipex_data);
 	p_id = -1;
+	if (pipex_data->here_doc)
+		here_doc(pipex_data);
 	index = 0;
 	while (index < pipex_data->cmd_count)
 	{
