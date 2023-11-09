@@ -64,10 +64,10 @@ static char	*build_line(int fd, char *saved, char *buff)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*saved[OPEN_MAX];
+	static char	*saved[FOPEN_MAX];
 	char		*buff;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX)
 		return (NULL);
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)

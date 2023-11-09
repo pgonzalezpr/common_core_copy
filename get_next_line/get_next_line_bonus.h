@@ -13,8 +13,6 @@
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# define BUFFER_SIZE 1
-
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
