@@ -74,14 +74,17 @@ void	run_push_swap(t_stack *stack_a, t_stack *stack_b)
 		if (!input)
 			break ;
 		if (!is_valid_inst(valid_inst, input))
+		{
+			free(input);
+			free_str_arr(valid_inst);
 			return ;
+		}
 		apply_inst(stack_a, stack_b, input);
+		free(input);
 	}
 	if (is_sorted(stack_a) && stack_b->size == 0)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
 	free_str_arr(valid_inst);
-	free(input);
-	return ;
 }

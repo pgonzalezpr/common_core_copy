@@ -21,6 +21,8 @@ char	*get_input(void)
 	if (!input)
 		return (NULL);
 	clean_input = ft_strtrim(input, "\n");
+	if (!clean_input)
+		return (NULL);
 	free(input);
 	return (clean_input);
 }
@@ -47,22 +49,27 @@ void	free_str_arr(char **str_arr)
 
 int	is_valid_inst(char **str_arr, char *str)
 {
-	int	i;
-	int	str_len;
+	int		i;
+	int		inst_len;
+	char	*inst;
 
 	i = 0;
-	str_len = ft_strlen(str);
-	ft_strtrim(str, "\n");
+	inst = ft_strtrim(str, "\n");
+	if (!inst)
+		return (0);
+	inst_len = ft_strlen(str);
 	while (str_arr[i] != NULL)
 	{
-		if (ft_strncmp(str_arr[i], str, max(str_len,
+		if (ft_strncmp(str_arr[i], str, max(inst_len,
 					ft_strlen(str_arr[i]))) == 0)
+		{
+			free(inst);
 			return (1);
+		}
 		i++;
 	}
-	free_str_arr(str_arr);
-	free(str);
 	ft_putstr_fd("Error \n", 2);
+	free(inst);
 	return (0);
 }
 
