@@ -33,16 +33,15 @@ void	exec_cmd(t_pipex *pipex_data, int index)
 	error("execve", pipex_data);
 }
 
-void	exec_child(t_pipex *pipex_data, int index, pid_t p_id)
+void	exec_child(t_pipex *pipex_data, int index)
 {
-	waitpid(p_id, NULL, 0);
 	dup_input(pipex_data, index);
 	dup_output(pipex_data, index);
 	close_pipes(pipex_data);
 	exec_cmd(pipex_data, index);
 }
 
-pid_t	create_child(t_pipex *pipex_data, int index, pid_t p_id)
+pid_t	create_child(t_pipex *pipex_data, int index)
 {
 	pid_t	child_id;
 
@@ -54,8 +53,10 @@ pid_t	create_child(t_pipex *pipex_data, int index, pid_t p_id)
 		if (index == -1)
 			here_doc(pipex_data);
 		else
-			exec_child(pipex_data, index, p_id);
+			exec_child(pipex_data, index);
 	}
+	if (index == -1)
+		waitpid(child_id, NULL, 0);
 	return (child_id);
 }
 
@@ -73,7 +74,7 @@ void	exec_pipex(t_pipex *pipex_data)
 	p_id = -1;
 	while (index < pipex_data->cmd_count)
 	{
-		p_id = create_child(pipex_data, index, p_id);
+		p_id = create_child(pipex_data, index);
 		index++;
 	}
 	close_pipes(pipex_data);

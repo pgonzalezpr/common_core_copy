@@ -80,7 +80,7 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 	if (pipex_data->pipe_fds)
 	{
 		i = 0;
-		while (i < pipex_data->cmd_count - 1)
+		while (i < pipex_data->cmd_count - 1 + pipex_data->here_doc)
 		{
 			if (pipex_data->pipe_fds[i])
 				free(pipex_data->pipe_fds[i]);
@@ -88,6 +88,8 @@ void	exit_pipex(t_pipex *pipex_data, int status)
 		}
 		free(pipex_data->pipe_fds);
 	}
+	if (pipex_data->delimiter)
+		free(pipex_data->delimiter);
 	free(pipex_data);
 	exit(status);
 }

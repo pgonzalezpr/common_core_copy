@@ -30,7 +30,8 @@ void	here_doc(t_pipex *pipex_data)
 		input = NULL;
 	}
 	close_pipes(pipex_data);
-	free(delimiter);
+	if (input)
+		free(input);
 	exit_pipex(pipex_data, EXIT_SUCCESS);
 }
 

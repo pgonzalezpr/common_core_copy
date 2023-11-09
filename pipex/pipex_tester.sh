@@ -28,7 +28,7 @@
 
 ./pipex unreadablefile.txt "cat" "wc -l" unwriteablefile.txt
 ./pipex infile.txt "hellocmd" "wc -z" outfile.txt
-./pipex infile.txt "cat" "ls -z" unwriteablefile.txt
+./pipex infile.txt "cat" "ls -z" unwriteablefile.txt    
 ./pipex nonexistingfile.txt "cat" "wc -z" outfile.txt
 ./pipex unreadablefile.txt "hellocmd" "wc -z" unwriteablefile.txt
 
