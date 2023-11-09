@@ -55,3 +55,4 @@ compare_outputs "infile.txt" "grep 'ipsum'" "sed 's/ipsum/IPSUM/g'" "grep 'IPSUM
 compare_outputs "infile.txt" "tr 'a-z' 'A-Z'" "sort" "uniq" "wc -l" "word_count.txt"
 compare_outputs "infile.txt" "grep 'Lorem'" "sed 's/Lorem/IPSUM/g'" "grep 'IPSUM'" "cut -d' ' -f2" "sort" "uniq" "unique_second_words.txt"
 compare_outputs "infile.txt" "grep 'Sed'" "sed 's/Sed/SED/g'" "grep 'SED'" "cut -d' ' -f3" "sort" "uniq" "wc -l" "count_of_unique_third_words.txt"
+
