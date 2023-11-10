@@ -46,20 +46,6 @@ t_stack	*new_stack(int *arr, int size)
 	return (stack);
 }
 
-int	*zero_array(int len)
-{
-	int	*arr;
-
-	if (len <= 0)
-		return (NULL);
-	arr = malloc(len * sizeof(int));
-	if (!arr)
-		return (NULL);
-	while (len > 0)
-		arr[--len] = 0;
-	return (arr);
-}
-
 void	run_push_swap(t_stack *stack_a, t_stack *stack_b)
 {
 	char	*input;
