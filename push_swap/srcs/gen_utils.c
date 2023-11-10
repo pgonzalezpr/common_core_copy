@@ -77,17 +77,3 @@ int	count_inst(int a_idx, t_stack *stack_a, t_stack *stack_b)
 	}
 	return (a_dist + b_dist);
 }
-
-int	*zero_array(int len)
-{
-	int	*arr;
-
-	if (len <= 0)
-		return (NULL);
-	arr = malloc(len * sizeof(int));
-	if (!arr)
-		return (NULL);
-	while (len > 0)
-		arr[--len] = 0;
-	return (arr);
-}

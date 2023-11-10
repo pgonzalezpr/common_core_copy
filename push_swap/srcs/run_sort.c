@@ -47,7 +47,7 @@ void	run_sort(int *arr, int len)
 		free_stack(stack_a);
 		exit(1);
 	}
-	stack_b = new_stack(zero_array(len), 0);
+	stack_b = new_stack(ft_calloc(len, sizeof(int)), 0);
 	if (!stack_b)
 	{
 		free_stack(stack_a);

@@ -21,7 +21,6 @@
 
 int		*process_input(char **input, int len);
 char	*get_input(void);
-int		*zero_array(int len);
 void	free_stack(t_stack *stack);
 t_stack	*new_stack(int *arr, int size);
 int		is_sorted(t_stack *stack);

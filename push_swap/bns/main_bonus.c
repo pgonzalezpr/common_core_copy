@@ -28,12 +28,12 @@ int	main(int argc, char **argv)
 	stack_a = new_stack(input_array, argc - 1);
 	if (!stack_a)
 		exit(1);
-	stack_b = new_stack(zero_array(argc - 1), 0);
+	stack_b = new_stack(ft_calloc(argc - 1, sizeof(int)), 0);
 	if (!stack_b)
 	{
 		free_stack(stack_a);
 		exit(1);
-	}
+	}	
 	run_push_swap(stack_a, stack_b);
 	free_stack(stack_a);
 	free_stack(stack_b);
