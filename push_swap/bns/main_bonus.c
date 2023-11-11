@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 	{
 		free_stack(stack_a);
 		exit(1);
-	}	
+	}
 	run_push_swap(stack_a, stack_b);
 	free_stack(stack_a);
 	free_stack(stack_b);
