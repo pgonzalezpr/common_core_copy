@@ -26,6 +26,8 @@ t_conversion	*init_conv(void)
 	conv->space = 0;
 	conv->min_width = 0;
 	conv->precision = 0;
+    conv->conv_len = 0;
+    conv->specifier = 0;
 	conv->conv_str = NULL;
 	return (conv);
 }
@@ -39,9 +41,17 @@ void	free_conv(t_conversion *conv)
 	free(conv);
 }
 
-int	parse_conv(const char *format, t_conversion *conv)
+int	parse_conv(const char *format, t_conversion *conv, va_list args)
 {
-    
+    format += parse_flags(format, conv);
+    format += parse_width(format, conv);
+    format += parse_precision(format, conv, args);
+    conv->specifier = *format;
+    conv->conv_len++;
+    conv->conv_str = build_conv_str(conv, args);
+    if (!conv->conv_str)
+        return (0);
+    return (1);
 }
 
 int	process_conversion(const char *format, char **buffer, va_list args)
@@ -53,7 +63,7 @@ int	process_conversion(const char *format, char **buffer, va_list args)
 	conv = init_conv();
 	if (!conv)
 		return (-1);
-	if (!parse_conv(format, conv))
+	if (!parse_conv(format, conv, args))
 	{
 		free_conv(conv);
 		return (-1);
@@ -68,5 +78,5 @@ int	process_conversion(const char *format, char **buffer, va_list args)
 	*buffer = tmp;
 	conv_len = conv->conv_len;
 	free_conv(conv);
-	return (ft_strlen(conv->conv_len));
+	return (conv_len);
 }

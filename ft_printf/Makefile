@@ -26,7 +26,7 @@ DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
 SRCS = ./srcs/ft_printf.c ./srcs/utils.c
-BONUS_SRCS = ./bns/ft_printf_bonus.c ./bns/conversion_bonus.c
+BONUS_SRCS = ./bns/ft_printf_bonus.c ./bns/conversion_bonus.c ./bns/parse_utils_bonus.c
 INCLUDE = ./include/ft_printf.h ./include/libft.h ./include/utils.h
 INCLUDE_BONUS = ./include/ft_printf_bonus.h ./include/libft.h ./include/utils_bonus.h
 
