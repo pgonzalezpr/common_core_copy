@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:19:35 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/16 12:19:35 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:11:20 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ static char	*build_line(int fd, char *saved, char *buff)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*saved[FOPEN_MAX];
+	static char	*saved[OPEN_MAX];
 	char		*buff;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)

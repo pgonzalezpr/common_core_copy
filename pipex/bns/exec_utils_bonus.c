@@ -39,9 +39,9 @@ void	dup_input(t_pipex *pipex_data, int index)
 		if (dup2(pipex_data->pipe_fds[0][0], STDIN_FILENO) == -1)
 			error("dup2", pipex_data);
 	}
-	else 
+	else
 	{
-		if (dup2(pipex_data->pipe_fds[index - 1 + pipex_data->here_doc][0], 
+		if (dup2(pipex_data->pipe_fds[index - 1 + pipex_data->here_doc][0],
 			STDIN_FILENO) == -1)
 			error("dup2", pipex_data);
 	}
@@ -70,7 +70,7 @@ void	dup_output(t_pipex *pipex_data, int index)
 	}
 	else
 	{
-		if (dup2(pipex_data->pipe_fds[index + pipex_data->here_doc][1], 
+		if (dup2(pipex_data->pipe_fds[index + pipex_data->here_doc][1],
 			STDOUT_FILENO) == -1)
 			error("dup2", pipex_data);
 	}
