@@ -41,7 +41,7 @@ DEPS_BONUS = $(addsuffix .d, $(basename $(BONUS_SRCS)))
 
 all:		$(NAME)	
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(INCLUDE)
 				@make -C $(LIBFT)
 				@cp libft/libft.a .
 				@mv libft.a $(NAME)

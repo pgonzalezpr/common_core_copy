@@ -20,28 +20,27 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define FLAGS "-0.# +"
+# define FLAGS "-0#+ "
 # define VALID_CONV "cspdiuxX"
 
 typedef struct s_conversion
 {
 	int		alt_form;
 	int		zero_padding;
-	int		left_adjusting;
+	int		left_adjustment;
 	int		sign;
 	int		space;
 	int		min_width;
 	int		precision;
 	int		conv_len;
-    char    specifier;
+	char	specifier;
 	char	*conv_str;
 }			t_conversion;
 
-int     process_conversion(const char *format, char **buffer, va_list args);
-int     add_char(char **buffer, char c);
-int     parse_flags(const char *format, t_conversion *conv);
-int     parse_width(const char *format, t_conversion *conv);
-int     parse_precision(const char *format, t_conversion *conv, va_list args);
-char    *build_conv_str(t_conversion *conv, va_list args);
+int			handle_conversion(const char *format, char **buffer, va_list args);
+int			parse_flags(const char *format, t_conversion *conv);
+int			parse_width(const char *format, t_conversion *conv);
+int			parse_precision(const char *format, t_conversion *conv);
+char		*build_conv_str(t_conversion *conv, va_list args);
 
-#endif // UTILS_BONUS_H
+#endif

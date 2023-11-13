@@ -2,5 +2,5 @@
 
 int	main()
 {
-	ft_printf("hello%sooWO%sRLDPGP\n"); 
+	ft_printf("hello%-#5.234sooWO%sRLDPGP\n"); 
 }
