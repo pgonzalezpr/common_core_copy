@@ -27,9 +27,21 @@ DARK_YELLOW =	\033[38;5;143m
 
 SRCS = ./srcs/ft_printf.c ./srcs/utils.c
 BONUS_SRCS = ./bns/ft_printf_bonus.c ./bns/conversion_bonus.c ./bns/parse_utils_bonus.c \
-				./bns/build_utils_bonus.c ./bns/build_str_bonus.c ./bns/buff_utils_bonus.c 
-INCLUDE = ./include/ft_printf.h ./include/libft.h ./include/utils.h
-INCLUDE_BONUS = ./include/ft_printf_bonus.h ./include/libft.h ./include/utils_bonus.h
+				./bns/build_utils_bonus.c ./bns/build_str_bonus.c ./bns/buff_utils_bonus.c
+LIBFT_SRCS = ./libft/ft_atoi.c ./libft/ft_putendl_fd.c ./libft/ft_strncmp.c \
+			./libft/ft_bzero.c ./libft/ft_putnbr_fd.c ./libft/ft_strnstr.c \
+			./libft/ft_calloc.c ./libft/ft_putstr_fd.c ./libft/ft_strrchr.c \
+			./libft/ft_isalnum.c ./libft/ft_split.c ./libft/ft_strtrim.c \
+			./libft/ft_isalpha.c ./libft/ft_strchr.c ./libft/ft_substr.c \
+			./libft/ft_isascii.c ./libft/ft_strdup.c ./libft/ft_tolower.c \
+			./libft/ft_isdigit.c ./libft/ft_memchr.c ./libft/ft_striteri.c ./libft/ft_toupper.c \
+			./libft/ft_isprint.c ./libft/ft_memcmp.c ./libft/ft_strjoin.c \
+			./libft/ft_itoa.c ./libft/ft_memcpy.c ./libft/ft_strlcat.c \
+			./libft/ft_memmove.c ./libft/ft_strlcpy.c ./libft/ft_memset.c \
+			./libft/ft_strlen.c ./libft/ft_putchar_fd.c ./libft/ft_strmapi.c
+
+INCLUDE = ./include/ft_printf.h ./include/libft.h ./include/utils.h ./libft/libft.h
+INCLUDE_BONUS = ./include/ft_printf_bonus.h ./include/libft.h ./libft/libft.h ./include/utils_bonus.h
 
 %.o: %.c ${INCLUDE}
 			@${CC} ${CFLAGS} -c $< -o $@
@@ -42,14 +54,14 @@ DEPS_BONUS = $(addsuffix .d, $(basename $(BONUS_SRCS)))
 
 all:		$(NAME)	
 
-$(NAME):	$(OBJS) $(INCLUDE)
+$(NAME):	$(OBJS) $(INCLUDE) $(LIBFT_SRCS) Makefile
 				@make -C $(LIBFT)
 				@cp libft/libft.a .
 				@mv libft.a $(NAME)
 				@$(AR) $(NAME) $(OBJS)
 				@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
-bonus:		$(BONUS_OBJS) $(INCLUDE_BONUS) Makefile
+bonus:		$(BONUS_OBJS) $(INCLUDE_BONUS) $(LIBFT_SRCS) Makefile
 				@make -C $(LIBFT)
 				@cp libft/libft.a .
 				@mv libft.a $(NAME)
