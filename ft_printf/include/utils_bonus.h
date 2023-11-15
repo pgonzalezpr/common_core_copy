@@ -61,7 +61,6 @@ int			zero_pad_buff(char *buff, t_conversion *conv, int offset,
 int			copy_nbr_buff(char *nbr_str, char *buff, t_conversion *conv);
 int			prepend_buff(char *buff, t_conversion *conv, int offset,
 				int is_negative);
-void		print_conv(t_conversion *conv);
 char		*join_buffer(char *first, int first_size, char *second,
 				int second_size);
 
