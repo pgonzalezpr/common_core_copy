@@ -95,18 +95,3 @@ int	handle_conversion(const char *format, char **buffer, int *size,
 	free_conv(conv);
 	return (conv_len);
 }
-
-/*
-void	print_conv(t_conversion *conv)
-{
-	printf("alt_form: %d\n", conv->alt_form);
-	printf("zero_padding: %d\n", conv->zero_padding);
-	printf("left_adjustment: %d\n", conv->left_adjustment);
-	printf("sign: %d\n", conv->sign);
-	printf("space: %d\n", conv->space);
-	printf("min_width: %d\n", conv->min_width);
-	printf("precision: %d\n", conv->prec);
-	printf("conv_len: %d\n", conv->conv_len);
-	printf("specifier: %c\n", conv->specifier);
-	printf("buff width: %d\n", conv->buff_width);
-}*/
