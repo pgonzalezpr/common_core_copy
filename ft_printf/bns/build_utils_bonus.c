@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_utils_bonus.c                                  :+:      :+:    :+: */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/12 12:12:35 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/12 12:12:37 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/utils_bonus.h"
 
 void	fill_blanks(char *buff, int size)
@@ -64,7 +76,7 @@ int	get_buff_width(t_conversion *conv, char *nbr_str)
 
 void	fill_buff_left(char *nbr_str, char *buff, t_conversion *conv)
 {
-	int				offset;
+	int	offset;
 	int	copied;
 
 	offset = 0;
@@ -83,7 +95,7 @@ void	fill_buff_left(char *nbr_str, char *buff, t_conversion *conv)
 		buff[offset++] = 'x';
 	}
 	copied = 0;
-	while (conv->prec != -1 && copied < conv->prec - (int) ft_strlen(nbr_str))
+	while (conv->prec != -1 && copied < conv->prec - (int)ft_strlen(nbr_str))
 	{
 		buff[offset++] = '0';
 		copied++;
@@ -91,13 +103,12 @@ void	fill_buff_left(char *nbr_str, char *buff, t_conversion *conv)
 	ft_memcpy(buff + offset, nbr_str, ft_strlen(nbr_str));
 }
 
-void	fill_buff(char *nbr_str, char *buff, t_conversion *conv, int width)
+void	fill_buff(char *nbr_str, char *buff, t_conversion *conv)
 {
 	int	is_negative;
 	int	offset;
 
-    is_negative = 0;
-	buff[width] = '\0';
+	is_negative = 0;
 	if (conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0)
 		return ;
 	if (conv->left_adjustment)
@@ -111,12 +122,9 @@ void	fill_buff(char *nbr_str, char *buff, t_conversion *conv, int width)
 		is_negative = 1;
 		nbr_str++;
 	}
-	offset = width - 1;
-	offset -= copy_nbr_buff(nbr_str, buff, conv, width);
-	//printf("buffer: %s, offset: %d\n", buff, offset);	
+	offset = conv->buff_width - 1;
+	offset -= copy_nbr_buff(nbr_str, buff, conv);
 	if (conv->zero_padding)
 		offset -= zero_pad_buff(buff, conv, offset, is_negative);
-	//printf("buffer: %s, offset: %d\n", buff, offset);	
 	offset -= prepend_buff(buff, conv, offset, is_negative);
-	//printf("buffer: %s, offset: %d\n", buff, offset);	
 }

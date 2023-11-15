@@ -12,7 +12,54 @@
 
 #include "../include/utils_bonus.h"
 
-int	handle_non_conversion(const char *format, char **buffer)
+char	*build_char(t_conversion *conv, char c)
+{
+	char	*buff;
+
+	conv->buff_width = 1;
+	if (conv->min_width > conv->buff_width)
+		conv->buff_width = conv->min_width;
+	buff = malloc((conv->buff_width) * sizeof(char));
+	if (!buff)
+		return (NULL);
+	fill_blanks(buff, conv->buff_width);
+	if (conv->left_adjustment)
+		buff[0] = c;
+	else
+		buff[conv->buff_width - 1] = c;
+	return (buff);
+}
+
+char	*build_str(t_conversion *conv, char *str)
+{
+	int		len;
+	char	*buff;
+	int		start;
+
+	if (!str)
+	{
+		str = "(null)";
+		if (conv->prec != -1 && conv->prec < 6)
+			conv->prec = 0;
+	}
+	len = ft_strlen(str);
+	if (conv->prec != -1 && conv->prec < len)
+		len = conv->prec;
+	conv->buff_width = len;
+	if (conv->buff_width < conv->min_width)
+		conv->buff_width = conv->min_width;
+	buff = malloc((conv->buff_width) * sizeof(char));
+	if (!buff)
+		return (NULL);
+	fill_blanks(buff, conv->buff_width);
+	start = conv->buff_width - len;
+	if (conv->left_adjustment)
+		start = 0;
+	ft_memcpy(buff + start, str, len);
+	return (buff);
+}
+
+int	handle_non_conversion(const char *format, char **buffer, int *size)
 {
 	int		count;
 	char	*start;
@@ -26,20 +73,19 @@ int	handle_non_conversion(const char *format, char **buffer)
 		format++;
 		count++;
 	}
-	arr = malloc((count + 1) * sizeof(char));
+	arr = malloc(count * sizeof(char));
 	if (!arr)
 		return (-1);
-	ft_strlcpy(arr, start, count + 1);
-	join = ft_strjoin(*buffer, arr);
+	ft_memcpy(arr, start, count);
+	join = join_buffer(*buffer, *size, arr, count);
 	free(arr);
-	if (!join)
-		return (-1);
 	free(*buffer);
 	*buffer = join;
+	*size = *size + count;
 	return (count);
 }
 
-int	process_format(const char *format, va_list args, char **buffer)
+int	process_format(const char *format, va_list args, char **buffer, int *size)
 {
 	int	conv_len;
 	int	non_conv_len;
@@ -48,14 +94,14 @@ int	process_format(const char *format, va_list args, char **buffer)
 	{
 		if (*format != '%')
 		{
-			non_conv_len = handle_non_conversion(format, buffer);
+			non_conv_len = handle_non_conversion(format, buffer, size);
 			if (non_conv_len == -1)
 				return (0);
 			format += non_conv_len;
 		}
 		if (*format == '%')
 		{
-			conv_len = handle_conversion(++format, buffer, args);
+			conv_len = handle_conversion(++format, buffer, size, args);
 			if (conv_len == -1)
 				return (0);
 			format += conv_len;
@@ -67,20 +113,18 @@ int	process_format(const char *format, va_list args, char **buffer)
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	size_t	size;
+	int		size;
 	char	*buffer;
 
 	va_start(args, format);
-	buffer = ft_strdup("");
-	if (!buffer)
-		return (-1);
-	if (!process_format(format, args, &buffer))
+	buffer = NULL;
+	size = 0;
+	if (!process_format(format, args, &buffer, &size))
 	{
 		free(buffer);
 		return (-1);
 	}
 	va_end(args);
-	size = ft_strlen(buffer);
 	if (write(1, buffer, size) == -1)
 	{
 		free(buffer);

@@ -28,7 +28,8 @@ t_conversion	*init_conv(void)
 	conv->prec = -1;
 	conv->conv_len = 0;
 	conv->specifier = 0;
-	conv->conv_str = NULL;
+	conv->buff = NULL;
+	conv->buff_width = 0;
 	return (conv);
 }
 
@@ -36,22 +37,9 @@ void	free_conv(t_conversion *conv)
 {
 	if (!conv)
 		return ;
-	if (conv->conv_str)
-		free(conv->conv_str);
+	if (conv->buff)
+		free(conv->buff);
 	free(conv);
-}
-
-void	print_conv(t_conversion *conv)
-{
-	printf("alt_form: %d\n", conv->alt_form);
-	printf("zero_padding: %d\n", conv->zero_padding);
-	printf("left_adjustment: %d\n", conv->left_adjustment);
-	printf("sign: %d\n", conv->sign);
-	printf("space: %d\n", conv->space);
-	printf("min_width: %d\n", conv->min_width);
-	printf("precision: %d\n", conv->prec);
-	printf("conv_len: %d\n", conv->conv_len);
-	printf("specifier: %c\n", conv->specifier);
 }
 
 int	parse_conv(const char *format, t_conversion *conv, va_list args)
@@ -61,13 +49,26 @@ int	parse_conv(const char *format, t_conversion *conv, va_list args)
 	format += parse_precision(format, conv, args);
 	conv->specifier = *format;
 	conv->conv_len++;
-	conv->conv_str = build_conv_str(conv, args);
-	if (!conv->conv_str)
+	conv->buff = build_buff(conv, args);
+	if (!conv->buff)
 		return (0);
 	return (1);
 }
 
-int	handle_conversion(const char *format, char **buffer, va_list args)
+char	*join_buffer(char *first, int first_size, char *second, int second_size)
+{
+	char	*new;
+
+	new = malloc((first_size + second_size) * sizeof(char));
+	if (!new)
+		return (NULL);
+	ft_memcpy(new, first, first_size);
+	ft_memcpy(new + first_size, second, second_size);
+	return (new);
+}
+
+int	handle_conversion(const char *format, char **buffer, int *size,
+		va_list args)
 {
 	t_conversion	*conv;
 	char			*tmp;
@@ -81,18 +82,31 @@ int	handle_conversion(const char *format, char **buffer, va_list args)
 		free_conv(conv);
 		return (-1);
 	}
-	write(2, conv->conv_str, ft_strlen(conv->conv_str));
-	write(2, "\n", 1);
-	tmp = ft_strjoin(*buffer, conv->conv_str);
+	tmp = join_buffer(*buffer, *size, conv->buff, conv->buff_width);
 	if (!tmp)
 	{
 		free_conv(conv);
 		return (-1);
 	}
-	write(2, "tmp done\n", 9);
-	free(*buffer); // PROBLEMA DEL TEST QUE FALLA
+	free(*buffer);
 	*buffer = tmp;
+	*size = *size + conv->buff_width;
 	conv_len = conv->conv_len;
 	free_conv(conv);
 	return (conv_len);
 }
+
+/*
+void	print_conv(t_conversion *conv)
+{
+	printf("alt_form: %d\n", conv->alt_form);
+	printf("zero_padding: %d\n", conv->zero_padding);
+	printf("left_adjustment: %d\n", conv->left_adjustment);
+	printf("sign: %d\n", conv->sign);
+	printf("space: %d\n", conv->space);
+	printf("min_width: %d\n", conv->min_width);
+	printf("precision: %d\n", conv->prec);
+	printf("conv_len: %d\n", conv->conv_len);
+	printf("specifier: %c\n", conv->specifier);
+	printf("buff width: %d\n", conv->buff_width);
+}*/

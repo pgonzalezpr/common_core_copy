@@ -55,7 +55,7 @@ int	parse_width(const char *format, t_conversion *conv, va_list args)
 		count++;
 		format++;
 	}
-	conv->min_width = width;    
+	conv->min_width = width;
 	conv->conv_len += count;
 	return (count);
 }
@@ -87,7 +87,7 @@ int	parse_precision(const char *format, t_conversion *conv, va_list args)
 	return (count);
 }
 
-char	*build_conv_str(t_conversion *conv, va_list args)
+char	*build_buff(t_conversion *conv, va_list args)
 {
 	char	sp;
 
@@ -107,6 +107,10 @@ char	*build_conv_str(t_conversion *conv, va_list args)
 	if (sp == 'X')
 		return (build_nbr_base(conv, va_arg(args, unsigned int), HEX_UP_BASE));
 	if (sp == '%')
-		return (ft_strdup("%"));
+	{
+		conv->min_width = 0;
+		conv->left_adjustment = 0;
+		return (build_char(conv, '%'));
+	}
 	return (NULL);
 }

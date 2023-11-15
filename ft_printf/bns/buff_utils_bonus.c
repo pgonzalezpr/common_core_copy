@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   buff_utils_bonus.c                                  :+:      :+:    :+:  */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/12 12:12:35 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/12 12:12:37 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/utils_bonus.h"
 
-int	copy_nbr_buff(char *nbr_str, char *buff, t_conversion *conv, int width)
+int	copy_nbr_buff(char *nbr_str, char *buff, t_conversion *conv)
 {
-	int				len;
-	int	            copied;
-	int	            offset;
+	int	len;
+	int	copied;
+	int	offset;
 
 	len = ft_strlen(nbr_str);
 	copied = 0;
-	ft_memcpy(buff + (width - len), nbr_str, len);
+	ft_memcpy(buff + (conv->buff_width - len), nbr_str, len);
 	copied += len;
-	offset = width - len - 1;
+	offset = conv->buff_width - len - 1;
 	if (conv->prec == -1)
 		return (copied);
 	while (copied < conv->prec)

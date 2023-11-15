@@ -36,15 +36,17 @@ typedef struct s_conversion
 	int		prec;
 	int		conv_len;
 	char	specifier;
-	char	*conv_str;
+	char	*buff;
+	int		buff_width;
 }			t_conversion;
 
-int			handle_conversion(const char *format, char **buffer, va_list args);
+int			handle_conversion(const char *format, char **buffer, int *size,
+				va_list args);
 int			parse_flags(const char *format, t_conversion *conv);
 int			parse_width(const char *format, t_conversion *conv, va_list args);
 int			parse_precision(const char *format, t_conversion *conv,
 				va_list args);
-char		*build_conv_str(t_conversion *conv, va_list args);
+char		*build_buff(t_conversion *conv, va_list args);
 char		*build_char(t_conversion *conv, char c);
 char		*build_str(t_conversion *conv, char *str);
 char		*build_ptr(t_conversion *conv, void *ptr);
@@ -53,12 +55,14 @@ char		*build_nbr_base(t_conversion *conv, unsigned long nbr, char *base);
 void		fill_blanks(char *str, int size);
 char		*ft_itoa_base(unsigned long nbr, char *base);
 int			get_buff_width(t_conversion *conv, char *nbr_str);
-void		fill_buff(char *nbr_str, char *buff, t_conversion *conv, int width);
-int			zero_pad_buff(char *buff, t_conversion *conv, int offset, int is_negative);
-int			copy_nbr_buff(char *nbr_str, char *buff, t_conversion *conv,
-				int width);
+void		fill_buff(char *nbr_str, char *buff, t_conversion *conv);
+int			zero_pad_buff(char *buff, t_conversion *conv, int offset,
+				int is_negative);
+int			copy_nbr_buff(char *nbr_str, char *buff, t_conversion *conv);
 int			prepend_buff(char *buff, t_conversion *conv, int offset,
 				int is_negative);
 void		print_conv(t_conversion *conv);
+char		*join_buffer(char *first, int first_size, char *second,
+				int second_size);
 
 #endif

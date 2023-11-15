@@ -1,14 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_str_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/12 12:12:35 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/12 12:12:37 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/utils_bonus.h"
 
-char	*build_nbr_base(t_conversion *conv, unsigned long nbr, char *base)
+void	sanitize_conv_base(t_conversion *conv)
 {
-	char	*nbr_str;
-	int		width;
-	char	*buff;
-
-	nbr_str = ft_itoa_base(nbr, base);
-	if (!nbr_str)
-		return (NULL);
 	if (conv->specifier == 'u')
 		conv->alt_form = 0;
 	if (conv->specifier == 'x' || conv->specifier == 'X')
@@ -16,60 +21,66 @@ char	*build_nbr_base(t_conversion *conv, unsigned long nbr, char *base)
 		conv->sign = 0;
 		conv->space = 0;
 	}
-    if (conv->prec != -1)
-    {
-        conv->zero_padding = 0;
-    }
-	width = conv->min_width;
-	//printf("width: %d, nbr_str: %s\n", width, nbr_str);
-    if (!(conv->prec == 0 && nbr == 0))
-		width = get_buff_width(conv, nbr_str);
-	buff = malloc((width + 1) * sizeof(char));
+	if (conv->prec != -1)
+		conv->zero_padding = 0;
+}
+
+char	*build_nbr_base(t_conversion *conv, unsigned long nbr, char *base)
+{
+	char	*nbr_str;
+	char	*buff;
+
+	nbr_str = ft_itoa_base(nbr, base);
+	if (!nbr_str)
+		return (NULL);
+	sanitize_conv_base(conv);
+	conv->buff_width = conv->min_width;
+	if (!(conv->prec == 0 && nbr == 0))
+		conv->buff_width = get_buff_width(conv, nbr_str);
+	buff = malloc((conv->buff_width) * sizeof(char));
 	if (!buff)
 	{
 		free(nbr_str);
 		return (NULL);
 	}
-	fill_blanks(buff, width + 1);
-	//print_conv(conv);
-	fill_buff(nbr_str, buff, conv, width);
-	//printf("%s\n", buff);
+	fill_blanks(buff, conv->buff_width);
+	fill_buff(nbr_str, buff, conv);
 	free(nbr_str);
 	return (buff);
 }
 
-char	*build_int(t_conversion *conv, int nbr)
+void	sanitize_conv_int(t_conversion *conv, int nbr)
 {
-	char	*nbr_str;
-	int		width;
-	char	*buff;
-
-	nbr_str = ft_itoa(nbr);
-	if (!nbr_str)
-		return (NULL);
 	conv->alt_form = 0;
 	if (nbr < 0)
 	{
 		conv->sign = 0;
 		conv->space = 0;
 	}
-    if (conv->prec != -1)
-    {
-        conv->zero_padding = 0;
-    }
-	width = conv->min_width;
-    if (!(conv->prec == 0 && nbr == 0))
-		width = get_buff_width(conv, nbr_str);
-	buff = malloc((width + 1) * sizeof(char));
+	if (conv->prec != -1)
+		conv->zero_padding = 0;
+}
+
+char	*build_int(t_conversion *conv, int nbr)
+{
+	char	*nbr_str;
+	char	*buff;
+
+	nbr_str = ft_itoa(nbr);
+	if (!nbr_str)
+		return (NULL);
+	sanitize_conv_int(conv, nbr);
+	conv->buff_width = conv->min_width;
+	if (!(conv->prec == 0 && nbr == 0))
+		conv->buff_width = get_buff_width(conv, nbr_str);
+	buff = malloc((conv->buff_width) * sizeof(char));
 	if (!buff)
 	{
 		free(nbr_str);
 		return (NULL);
 	}
-	fill_blanks(buff, width + 1);
-    //printf("HEREE width: %d\n", width);
-    //print_conv(conv);
-	fill_buff(nbr_str, buff, conv, width);
+	fill_blanks(buff, conv->buff_width);
+	fill_buff(nbr_str, buff, conv);
 	free(nbr_str);
 	return (buff);
 }
@@ -82,63 +93,12 @@ char	*build_ptr(t_conversion *conv, void *ptr)
 	conv->zero_padding = 0;
 	conv->sign = 0;
 	conv->space = 0;
-    conv->prec = -1;
+	conv->prec = -1;
 	conv->specifier = 'x';
-    if (!ptr)
-    {
-        return (build_str(conv, "(nil)"));
-    }
+	if (!ptr)
+	{
+		return (build_str(conv, "(nil)"));
+	}
 	ptr_nbr = (unsigned long)ptr;
 	return (build_nbr_base(conv, ptr_nbr, HEX_LOW_BASE));
-}
-
-char	*build_char(t_conversion *conv, char c)
-{
-	int		width;
-	char	*buff;
-
-	width = 1;
-	if (conv->min_width > width)
-		width = conv->min_width;
-	buff = malloc((width + 1) * sizeof(char));
-	if (!buff)
-		return (NULL);
-	fill_blanks(buff, width + 1);
-	buff[width] = '\0';
-	if (conv->left_adjustment)
-		buff[0] = c;
-	else
-		buff[width - 1] = c;
-	return (buff);
-}
-
-char	*build_str(t_conversion *conv, char *str)
-{
-	int		width;
-	int		len;
-	char	*buff;
-	char	start;
-
-    if (!str)
-    {
-        str = "(null)";
-        if (conv->prec != -1 && conv->prec < 6)
-            conv->prec = 0;
-    }
-	len = ft_strlen(str);
-	if (conv->prec != -1 && conv->prec < len)
-		len = conv->prec;
-	width = len;
-	if (width < conv->min_width)
-		width = conv->min_width;
-	buff = malloc((width + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	fill_blanks(buff, width + 1);
-	buff[width] = '\0';
-	start = width - len;
-	if (conv->left_adjustment)
-		start = 0;
-	ft_memcpy(buff + start, str, len);
-	return (buff);
 }
