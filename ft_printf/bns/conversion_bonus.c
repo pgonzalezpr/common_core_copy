@@ -25,7 +25,7 @@ t_conversion	*init_conv(void)
 	conv->sign = 0;
 	conv->space = 0;
 	conv->min_width = 0;
-	conv->precision = 0;
+	conv->prec = -1;
 	conv->conv_len = 0;
 	conv->specifier = 0;
 	conv->conv_str = NULL;
@@ -41,11 +41,24 @@ void	free_conv(t_conversion *conv)
 	free(conv);
 }
 
+void	print_conv(t_conversion *conv)
+{
+	printf("alt_form: %d\n", conv->alt_form);
+	printf("zero_padding: %d\n", conv->zero_padding);
+	printf("left_adjustment: %d\n", conv->left_adjustment);
+	printf("sign: %d\n", conv->sign);
+	printf("space: %d\n", conv->space);
+	printf("min_width: %d\n", conv->min_width);
+	printf("precision: %d\n", conv->prec);
+	printf("conv_len: %d\n", conv->conv_len);
+	printf("specifier: %c\n", conv->specifier);
+}
+
 int	parse_conv(const char *format, t_conversion *conv, va_list args)
 {
 	format += parse_flags(format, conv);
-	format += parse_width(format, conv);
-	format += parse_precision(format, conv);
+	format += parse_width(format, conv, args);
+	format += parse_precision(format, conv, args);
 	conv->specifier = *format;
 	conv->conv_len++;
 	conv->conv_str = build_conv_str(conv, args);
@@ -68,13 +81,16 @@ int	handle_conversion(const char *format, char **buffer, va_list args)
 		free_conv(conv);
 		return (-1);
 	}
+	write(2, conv->conv_str, ft_strlen(conv->conv_str));
+	write(2, "\n", 1);
 	tmp = ft_strjoin(*buffer, conv->conv_str);
 	if (!tmp)
 	{
 		free_conv(conv);
 		return (-1);
 	}
-	free(*buffer);
+	write(2, "tmp done\n", 9);
+	free(*buffer); // PROBLEMA DEL TEST QUE FALLA
 	*buffer = tmp;
 	conv_len = conv->conv_len;
 	free_conv(conv);

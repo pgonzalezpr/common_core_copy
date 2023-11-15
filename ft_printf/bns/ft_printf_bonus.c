@@ -20,7 +20,7 @@ int	handle_non_conversion(const char *format, char **buffer)
 	char	*join;
 
 	count = 0;
-	start = (char *) format;
+	start = (char *)format;
 	while (*format && *format != '%')
 	{
 		format++;
