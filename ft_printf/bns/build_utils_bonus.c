@@ -61,6 +61,8 @@ int	get_buff_width(t_conversion *conv, char *nbr_str)
 		nbr_str++;
 	}
 	width = ft_strlen(nbr_str);
+	if (conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0 && conv->specifier != 'p')
+		width = 0;
 	if (conv->prec > width)
 		width = conv->prec;
 	if (is_negative)
@@ -100,7 +102,9 @@ void	fill_buff_left(char *nbr_str, char *buff, t_conversion *conv)
 		buff[offset++] = '0';
 		copied++;
 	}
-	ft_memcpy(buff + offset, nbr_str, ft_strlen(nbr_str));
+	if (!(conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0
+			&& conv->specifier != 'p'))
+		ft_memcpy(buff + offset, nbr_str, ft_strlen(nbr_str));
 }
 
 void	fill_buff(char *nbr_str, char *buff, t_conversion *conv)
@@ -109,8 +113,6 @@ void	fill_buff(char *nbr_str, char *buff, t_conversion *conv)
 	int	offset;
 
 	is_negative = 0;
-	if (conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0)
-		return ;
 	if (conv->left_adjustment)
 	{
 		conv->zero_padding = 0;
@@ -123,7 +125,9 @@ void	fill_buff(char *nbr_str, char *buff, t_conversion *conv)
 		nbr_str++;
 	}
 	offset = conv->buff_width - 1;
-	offset -= copy_nbr_buff(nbr_str, buff, conv);
+	if (!(conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0
+			&& conv->specifier != 'p'))
+		offset -= copy_nbr_buff(nbr_str, buff, conv);
 	if (conv->zero_padding)
 		offset -= zero_pad_buff(buff, conv, offset, is_negative);
 	offset -= prepend_buff(buff, conv, offset, is_negative);

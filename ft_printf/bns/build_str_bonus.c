@@ -71,9 +71,7 @@ char	*build_int(t_conversion *conv, int nbr)
 	if (!nbr_str)
 		return (NULL);
 	sanitize_conv_int(conv, nbr);
-	conv->buff_width = conv->min_width;
-	if (!(conv->prec == 0 && nbr == 0))
-		conv->buff_width = get_buff_width(conv, nbr_str);
+	conv->buff_width = get_buff_width(conv, nbr_str);
 	buff = malloc((conv->buff_width) * sizeof(char));
 	if (!buff)
 	{

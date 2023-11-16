@@ -9,7 +9,8 @@
         "initializer_list": "c",
         "utility": "c",
         "random": "c",
-        "cstdarg": "c"
+        "cstdarg": "c",
+        "ios": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
