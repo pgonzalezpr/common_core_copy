@@ -12,6 +12,14 @@
 
 #include "../include/utils_bonus.h"
 
+void	copy_nbr_buff_left(char *buff, int offset, char *nbr_str,
+		t_conversion *conv)
+{
+	if (!(conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0
+			&& conv->specifier != 'p'))
+		ft_memcpy(buff + offset, nbr_str, ft_strlen(nbr_str));
+}
+
 int	copy_nbr_buff(char *nbr_str, char *buff, t_conversion *conv)
 {
 	int	len;

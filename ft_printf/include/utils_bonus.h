@@ -64,5 +64,7 @@ int			prepend_buff(char *buff, t_conversion *conv, int offset,
 				int is_negative);
 char		*join_buffer(char *first, int first_size, char *second,
 				int second_size);
+void		copy_nbr_buff_left(char *buff, int offset, char *nbr_str,
+				t_conversion *conv);
 
 #endif

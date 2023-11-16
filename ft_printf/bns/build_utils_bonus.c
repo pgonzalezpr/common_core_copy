@@ -61,7 +61,8 @@ int	get_buff_width(t_conversion *conv, char *nbr_str)
 		nbr_str++;
 	}
 	width = ft_strlen(nbr_str);
-	if (conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0 && conv->specifier != 'p')
+	if (conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0
+		&& conv->specifier != 'p')
 		width = 0;
 	if (conv->prec > width)
 		width = conv->prec;
@@ -102,9 +103,7 @@ void	fill_buff_left(char *nbr_str, char *buff, t_conversion *conv)
 		buff[offset++] = '0';
 		copied++;
 	}
-	if (!(conv->prec == 0 && ft_strncmp(nbr_str, "0", ft_strlen(nbr_str)) == 0
-			&& conv->specifier != 'p'))
-		ft_memcpy(buff + offset, nbr_str, ft_strlen(nbr_str));
+	copy_nbr_buff_left(buff, offset, nbr_str, conv);
 }
 
 void	fill_buff(char *nbr_str, char *buff, t_conversion *conv)
