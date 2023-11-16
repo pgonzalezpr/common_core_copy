@@ -38,6 +38,7 @@ typedef struct s_conversion
 	char	specifier;
 	char	*buff;
 	int		buff_width;
+	char	hex_sep;
 }			t_conversion;
 
 int			handle_conversion(const char *format, char **buffer, int *size,

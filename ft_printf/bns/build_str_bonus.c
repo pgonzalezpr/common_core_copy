@@ -12,14 +12,15 @@
 
 #include "../include/utils_bonus.h"
 
-void	sanitize_conv_base(t_conversion *conv)
+void	sanitize_conv_base(t_conversion *conv, unsigned long nbr)
 {
-	if (conv->specifier == 'u')
+	if ((conv->specifier == 'u' || nbr == 0) && conv->specifier != 'p')
 		conv->alt_form = 0;
 	if (conv->specifier == 'x' || conv->specifier == 'X')
 	{
 		conv->sign = 0;
 		conv->space = 0;
+		conv->hex_sep = conv->specifier;
 	}
 	if (conv->prec != -1)
 		conv->zero_padding = 0;
@@ -33,7 +34,7 @@ char	*build_nbr_base(t_conversion *conv, unsigned long nbr, char *base)
 	nbr_str = ft_itoa_base(nbr, base);
 	if (!nbr_str)
 		return (NULL);
-	sanitize_conv_base(conv);
+	sanitize_conv_base(conv, nbr);
 	conv->buff_width = conv->min_width;
 	if (!(conv->prec == 0 && nbr == 0))
 		conv->buff_width = get_buff_width(conv, nbr_str);
@@ -94,11 +95,6 @@ char	*build_ptr(t_conversion *conv, void *ptr)
 	conv->sign = 0;
 	conv->space = 0;
 	conv->prec = -1;
-	conv->specifier = 'x';
-	if (!ptr)
-	{
-		return (build_str(conv, "(nil)"));
-	}
 	ptr_nbr = (unsigned long)ptr;
 	return (build_nbr_base(conv, ptr_nbr, HEX_LOW_BASE));
 }

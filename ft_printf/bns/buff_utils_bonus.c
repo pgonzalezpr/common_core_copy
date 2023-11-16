@@ -74,7 +74,7 @@ int	prepend_buff(char *buff, t_conversion *conv, int offset, int is_negative)
 	}
 	if (conv->alt_form)
 	{
-		buff[offset--] = 'x';
+		buff[offset--] = conv->hex_sep;
 		buff[offset--] = '0';
 		copied += 2;
 	}

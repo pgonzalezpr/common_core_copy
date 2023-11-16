@@ -15,6 +15,7 @@
 char	*build_char(t_conversion *conv, char c)
 {
 	char	*buff;
+	int		offset;
 
 	conv->buff_width = 1;
 	if (conv->min_width > conv->buff_width)
@@ -26,7 +27,15 @@ char	*build_char(t_conversion *conv, char c)
 	if (conv->left_adjustment)
 		buff[0] = c;
 	else
-		buff[conv->buff_width - 1] = c;
+	{
+		offset = conv->buff_width - 1;
+		buff[offset--] = c;
+		if (conv->zero_padding)
+		{
+			while (offset >= 0)
+				buff[offset--] = '0';
+		}
+	}
 	return (buff);
 }
 
@@ -37,11 +46,7 @@ char	*build_str(t_conversion *conv, char *str)
 	int		start;
 
 	if (!str)
-	{
 		str = "(null)";
-		if (conv->prec != -1 && conv->prec < 6)
-			conv->prec = 0;
-	}
 	len = ft_strlen(str);
 	if (conv->prec != -1 && conv->prec < len)
 		len = conv->prec;

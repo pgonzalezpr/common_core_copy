@@ -107,10 +107,6 @@ char	*build_buff(t_conversion *conv, va_list args)
 	if (sp == 'X')
 		return (build_nbr_base(conv, va_arg(args, unsigned int), HEX_UP_BASE));
 	if (sp == '%')
-	{
-		conv->min_width = 0;
-		conv->left_adjustment = 0;
 		return (build_char(conv, '%'));
-	}
 	return (NULL);
 }

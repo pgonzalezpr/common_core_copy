@@ -92,7 +92,7 @@ void	fill_buff_left(char *nbr_str, char *buff, t_conversion *conv)
 	if (conv->alt_form)
 	{
 		buff[offset++] = '0';
-		buff[offset++] = 'x';
+		buff[offset++] = conv->hex_sep;
 	}
 	copied = 0;
 	while (conv->prec != -1 && copied < conv->prec - (int)ft_strlen(nbr_str))

@@ -30,6 +30,7 @@ t_conversion	*init_conv(void)
 	conv->specifier = 0;
 	conv->buff = NULL;
 	conv->buff_width = 0;
+	conv->hex_sep = 'x';
 	return (conv);
 }
 
