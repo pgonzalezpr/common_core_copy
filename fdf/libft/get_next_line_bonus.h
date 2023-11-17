@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 11:39:44 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/16 11:39:45 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 12:20:19 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/11 16:05:46 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-void	ft_bzero(void *s, size_t n)
-{
-	char	*str;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-	str = (char *)s;
-	while (n > 0)
-	{
-		*str = '\0';
-		str++;
-		n--;
-	}
-}
+# include <fcntl.h>
+# include <limits.h>
+# include "libft.h"
+
+#endif

@@ -68,7 +68,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-int					ft_printf(const char *format, ...);
+int					ft_dprintf(int fd, const char *format, ...);
 char				*get_next_line(int fd);
 
 #endif // LIBFT_LIBFT_H

@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 12:19:30 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:59:58 by pedro-go         ###   ########.fr       */
+/*   Created: 2023/09/16 12:19:35 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/11 15:11:20 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <fcntl.h>
-
-static int	g_buffer_size = 42;
+#include "get_next_line_bonus.h"
 
 static char	*extract_saved(char *line)
 {
@@ -43,7 +40,7 @@ static char	*build_line(int fd, char *saved, char *buff)
 	read_values = 1;
 	while (read_values != 0)
 	{
-		read_values = read(fd, buff, g_buffer_size);
+		read_values = read(fd, buff, BUFFER_SIZE);
 		if (read_values == -1)
 		{
 			free(saved);
@@ -67,23 +64,23 @@ static char	*build_line(int fd, char *saved, char *buff)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*saved;
+	static char	*saved[FOPEN_MAX];
 	char		*buff;
 
-	if (fd < 0 || g_buffer_size <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX)
 		return (NULL);
-	buff = malloc((g_buffer_size + 1) * sizeof(char));
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
-	line = build_line(fd, saved, buff);
+	line = build_line(fd, saved[fd], buff);
 	free(buff);
 	buff = NULL;
 	if (!line)
 	{
-		saved = NULL;
+		saved[fd] = NULL;
 		return (NULL);
 	}
-	saved = extract_saved(line);
+	saved[fd] = extract_saved(line);
 	return (line);
 }
 

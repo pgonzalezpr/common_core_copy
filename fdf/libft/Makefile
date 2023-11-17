@@ -14,8 +14,9 @@ SRC	=	ft_atoi.c ft_putendl_fd.c ft_strncmp.c \
 		ft_isprint.c ft_memcmp.c ft_strjoin.c \
 		ft_itoa.c ft_memcpy.c ft_strlcat.c \
 		ft_memmove.c ft_strlcpy.c  ft_memset.c \
-		ft_strlen.c ft_putchar_fd.c ft_strmapi.c ft_printf.c \
-		printf_utils.c get_next_line.c
+		ft_strlen.c ft_putchar_fd.c ft_strmapi.c ft_printf_bonus.c \
+		buff_utils_bonus.c build_str_bonus.c build_utils_bonus.c \
+		conversion_bonus.c parse_utils_bonus.c get_next_line_bonus.c
 
 BONUSF = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
 		 ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c 
