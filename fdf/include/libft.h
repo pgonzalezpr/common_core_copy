@@ -12,6 +12,17 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/16 11:37:16 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/09/17 13:48:35 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -68,7 +79,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-int					ft_printf(const char *format, ...);
+int					ft_dprintf(int fd, const char *format, ...);
 char				*get_next_line(int fd);
 
 #endif // LIBFT_LIBFT_H

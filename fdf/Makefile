@@ -1,8 +1,8 @@
-AME = fdf
+NAME = fdf
 
 SRCS = ./srcs/main.c 
 			
-INCLUDE = ./include/libft.h ./include/fdf.h
+INCLUDE = ./include/libft.h ./include/fdf.h ./include/mlx.h
 
 LIBFT_DIR = libft
 
@@ -41,12 +41,15 @@ DEPS = $(addsuffix .d, $(basename $(SRCS)))
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a $(INCLUDE) Makefile
-	@${CC} ${OBJS} -L${LIBFT_DIR} -lft -o ${NAME}
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx_Linux.a $(INCLUDE) Makefile
+	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx_Linux -lX11 -lXext -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 $(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
+
+${MINILIBX_DIR}/libmlx_Linux.a:
+	@make -C $(MINILIBX_DIR)
 
 -include ${DEPS}
 
@@ -54,6 +57,7 @@ clean:
 	@${RM} ${OBJS}
 	@${RM} ${DEPS}
 	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MINILIBX_DIR)
 	@echo "\n$(DARK_YELLOW) Removed all objects$(DEF_COLOR)\n"
 
 fclean: 
