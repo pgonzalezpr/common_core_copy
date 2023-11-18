@@ -17,7 +17,6 @@
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
 
-/*
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -25,12 +24,11 @@ typedef struct	s_data {
 	int		line_length;
 	int		endian;
 }               t_data;
-*/
 
 typedef struct s_data
 {
 	void *mlx_ptr;
 	void *win_ptr;
-}               t_data;
+}               t_vars;
 
 #endif
