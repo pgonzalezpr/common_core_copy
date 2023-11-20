@@ -25,7 +25,7 @@ typedef struct	s_data {
 	int		endian;
 }               t_data;
 
-typedef struct s_data
+typedef struct s_vars
 {
 	void *mlx_ptr;
 	void *win_ptr;
