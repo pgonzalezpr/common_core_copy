@@ -6,23 +6,15 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 12:05:42 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/18 12:16:43 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:40:26 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/so_long.h"
+#include "../include/so_long.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 /*
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-
-}
-*/
-
 int	key_hook(int keycode, t_data *vars)
 {
 	if (!vars)
@@ -30,13 +22,19 @@ int	key_hook(int keycode, t_data *vars)
 	ft_dprintf(STDOUT_FILENO, "Hello from key_hook %d !\n", keycode);
 	return (0);
 }
+*/
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_vars	vars;
+	t_data	data;
 
-	vars.mlx_ptr = mlx_init();
-	vars.win_ptr = mlx_new_window(vars.mlx_ptr, 640, 480, "Hello world!");
-	mlx_key_hook(vars.win_ptr, key_hook, &vars);
-	mlx_loop(vars.mlx_ptr);
+	if (argc != 2)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nIncorrect number of arguments\n");
+		exit(EXIT_FAILURE);
+	}
+	init_data(&data);
+	read_map(argv[1], &data);
+	check_map(&data);
+	exit_so_long(&data, EXIT_SUCCESS);
 }
