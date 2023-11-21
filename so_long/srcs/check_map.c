@@ -1,4 +1,4 @@
-# include "../include/so_long.h"
+#include "../include/so_long.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -28,8 +28,8 @@ void	check_character(t_data *data, int x, int y)
 		data->init_positions++;
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nInvalid character: %c\n", 
-		data->map[x][y]);
+		ft_dprintf(STDERR_FILENO, "Error\nInvalid character: %c\n",
+			data->map[x][y]);
 		exit_so_long(data, EXIT_FAILURE);
 	}
 }
@@ -50,10 +50,11 @@ void	check_components(t_data *data)
 		}
 		x++;
 	}
-	if (data->collectionables < 1 || data->exits != 1 || 
-			data->init_positions != 1)
+	if (data->collectionables < 1 || data->exits != 1
+		|| data->init_positions != 1)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nInvalid amount of collectionables, exits or initial positions\n");
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		ft_dprintf(STDERR_FILENO, "Collectionables, exits or positions\n");
 		exit_so_long(data, EXIT_FAILURE);
 	}
 }
