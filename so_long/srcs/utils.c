@@ -7,7 +7,10 @@ void	init_data(t_data *data)
 	data->height = 0;
 	data->exits = 0;
 	data->init_positions = 0;
-	data->collectionables = 0;
+	data->collectables = 0;
+	data->player_x = -1;
+	data->player_y = -1;
+	data->movements = 0;
 }
 
 void	free_map(t_data *data)

@@ -1,6 +1,7 @@
 NAME = so_long
 
-SRCS = ./srcs/main.c ./srcs/read_map.c ./srcs/check_map.c ./srcs/utils.c 
+SRCS = ./srcs/main.c ./srcs/read_map.c ./srcs/check_map.c ./srcs/utils.c \
+	   ./srcs/movements.c
 			
 INCLUDE = ./include/so_long.h ${LIBFT_DIR}/libft.h ${MINILIBX_DIR}/mlx.h
 

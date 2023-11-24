@@ -57,4 +57,7 @@ void	read_map(char *file, t_data *data)
 		add_map_line(line, data);
 	}
 	close(fd);
+	check_walls(data);
+	check_components(data);
+	check_valid_path(data);
 }

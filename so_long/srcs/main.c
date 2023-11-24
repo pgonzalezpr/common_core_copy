@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 12:05:42 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/21 23:40:26 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/11/24 21:13:24 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	main(int argc, char **argv)
 	}
 	init_data(&data);
 	read_map(argv[1], &data);
-	check_map(&data);
+	void	*mlxp = mlx_init();
+	void	*winp = mlx_new_window(mlxp, data.width * 40, data.height * 40, "so_long");
+	mlx_key_hook(winp, &key_hook, &data);
+	mlx_loop(mlxp);
 	exit_so_long(&data, EXIT_SUCCESS);
 }
