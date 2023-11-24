@@ -8,10 +8,11 @@ int	check_path(t_data data, int x, int y, int collectables)
 	int	og;
 
 	og = data.map[x][y];
-	if (data.map[x][y] == 'E' && collectables == data.collectables)
-		return (1);
-	if (data.map[x][y] == '1')
+	if (data.map[x][y] == '1' || (data.map[x][y] == 'E'
+			&& collectables != data.collectables))
 		return (0);
+	if (data.map[x][y] == 'E')
+		return (1);
 	if (data.map[x][y] == 'C')
 		collectables++;
 	data.map[x][y] = '1';
@@ -104,6 +105,7 @@ void	check_components(t_data *data)
 {
 	int	x;
 	int	y;
+
 	x = 0;
 	while (x < data->height)
 	{
@@ -115,12 +117,10 @@ void	check_components(t_data *data)
 		}
 		x++;
 	}
-	if (data->collectables < 1 || data->exits != 1
-			|| data->init_positions != 1)
+	if (data->collectables < 1 || data->exits != 1 || data->init_positions != 1)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n");
 		ft_dprintf(STDERR_FILENO, "Collectionables, exits or positions\n");
 		exit_so_long(data, EXIT_FAILURE);
 	}
 }
-

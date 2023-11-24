@@ -1,10 +1,8 @@
-# include "../include/so_long.h"
+#include "../include/so_long.h"
 #include <unistd.h>
 
 int	move(t_data *data, int x, int y)
 {
-	ft_dprintf(STDOUT_FILENO, "x: %d, y: %d, player_x: %d, player_y: %d, map_x_y: %c\n", 
-			x, y, data->player_x, data->player_y, data->map[x][y]);
 	if (data->map[x][y] == 'E' && data->collectables == 0)
 	{
 		data->movements++;
@@ -26,12 +24,10 @@ int	move(t_data *data, int x, int y)
 	return (0);
 }
 
-
 int	key_hook(int keycode, t_data *data)
 {
 	int	value;
 
-	ft_dprintf(STDOUT_FILENO, "Keyhook: %d\n", keycode);
 	value = 0;
 	if (keycode == 65307)
 		exit_so_long(data, EXIT_SUCCESS);
@@ -44,10 +40,7 @@ int	key_hook(int keycode, t_data *data)
 	if (keycode == 119)
 		value = move(data, data->player_x - 1, data->player_y);
 	if (value)
-	{
 		ft_dprintf(STDOUT_FILENO, "Movements: %d\n", data->movements);
-		ft_dprintf(STDOUT_FILENO, "x: %d, y: %d\n", 
-				data->player_x, data->player_y);
-	}
+	print_map(data);
 	return (1);
 }

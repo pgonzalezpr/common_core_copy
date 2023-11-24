@@ -44,8 +44,7 @@ void	read_map(char *file, t_data *data)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\n");
-		perror(file);
+		ft_dprintf(STDERR_FILENO, "Error\nFile Error\n");
 		exit_so_long(data, EXIT_FAILURE);
 	}
 	while (1)
@@ -59,5 +58,9 @@ void	read_map(char *file, t_data *data)
 	close(fd);
 	check_walls(data);
 	check_components(data);
+	data->map_copy = dup_map(data);
 	check_valid_path(data);
+	free_map(data->map, data->height);
+	data->map = data->map_copy;
+	data->map_copy = NULL;
 }
