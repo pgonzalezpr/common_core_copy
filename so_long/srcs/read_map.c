@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:04:26 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/25 12:04:27 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/11/25 23:55:27 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,8 @@ void	read_map(char *file, t_data *data)
 		add_map_line(line, data);
 	}
 	close(fd);
+	find_initial_position(data);
 	check_walls(data);
 	check_components(data);
-	data->map_copy = dup_map(data);
 	check_valid_path(data);
-	free_map(data->map, data->height);
-	data->map = data->map_copy;
-	data->map_copy = NULL;
 }

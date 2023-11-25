@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 12:05:24 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/25 00:10:57 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/11/25 23:51:32 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <fcntl.h>
-# include <math.h>
 # include <limits.h>
+# include <math.h>
 
 typedef struct s_data
 {
 	char	**map;
-	char	**map_copy;
-	int		**memo;
 	void	*mlxp;
 	void	*winp;
 	void	*player;
@@ -48,10 +46,10 @@ void		check_valid_path(t_data *data);
 void		exit_so_long(t_data *data);
 void		free_map(char **map, int height);
 void		print_map(t_data *data);
+void		find_initial_position(t_data *data);
 char		**dup_map(t_data *data);
 int			key_hook(int keycode, t_data *data);
 void		render_textures(t_data *data);
 void		init_images(t_data *data);
-void		init_memoize_arr(t_data *data);
 
 #endif

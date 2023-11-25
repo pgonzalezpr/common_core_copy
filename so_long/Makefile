@@ -7,11 +7,11 @@ INCLUDE = ./include/so_long.h ${LIBFT_DIR}/libft.h ${MINILIBX_DIR}/mlx.h
 
 LIBFT_DIR = libft
 
-MINILIBX_DIR = minilibx_macos
+MINILIBX_DIR = minilibx-linux
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -MMD
+CFLAGS = -Wall -Wextra -Werror -MMD -lm
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -42,14 +42,14 @@ DEPS = $(addsuffix .d, $(basename $(SRCS)))
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx.a $(INCLUDE) Makefile
-	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx -lm -framework OpenGL -framework AppKit -o ${NAME}
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx_Linux.a $(INCLUDE) Makefile
+	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx_Linux -lX11 -lXext -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 $(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
 
-${MINILIBX_DIR}/libmlx.a:
+${MINILIBX_DIR}/libmlx_Linux.a:
 	@make -C $(MINILIBX_DIR)
 
 -include ${DEPS}

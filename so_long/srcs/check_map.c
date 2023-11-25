@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:04:03 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/25 12:04:04 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/11/26 00:16:17 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,47 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	check_path(t_data *data, int x, int y, int collectables)
+int	check_path(t_data *data, int x, int y)
 {
 	int	og;
 
-	/*if (data->memo[x][y] != -1 && collectables >= data->memo[x][y])
-		return (0);*/
-	og = data->map[x][y];
-	if (data->map[x][y] == 'E' && collectables == data->collectables)
+	if (data->map[x][y] == 'E')
+		data->exits++;
+	if (data->map[x][y] == 'C')
+	{
+		data->collectables--;
+		data->map[x][y] = '0';
+	}
+	if (data->exits >= 1 && data->collectables == 0)
 		return (1);
 	if (data->map[x][y] == '1' || data->map[x][y] == 'E')
 		return (0);
-	if (data->map[x][y] == 'C')
-		collectables++;
-	data->map_copy = dup_map(data);
+	og = data->map[x][y];
 	data->map[x][y] = '1';
-	if (check_path(data, x + 1, y, collectables))
+	if (check_path(data, x + 1, y) || check_path(data, x - 1, y)
+		|| check_path(data, x, y + 1) || check_path(data, x, y - 1))
 		return (1);
-	if (check_path(data, x - 1, y, collectables))
-		return (1);
-	if (check_path(data, x, y + 1, collectables))
-		return (1);
-	if (check_path(data, x, y - 1, collectables))
-		return (1);
-	//data->memo[x][y] = collectables;
 	data->map[x][y] = og;
-	return (0);
+	return (data->exits >= 1 && data->collectables == 0);
 }
 
 void	check_valid_path(t_data *data)
 {
-	int	x;
-	int	y;
+	int		collectables_tmp;
+	int		exits_tmp;
+	char	**map_tmp;
+	int		check_result;
 
-	x = 0;
-	while (x < data->height)
-	{
-		y = 0;
-		while (y < data->width)
-		{
-			if (data->map[x][y] == 'P')
-				break ;
-			y++;
-		}
-		if (data->map[x][y] == 'P')
-			break ;
-		x++;
-	}
-	data->player_x = x;
-	data->player_y = y;
-	init_memoize_arr(data);
-	if (!check_path(data, x, y, 0))
+	exits_tmp = data->exits;
+	collectables_tmp = data->collectables;
+	data->exits = 0;
+	map_tmp = dup_map(data);
+	check_result = check_path(data, data->player_x, data->player_y);
+	data->exits = exits_tmp;
+	data->collectables = collectables_tmp;
+	free_map(data->map, data->height);
+	data->map = map_tmp;
+	if (!check_result)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nMap contains no valid path\n");
 		exit_so_long(data);
@@ -112,7 +102,7 @@ void	check_character(t_data *data, int x, int y)
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nInvalid character: %c\n",
-				data->map[x][y]);
+			data->map[x][y]);
 		exit_so_long(data);
 	}
 }
