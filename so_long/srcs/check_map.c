@@ -1,21 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 12:04:03 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/25 12:04:04 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int	check_path(t_data data, int x, int y, int collectables)
+int	check_path(t_data *data, int x, int y, int collectables)
 {
 	int	og;
 
-	og = data.map[x][y];
-	if (data.map[x][y] == '1' || (data.map[x][y] == 'E'
-			&& collectables != data.collectables))
-		return (0);
-	if (data.map[x][y] == 'E')
+	/*if (data->memo[x][y] != -1 && collectables >= data->memo[x][y])
+		return (0);*/
+	og = data->map[x][y];
+	if (data->map[x][y] == 'E' && collectables == data->collectables)
 		return (1);
-	if (data.map[x][y] == 'C')
+	if (data->map[x][y] == '1' || data->map[x][y] == 'E')
+		return (0);
+	if (data->map[x][y] == 'C')
 		collectables++;
-	data.map[x][y] = '1';
+	data->map[x][y] = '1';
 	if (check_path(data, x + 1, y, collectables))
 		return (1);
 	if (check_path(data, x - 1, y, collectables))
@@ -24,7 +37,8 @@ int	check_path(t_data data, int x, int y, int collectables)
 		return (1);
 	if (check_path(data, x, y - 1, collectables))
 		return (1);
-	data.map[x][y] = og;
+	//data->memo[x][y] = collectables;
+	data->map[x][y] = og;
 	return (0);
 }
 
@@ -49,10 +63,11 @@ void	check_valid_path(t_data *data)
 	}
 	data->player_x = x;
 	data->player_y = y;
-	if (!check_path(*data, x, y, 0))
+	init_memoize_arr(data);
+	if (!check_path(data, x, y, 0))
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nMap contains no valid path\n");
-		exit_so_long(data, EXIT_FAILURE);
+		exit_so_long(data);
 	}
 }
 
@@ -67,7 +82,7 @@ void	check_walls(t_data *data)
 		if (data->map[x][0] != '1' || data->map[x][data->width - 1] != '1')
 		{
 			ft_dprintf(STDERR_FILENO, "Error\nMap not surrounded by walls\n");
-			exit_so_long(data, EXIT_FAILURE);
+			exit_so_long(data);
 		}
 		x++;
 	}
@@ -77,7 +92,7 @@ void	check_walls(t_data *data)
 		if (data->map[0][y] != '1' || data->map[data->height - 1][y] != '1')
 		{
 			ft_dprintf(STDERR_FILENO, "Error\nMap not surrounded by walls\n");
-			exit_so_long(data, EXIT_FAILURE);
+			exit_so_long(data);
 		}
 		y++;
 	}
@@ -96,8 +111,8 @@ void	check_character(t_data *data, int x, int y)
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nInvalid character: %c\n",
-			data->map[x][y]);
-		exit_so_long(data, EXIT_FAILURE);
+				data->map[x][y]);
+		exit_so_long(data);
 	}
 }
 
@@ -121,6 +136,6 @@ void	check_components(t_data *data)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n");
 		ft_dprintf(STDERR_FILENO, "Collectionables, exits or positions\n");
-		exit_so_long(data, EXIT_FAILURE);
+		exit_so_long(data);
 	}
 }

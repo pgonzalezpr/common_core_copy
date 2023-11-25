@@ -1,5 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 12:04:34 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/25 12:04:35 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
-#include <unistd.h>
+
+void	init_memoize_arr(t_data *data)
+{
+	int	**arr;
+	int	x;
+	int	y;
+
+	arr = malloc(data->height * sizeof(int *));
+	if (!arr)
+		exit_so_long(data);
+	x = 0;
+	while (x < data->height)
+	{
+		arr[x] = ft_calloc(sizeof(int), data->width);
+		if (!arr[x])
+			exit_so_long(data);
+		y = 0;
+		while (y < data->width)
+		{
+			arr[x][y] = -1;
+			y++;
+		}
+		x++;
+	}
+	data->memo = arr;
+}
 
 char	**dup_map(t_data *data)
 {
@@ -8,7 +45,7 @@ char	**dup_map(t_data *data)
 
 	map_copy = malloc(data->height * sizeof(char *));
 	if (!map_copy)
-		exit_so_long(data, EXIT_FAILURE);
+		exit_so_long(data);
 	x = 0;
 	while (x < data->height)
 	{
@@ -31,20 +68,6 @@ void	print_map(t_data *data)
 	write(STDOUT_FILENO, "\n", 1);
 }
 
-void	init_data(t_data *data)
-{
-	data->map = NULL;
-	data->map_copy = NULL;
-	data->width = -1;
-	data->height = 0;
-	data->exits = 0;
-	data->init_positions = 0;
-	data->collectables = 0;
-	data->player_x = -1;
-	data->player_y = -1;
-	data->movements = 0;
-}
-
 void	free_map(char **map, int height)
 {
 	int	i;
@@ -61,9 +84,28 @@ void	free_map(char **map, int height)
 	free(map);
 }
 
-void	exit_so_long(t_data *data, int status)
+void	exit_so_long(t_data *data)
 {
+	int	x;
+
+	if (data->winp)
+		mlx_destroy_window(data->mlxp, data->winp);
+	if (data->mlxp)
+		free(data->mlxp);
 	free_map(data->map, data->height);
 	free_map(data->map_copy, data->height);
-	exit(status);
+	x = 0;
+	if (data->memo)
+	{
+		while (x < data->height)
+		{
+			if (data->memo)
+			{
+				free(data->memo[x]);
+				x++;
+			}
+		}
+		free(data->memo);
+	}
+	exit(EXIT_SUCCESS);
 }

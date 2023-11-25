@@ -17,11 +17,20 @@
 # include "../minilibx_macos/mlx.h"
 # include <fcntl.h>
 # include <math.h>
+# include <limits.h>
 
 typedef struct s_data
 {
 	char	**map;
 	char	**map_copy;
+	int		**memo;
+	void	*mlxp;
+	void	*winp;
+	void	*player;
+	void	*wall;
+	void	*collectable;
+	void	*exit;
+	void	*empty;
 	int		width;
 	int		height;
 	int		exits;
@@ -36,11 +45,13 @@ void		read_map(char *file, t_data *data);
 void		check_walls(t_data *data);
 void		check_components(t_data *data);
 void		check_valid_path(t_data *data);
-void		init_data(t_data *data);
-void		exit_so_long(t_data *data, int status);
+void		exit_so_long(t_data *data);
 void		free_map(char **map, int height);
 void		print_map(t_data *data);
 char		**dup_map(t_data *data);
 int			key_hook(int keycode, t_data *data);
+void		render_textures(t_data *data);
+void		init_images(t_data *data);
+void		init_memoize_arr(t_data *data);
 
 #endif

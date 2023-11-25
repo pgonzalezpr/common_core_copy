@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 12:04:26 by pedro-go          #+#    #+#             */
+/*   Updated: 2023/11/25 12:04:27 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 void	validate_line(char *line, t_data *data)
@@ -11,7 +23,7 @@ void	validate_line(char *line, t_data *data)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nNot rectangular map\n");
 		free(line);
-		exit_so_long(data, EXIT_FAILURE);
+		exit_so_long(data);
 	}
 }
 
@@ -22,7 +34,7 @@ void	add_map_line(char *line, t_data *data)
 
 	new_map = malloc((data->height + 1) * sizeof(char *));
 	if (!new_map)
-		exit_so_long(data, EXIT_FAILURE);
+		exit_so_long(data);
 	i = 0;
 	while (i < data->height)
 	{
@@ -45,7 +57,7 @@ void	read_map(char *file, t_data *data)
 	if (fd == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nFile Error\n");
-		exit_so_long(data, EXIT_FAILURE);
+		exit_so_long(data);
 	}
 	while (1)
 	{

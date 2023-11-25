@@ -1,17 +1,17 @@
 NAME = so_long
 
 SRCS = ./srcs/main.c ./srcs/read_map.c ./srcs/check_map.c ./srcs/utils.c \
-	   ./srcs/movements.c
+	   ./srcs/movements.c ./srcs/render.c
 			
 INCLUDE = ./include/so_long.h ${LIBFT_DIR}/libft.h ${MINILIBX_DIR}/mlx.h
 
 LIBFT_DIR = libft
 
-MINILIBX_DIR = minilibx-linux
+MINILIBX_DIR = minilibx_macos
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -MMD -lm
+CFLAGS = -Wall -Wextra -Werror -MMD
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -42,14 +42,14 @@ DEPS = $(addsuffix .d, $(basename $(SRCS)))
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx_Linux.a $(INCLUDE) Makefile
-	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx_Linux -lX11 -lXext -o ${NAME}
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx.a $(INCLUDE) Makefile
+	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx -lm -framework OpenGL -framework AppKit -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 $(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
 
-${MINILIBX_DIR}/libmlx_Linux.a:
+${MINILIBX_DIR}/libmlx.a:
 	@make -C $(MINILIBX_DIR)
 
 -include ${DEPS}

@@ -14,32 +14,25 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-/*
-int	key_hook(int keycode, t_data *vars)
-{
-	if (!vars)
-		return (1);
-	ft_dprintf(STDOUT_FILENO, "Hello from key_hook %d !\n", keycode);
-	return (0);
-}
-*/
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	void	*mlxp;
-	void	*winp;
 
 	if (argc != 2)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nIncorrect number of arguments\n");
 		exit(EXIT_FAILURE);
 	}
-	init_data(&data);
+	ft_memset(&data, 0, sizeof(t_data));
+	data.width = -1;
 	read_map(argv[1], &data);
-	mlxp = mlx_init();
-	winp = mlx_new_window(mlxp, data.width * 40, data.height * 40, "so_long");
-	mlx_key_hook(winp, &key_hook, &data);
-	mlx_loop(mlxp);
-	exit_so_long(&data, EXIT_SUCCESS);
+	data.mlxp = mlx_init();
+	data.winp = mlx_new_window(data.mlxp, data.width * 40, data.height * 40,
+			"so_long");
+	init_images(&data);
+	render_textures(&data);
+	mlx_key_hook(data.winp, &key_hook, &data);
+	mlx_hook(data.winp, 17, 0, (void *)&exit_so_long, &data);
+	mlx_loop(data.mlxp);
+	exit_so_long(&data);
 }
