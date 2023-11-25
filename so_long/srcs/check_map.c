@@ -29,7 +29,7 @@ int	check_path(t_data *data, int x, int y, int collectables)
 	if (data->map[x][y] == 'C')
 		collectables++;
 	data->map[x][y] = '1';
-	if (check_path(data, x + 1, y, collectables))
+	if (check_path(data, x + 1, y, collectables)) // Save map copy and restore after each recursive call.
 		return (1);
 	if (check_path(data, x - 1, y, collectables))
 		return (1);
