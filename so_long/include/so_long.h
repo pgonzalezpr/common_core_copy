@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 12:05:24 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/25 23:51:32 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/11/28 19:33:24 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
+
+# define TILE_SIZE 30
 
 typedef struct s_data
 {

@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 12:05:42 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/26 00:02:41 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/11/28 19:30:16 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	main(int argc, char **argv)
 	data.width = -1;
 	read_map(argv[1], &data);
 	data.mlxp = mlx_init();
-	data.winp = mlx_new_window(data.mlxp, data.width * 40, data.height * 40,
-			"so_long");
+	data.winp = mlx_new_window(data.mlxp, data.width * TILE_SIZE, 
+			data.height * TILE_SIZE, "so_long");
 	init_images(&data);
 	render_textures(&data);
 	mlx_key_hook(data.winp, &key_hook, &data);

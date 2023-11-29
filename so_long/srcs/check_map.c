@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:04:03 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/11/26 00:16:17 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/11/28 11:08:48 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 int	check_path(t_data *data, int x, int y)
 {
-	int	og;
-
 	if (data->map[x][y] == 'E')
 		data->exits++;
 	if (data->map[x][y] == 'C')
@@ -30,12 +28,10 @@ int	check_path(t_data *data, int x, int y)
 		return (1);
 	if (data->map[x][y] == '1' || data->map[x][y] == 'E')
 		return (0);
-	og = data->map[x][y];
 	data->map[x][y] = '1';
 	if (check_path(data, x + 1, y) || check_path(data, x - 1, y)
 		|| check_path(data, x, y + 1) || check_path(data, x, y - 1))
 		return (1);
-	data->map[x][y] = og;
 	return (data->exits >= 1 && data->collectables == 0);
 }
 
