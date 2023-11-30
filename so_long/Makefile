@@ -2,16 +2,33 @@ NAME = so_long
 
 SRCS = ./srcs/main.c ./srcs/read_map.c ./srcs/check_map.c ./srcs/utils.c \
 	   ./srcs/movements.c ./srcs/render.c
-			
+
+LIBFT_SRCS = ./libft/ft_atoi.c ./libft/ft_putendl_fd.c ./libft/ft_strncmp.c \
+			./libft/ft_bzero.c ./libft/ft_putnbr_fd.c ./libft/ft_strnstr.c \
+			./libft/ft_calloc.c ./libft/ft_putstr_fd.c ./libft/ft_strrchr.c \
+			./libft/ft_isalnum.c  ./libft/ft_split.c ./libft/ft_strtrim.c \
+			./libft/ft_isalpha.c ./libft/ft_strchr.c ./libft/ft_substr.c \
+			./libft/ft_isascii.c ./libft/ft_strdup.c ./libft/ft_tolower.c \
+			./libft/ft_isdigit.c ./libft/ft_memchr.c ./libft/ft_striteri.c ./libft/ft_toupper.c \
+			./libft/ft_isprint.c ./libft/ft_memcmp.c ./libft/ft_strjoin.c \
+			./libft/ft_itoa.c ./libft/ft_memcpy.c ./libft/ft_strlcat.c \
+			./libft/ft_memmove.c ./libft/ft_strlcpy.c  ./libft/ft_memset.c \
+			./libft/ft_strlen.c ./libft/ft_putchar_fd.c ./libft/ft_strmapi.c ./libft/ft_printf_bonus.c \
+			./libft/buff_utils_bonus.c ./libft/build_str_bonus.c ./libft/build_utils_bonus.c \
+			./libft/conversion_bonus.c ./libft/parse_utils_bonus.c ./libft/get_next_line_bonus.c \
+			./libft/ft_lstadd_back.c ./libft/ft_lstadd_front.c ./libft/ft_lstclear.c ./libft/ft_lstdelone.c \
+			./libft/ft_lstiter.c ./libft/ft_lstlast.c ./libft/ft_lstmap.c ./libft/ft_lstnew.c ./libft/ft_lstsize.c
+
+				
 INCLUDE = ./include/so_long.h ${LIBFT_DIR}/libft.h ${MINILIBX_DIR}/mlx.h
 
 LIBFT_DIR = libft
 
-MINILIBX_DIR = minilibx-linux
+MINILIBX_DIR = minilibx_macos
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -MMD -lm
+CFLAGS = -Wall -Wextra -Werror -MMD
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -42,14 +59,14 @@ DEPS = $(addsuffix .d, $(basename $(SRCS)))
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx_Linux.a $(INCLUDE) Makefile
-	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx_Linux -lX11 -lXext -o ${NAME}
+${NAME}: ${OBJS} ${LIBFT_DIR}/libft.a ${MINILIBX_DIR}/libmlx.a $(INCLUDE) ${LIBFT_SRCS} Makefile
+	@${CC} ${OBJS} -L${LIBFT_DIR} -L${MINILIBX_DIR} -lft -lmlx -lm -framework OpenGL -framework AppKit -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 $(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
 
-${MINILIBX_DIR}/libmlx_Linux.a:
+${MINILIBX_DIR}/libmlx.a:
 	@make -C $(MINILIBX_DIR)
 
 -include ${DEPS}

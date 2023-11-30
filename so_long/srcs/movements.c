@@ -41,15 +41,15 @@ int	key_hook(int keycode, t_data *data)
 	int	value;
 
 	value = 0;
-	if (keycode == 65307)
+	if (keycode == 53)
 		exit_so_long(data);
-	if (keycode == 97)
+	if (keycode == 0)
 		value = move(data, data->player_x, data->player_y - 1);
-	if (keycode == 100)
+	if (keycode == 2)
 		value = move(data, data->player_x, data->player_y + 1);
-	if (keycode == 115)
+	if (keycode == 1)
 		value = move(data, data->player_x + 1, data->player_y);
-	if (keycode == 119)
+	if (keycode == 13)
 		value = move(data, data->player_x - 1, data->player_y);
 	if (value)
 	{

@@ -17,32 +17,33 @@ void	init_images(t_data *data)
 	int	h;
 	int	w;
 
-	data->player = mlx_xpm_file_to_image(data->mlxp, "images/player.xpm", &h,
+	data->player = mlx_xpm_file_to_image(data->mlxp, "textures/player.xpm", &h,
 			&w);
-	data->wall = mlx_xpm_file_to_image(data->mlxp, "images/wall.xpm", &h, &w);
+	data->wall = mlx_xpm_file_to_image(data->mlxp, "textures/wall.xpm", &h, &w);
 	data->collectable = mlx_xpm_file_to_image(data->mlxp,
-			"images/collectable.xpm", &h, &w);
-	data->exit = mlx_xpm_file_to_image(data->mlxp, "images/exit.xpm", &h, &w);
-	data->empty = mlx_xpm_file_to_image(data->mlxp, "images/empty.xpm", &h, &w);
+			"textures/collectable.xpm", &h, &w);
+	data->exit = mlx_xpm_file_to_image(data->mlxp, "textures/exit.xpm", &h, &w);
+	data->empty = mlx_xpm_file_to_image(data->mlxp,
+			"textures/empty.xpm", &h, &w);
 }
 
 void	place_texture(t_data *data, int x, int y)
 {
 	if (data->map[x][y] == '0')
-		mlx_put_image_to_window(data->mlxp, data->winp, data->empty, 
-				y * TILE_SIZE, x * TILE_SIZE);
+		mlx_put_image_to_window(data->mlxp, data->winp, data->empty, y
+			* TILE_SIZE, x * TILE_SIZE);
 	else if (data->map[x][y] == '1')
-		mlx_put_image_to_window(data->mlxp, data->winp, data->wall, 
-				y * TILE_SIZE, x * TILE_SIZE);
+		mlx_put_image_to_window(data->mlxp, data->winp, data->wall, y
+			* TILE_SIZE, x * TILE_SIZE);
 	else if (data->map[x][y] == 'P')
-		mlx_put_image_to_window(data->mlxp, data->winp, data->player, 
-				y * TILE_SIZE, x * TILE_SIZE);
+		mlx_put_image_to_window(data->mlxp, data->winp, data->player, y
+			* TILE_SIZE, x * TILE_SIZE);
 	else if (data->map[x][y] == 'C')
 		mlx_put_image_to_window(data->mlxp, data->winp, data->collectable, y
 			* TILE_SIZE, x * TILE_SIZE);
 	else if (data->map[x][y] == 'E')
-		mlx_put_image_to_window(data->mlxp, data->winp, data->exit, 
-				y * TILE_SIZE, x * TILE_SIZE);
+		mlx_put_image_to_window(data->mlxp, data->winp, data->exit, y
+			* TILE_SIZE, x * TILE_SIZE);
 }
 
 void	render_textures(t_data *data)

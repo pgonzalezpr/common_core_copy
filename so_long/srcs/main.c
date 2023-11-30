@@ -14,6 +14,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void	check_extension(char *file)
+{
+	char	*ext_ptr;
+
+	ext_ptr = ft_strchr(file, '.');
+	if (!ext_ptr || ft_strlen(ext_ptr) != 4
+		|| ft_strncmp(ext_ptr, ".ber", 4) != 0)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nInvalid file extension\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -23,12 +36,13 @@ int	main(int argc, char **argv)
 		ft_dprintf(STDERR_FILENO, "Error\nIncorrect number of arguments\n");
 		exit(EXIT_FAILURE);
 	}
+	check_extension(argv[1]);
 	ft_memset(&data, 0, sizeof(t_data));
 	data.width = -1;
 	read_map(argv[1], &data);
 	data.mlxp = mlx_init();
-	data.winp = mlx_new_window(data.mlxp, data.width * TILE_SIZE, 
-			data.height * TILE_SIZE, "so_long");
+	data.winp = mlx_new_window(data.mlxp, data.width * TILE_SIZE, data.height
+			* TILE_SIZE, "so_long");
 	init_images(&data);
 	render_textures(&data);
 	mlx_key_hook(data.winp, &key_hook, &data);

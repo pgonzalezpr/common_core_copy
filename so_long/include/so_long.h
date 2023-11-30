@@ -19,7 +19,7 @@
 # include <limits.h>
 # include <math.h>
 
-# define TILE_SIZE 30
+# define TILE_SIZE 40
 
 typedef struct s_data
 {

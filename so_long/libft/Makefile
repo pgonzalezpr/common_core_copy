@@ -16,30 +16,24 @@ SRC	=	ft_atoi.c ft_putendl_fd.c ft_strncmp.c \
 		ft_memmove.c ft_strlcpy.c  ft_memset.c \
 		ft_strlen.c ft_putchar_fd.c ft_strmapi.c ft_printf_bonus.c \
 		buff_utils_bonus.c build_str_bonus.c build_utils_bonus.c \
-		conversion_bonus.c parse_utils_bonus.c get_next_line_bonus.c
-
-BONUSF = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
-		 ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c 
+		conversion_bonus.c parse_utils_bonus.c get_next_line_bonus.c \
+		ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
+		ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c 
 
 HEADERS = libft.h
 
 SRC_OBJ = $(SRC:.c=.o)
 
-BONUS_OBJ = $(BONUSF:.c=.o)
-
 all: $(NAME)
 
-$(NAME): $(SRC_OBJ)
+$(NAME): $(SRC_OBJ) ${SRCS}
 	$(LIB) $(NAME) $(SRC_OBJ)
-
-bonus: $(SRC_OBJ) $(BONUS_OBJ)
-	$(LIB) $(NAME) $(SRC_OBJ) $(BONUS_OBJ)
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(SRC_OBJ) $(BONUS_OBJ)
+	$(RM) $(SRC_OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
