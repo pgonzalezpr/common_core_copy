@@ -6,11 +6,23 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 13:27:21 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/09 13:27:23 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:14:04 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+unsigned int	get_philo_time(struct timeval *start_time)
+{
+	struct timeval	current_time;
+	unsigned int	seconds_diff;
+	unsigned int	useconds_diff;
+
+    gettimeofday(&current_time, NULL);
+    seconds_diff = current_time.tv_sec - start_time->tv_sec;
+    useconds_diff = current_time.tv_usec - start_time->tv_usec;
+    return (seconds_diff * 1000 + useconds_diff / 1000);
+}
 
 void	cleanup_philo(t_philo *philo_data)
 {
@@ -22,8 +34,10 @@ void	cleanup_philo(t_philo *philo_data)
 		pthread_mutex_destroy(&philo_data->forks[i]);
 		i++;
 	}
-	free(philo_data->philos);
-	free(philo_data->forks);
+	if (philo_data->philos)
+		free(philo_data->philos);
+	if (philo_data->forks)
+		free(philo_data->forks);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -39,27 +53,15 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-int	ft_atoi(const char *nptr)
+unsigned int	ft_atoi(const char *nptr)
 {
 	unsigned int	value;
-	int				sign;
 
-	while (*nptr == ' ' || *nptr == '\f' || *nptr == '\n' || *nptr == '\r'
-		|| *nptr == '\t' || *nptr == '\v')
-		nptr++;
-	sign = 1;
 	value = 0;
-	if (*nptr == '-')
-	{
-		sign = -1;
-		nptr++;
-	}
-	else if (*nptr == '+')
-		nptr++;
 	while (*nptr >= '0' && *nptr <= '9')
 	{
 		value = value * 10 + (*nptr - '0');
 		nptr++;
 	}
-	return (value * sign);
+	return (value);
 }

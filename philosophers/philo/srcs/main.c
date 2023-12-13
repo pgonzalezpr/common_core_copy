@@ -6,11 +6,13 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 13:27:14 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/09 13:27:16 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:15:03 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <bits/types/struct_timeval.h>
+#include <sys/time.h>
 
 int	init_data(int argc, char **argv, t_philo *philo_data)
 {
@@ -36,11 +38,13 @@ int	init_data(int argc, char **argv, t_philo *philo_data)
 
 void	run_philos(t_philo *philo_data)
 {
-	int		i;
-	int		idx;
-	t_args	*args;
+	int				i;
+	t_args			*args;
+	struct timeval	start_time;
 
 	i = 0;
+	philo_data->start_time = &start_time;
+	gettimeofday(&start_time, NULL);
 	while (i < philo_data->num_philos)
 	{
 		args = malloc(sizeof(t_args));
@@ -48,25 +52,24 @@ void	run_philos(t_philo *philo_data)
 			break ;
 		args->philo_data = philo_data;
 		args->idx = i;
-		if (pthread_create(&philo_data->philos[i], NULL, exec_ph, args) == -1)
+		if (pthread_create(&philo_data->philos[i], NULL, philo_f, args) == -1)
 		{
 			free(args);
 			break ;
 		}
 		i++;
 	}
-	idx = 0;
-	while (idx < i)
+	while (i > 0)
 	{
+		i--;
 		pthread_join(philo_data->philos[i], NULL);
-		idx++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo	philo_data;
-	int		i;
+	t_philo			philo_data;
+	int				i;
 
 	if (!check_input(argc, argv))
 	{
