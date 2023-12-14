@@ -11,19 +11,46 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
 
-int	check_end(t_data *data)
+int	check_signal(t_data *data)
 {
+	int	value;
+
+	value = 0;
+	pthread_mutex_lock(&data->signal_lock);
+	if (data->signal)
+		value = 1;
+	pthread_mutex_unlock(&data->signal_lock);
+	return (value);
 }
 
-void	check_times(t_data *data)
+void	check_times_meals(t_data *data)
 {
-}
+	size_t		i;
+	size_t		finished_count;
+	uint64_t	time;
 
-void	check_meals(t_data *data)
-{
+	i = 0;
+	finished_count = 0;
+	while (i < data->num_philos)
+	{
+		time = get_time_ms() - data->start_time;
+		if (time - data->philos[i].last_meal > data->time_to_die &&
+			!data->philos[i].is_eating)
+		{
+			printf("last meal: %llu\n", data->philos[i].last_meal);
+			print_log(DEATH_CODE, data->philos[i].index, time, data);
+		}
+		if (data->philos[i].finished == 1)
+			finished_count++;
+		i++;
+	}
+	if (finished_count == data->num_philos)
+	{
+		pthread_mutex_lock(&data->signal_lock);
+		data->signal = 1;
+		pthread_mutex_unlock(&data->signal_lock);
+	}
 }
 
 void	*monitor_routine(void *arg)
@@ -31,11 +58,10 @@ void	*monitor_routine(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	while (!check_end(data))
+	while (!check_signal(data))
 	{
 		pthread_mutex_lock(&data->meals_lock);
-		check_times(data);
-		check_meals(data);
+		check_times_meals(data);
 		pthread_mutex_unlock(&data->meals_lock);
 	}
 	return ((void *)0);
@@ -46,11 +72,15 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!check_end(philo->data))
+	philo->last_meal = get_time_ms() - philo->data->start_time;
+	while (!check_signal(philo->data))
 	{
 		ph_eat(philo);
-		ph_sleep(philo);
-		ph_think(philo);
+		print_log(SLEEP_CODE, philo->index, get_time_ms()
+				- philo->data->start_time, philo->data);
+		ft_usleep(philo->data->time_to_sleep);
+		print_log(THINK_CODE, philo->index, get_time_ms()
+				- philo->data->start_time, philo->data);
 	}
 	return ((void *)0);
 }

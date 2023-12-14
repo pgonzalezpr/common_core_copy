@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-#include <stddef.h>
 
 int	check_input(int argc, char **argv)
 {
@@ -39,14 +36,15 @@ void	run_philos(t_data *data)
 
 	if (data->min_eat_times == 0)
 		return ;
-	pthread_create(&data->monitor_id, NULL, monitor_routine, data);
 	i = 0;
+	data->start_time = get_time_ms();
 	while (i < data->num_philos)
 	{
 		pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
-			&data->philos[i]);
+				&data->philos[i]);
 		i++;
 	}
+	pthread_create(&data->monitor_id, NULL, monitor_routine, data);
 	pthread_join(data->monitor_id, NULL);
 	i = 0;
 	while (i < data->num_philos)

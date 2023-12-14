@@ -1,3 +1,7 @@
 {
-    "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'Hack Nerd Font'"
+    "editor.fontFamily": "'consolas', 'monospace', monospace, 'Hack Nerd Font'",
+    "files.associations": {
+        "philo.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

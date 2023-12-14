@@ -22,6 +22,12 @@
 # include <sys/types.h>
 # include <unistd.h>
 
+# define THINK_CODE 1
+# define EAT_CODE 2
+# define SLEEP_CODE 3
+# define FORK_CODE 4
+# define DEATH_CODE 5
+
 typedef struct s_philo	t_philo;
 
 typedef struct s_data
@@ -30,6 +36,7 @@ typedef struct s_data
 	uint64_t			time_to_die;
 	uint64_t			time_to_sleep;
 	uint64_t			time_to_eat;
+	uint64_t			start_time;
 	size_t				min_eat_times;
 	int					signal;
 	size_t				finished_count;
@@ -48,7 +55,10 @@ typedef struct s_philo
 	pthread_mutex_t		*second;
 	pthread_t			thread_id;
 	uint64_t			last_meal;
-	int					index;
+	int					finished;
+	size_t				index;
+	size_t				meals;
+	int					is_eating;
 }						t_philo;
 
 uint64_t				ft_atoi(const char *nptr);
@@ -61,10 +71,12 @@ int						init_philos(t_data *data);
 int						is_numeric(char *str);
 void					*monitor_routine(void *arg);
 void					*philo_routine(void *arg);
-int						check_end(t_data *data);
+int						check_signal(t_data *data);
 void					ph_eat(t_philo *philo);
 void					ph_sleep(t_philo *philo);
 void					ph_think(t_philo *philo);
-void					print_log(int log_code, size_t philo_id, uint64_t time);
+void					ft_usleep(uint64_t ms);
+void					print_log(int log_code, size_t index, uint64_t time,
+							t_data *data);
 
 #endif
