@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:40:39 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/09/17 13:22:54 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:08:19 by pedro-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ int	ft_putnbr_base(unsigned long nbr, char *base)
 		buffer[offset--] = base[nbr % base_len];
 		nbr = nbr / base_len;
 	}
-	if (nbr == 0)
-		buffer[offset] = base[0];
-	else
-		buffer[offset] = base[nbr % base_len];
+	buffer[offset] = base[nbr];
 	nbr_len = ft_strlen(buffer + offset);
 	ft_putstr_fd(buffer + offset, 1);
 	return (nbr_len);
