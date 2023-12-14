@@ -1,6 +1,7 @@
 NAME = philo
 
-SRCS = ./srcs/main.c ./srcs/input.c ./srcs/utils.c ./srcs/run.c
+SRCS = ./srcs/main.c ./srcs/init.c ./srcs/utils.c ./srcs/run.c \
+		./srcs/actions.c
 			
 INCLUDE = ./include/philo.h
 

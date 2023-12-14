@@ -6,56 +6,65 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 13:27:21 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/11 13:14:04 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/12/13 23:26:22 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-unsigned int	get_philo_time(struct timeval *start_time)
+uint64_t	get_time_ms(void)
 {
 	struct timeval	current_time;
-	unsigned int	seconds_diff;
-	unsigned int	useconds_diff;
 
-    gettimeofday(&current_time, NULL);
-    seconds_diff = current_time.tv_sec - start_time->tv_sec;
-    useconds_diff = current_time.tv_usec - start_time->tv_usec;
-    return (seconds_diff * 1000 + useconds_diff / 1000);
+	if (gettimeofday(&current_time, NULL) == -1)
+		printf("gettimeofday() error\n");
+	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }
 
-void	cleanup_philo(t_philo *philo_data)
+void	destroy_mutexes(t_data *data)
+{
+	size_t	i;
+
+	if (data->forks)
+	{
+		i = 0;
+		while (i < data->num_philos)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			i++;
+		}
+	}
+	pthread_mutex_destroy(&data->meals_lock);
+	pthread_mutex_destroy(&data->signal_lock);
+	pthread_mutex_destroy(&data->write_lock);
+}
+
+void	cleanup_philo(t_data *data)
+{
+	destroy_mutexes(data);
+	if (data->philos)
+		free(data->philos);
+	if (data->forks)
+		free(data->forks);
+}
+
+int	is_numeric(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo_data->num_philos)
+	while (str[i] != '\0')
 	{
-		pthread_mutex_destroy(&philo_data->forks[i]);
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return (0);
 		i++;
 	}
-	if (philo_data->philos)
-		free(philo_data->philos);
-	if (philo_data->forks)
-		free(philo_data->forks);
+	return (1);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+uint64_t	ft_atoi(const char *nptr)
 {
-	while (*s1 != '\0' && *s1 == *s2 && n > 0)
-	{
-		s1++;
-		s2++;
-		n--;
-	}
-	if (n == 0)
-		return (0);
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
-
-unsigned int	ft_atoi(const char *nptr)
-{
-	unsigned int	value;
+	uint64_t	value;
 
 	value = 0;
 	while (*nptr >= '0' && *nptr <= '9')

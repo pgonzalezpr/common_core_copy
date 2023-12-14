@@ -6,86 +6,71 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 13:27:14 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/11 13:15:03 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/12/14 00:30:09 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <bits/types/struct_timeval.h>
-#include <sys/time.h>
+#include <bits/pthreadtypes.h>
+#include <pthread.h>
+#include <stddef.h>
 
-int	init_data(int argc, char **argv, t_philo *philo_data)
+int	check_input(int argc, char **argv)
 {
-	memset(philo_data, 0, sizeof(t_philo));
-	philo_data->num_philos = ft_atoi(argv[1]);
-	philo_data->time_to_die = ft_atoi(argv[2]);
-	philo_data->time_to_eat = ft_atoi(argv[3]);
-	philo_data->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		philo_data->min_eat_times = ft_atoi(argv[5]);
-	philo_data->philos = malloc(philo_data->num_philos * sizeof(pthread_t));
-	if (!philo_data->philos)
-		return (0);
-	philo_data->forks = malloc(philo_data->num_philos
-			* sizeof(pthread_mutex_t));
-	if (!philo_data->forks)
-	{
-		free(philo_data->philos);
-		return (0);
-	}
-	return (1);
-}
+	int	i;
 
-void	run_philos(t_philo *philo_data)
-{
-	int				i;
-	t_args			*args;
-	struct timeval	start_time;
-
-	i = 0;
-	philo_data->start_time = &start_time;
-	gettimeofday(&start_time, NULL);
-	while (i < philo_data->num_philos)
+	if (argc < 5 || argc > 6)
+		return (printf("Invalid number of arguments\n"));
+	i = 1;
+	while (i < argc)
 	{
-		args = malloc(sizeof(t_args));
-		if (!args)
-			break ;
-		args->philo_data = philo_data;
-		args->idx = i;
-		if (pthread_create(&philo_data->philos[i], NULL, philo_f, args) == -1)
-		{
-			free(args);
-			break ;
-		}
+		if (!is_numeric(argv[i]))
+			return (printf("Invalid input. %s is not numeric\n", argv[i]));
+		if (i < 5 && ft_atoi(argv[i]) < 1)
+			return (printf("Invalid input. %s is less than 1\n", argv[i]));
 		i++;
 	}
-	while (i > 0)
+	return (0);
+}
+
+void	run_philos(t_data *data)
+{
+	size_t	i;
+
+	if (data->min_eat_times == 0)
+		return ;
+	pthread_create(&data->monitor_id, NULL, monitor_routine, data);
+	i = 0;
+	while (i < data->num_philos)
 	{
-		i--;
-		pthread_join(philo_data->philos[i], NULL);
+		pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
+			&data->philos[i]);
+		i++;
+	}
+	pthread_join(data->monitor_id, NULL);
+	i = 0;
+	while (i < data->num_philos)
+	{
+		pthread_join(data->philos[i].thread_id, NULL);
+		i++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo			philo_data;
-	int				i;
+	t_data	data;
 
-	if (!check_input(argc, argv))
-	{
-		printf("Invalid input\n");
+	if (check_input(argc, argv))
 		return (1);
-	}
-	if (!init_data(argc, argv, &philo_data))
+	if (init_data(argc, argv, &data))
 		return (1);
-	i = 0;
-	while (i < philo_data.num_philos)
-	{
-		pthread_mutex_init(&philo_data.forks[i], NULL);
-		i++;
-	}
-	run_philos(&philo_data);
-	cleanup_philo(&philo_data);
+	if (init_mutexes(&data))
+		return (1);
+	if (init_philos(&data))
+		return (1);
+	run_philos(&data);
+	cleanup_philo(&data);
+	return (0);
 }
 
 /*
