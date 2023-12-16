@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 14:40:25 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/14 00:57:52 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/12/16 14:08:05 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_times_meals(t_data *data)
 		if (time - data->philos[i].last_meal > data->time_to_die &&
 			!data->philos[i].is_eating)
 		{
-			printf("last meal: %llu\n", data->philos[i].last_meal);
+			printf("last meal: %lu\n", data->philos[i].last_meal);
 			print_log(DEATH_CODE, data->philos[i].index, time, data);
 		}
 		if (data->philos[i].finished == 1)

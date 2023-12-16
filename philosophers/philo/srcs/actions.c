@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:26:52 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/14 16:26:53 by pedro-go         ###   ########.fr       */
+/*   Updated: 2023/12/16 14:15:03 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_log(int log_code, size_t index, uint64_t time, t_data *data)
 		msg = "has died";
 	pthread_mutex_lock(&data->write_lock);
 	if (!check_signal(data))
-		printf("%llu %zu %s\n", time, index, msg);
+		printf("%lu %zu %s\n", time, index, msg);
 	if (log_code == DEATH_CODE)
 	{
 		pthread_mutex_lock(&data->signal_lock);
@@ -74,6 +74,7 @@ void	ph_eat(t_philo *philo)
 		philo->finished = 1;
 	pthread_mutex_unlock(&philo->data->meals_lock);
 	ft_usleep(philo->data->time_to_eat);
+	philo->is_eating = 0;
 	pthread_mutex_unlock(philo->second);
 	pthread_mutex_unlock(philo->first);
 }
