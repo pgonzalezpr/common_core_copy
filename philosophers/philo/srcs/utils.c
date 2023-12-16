@@ -12,15 +12,6 @@
 
 #include "../include/philo.h"
 
-void	ft_usleep(uint64_t ms)
-{
-	uint64_t	time;
-
-	time = get_time_ms();
-	while (get_time_ms() - time < ms)
-		usleep(ms / 10);
-}
-
 uint64_t	get_time_ms(void)
 {
 	struct timeval	current_time;

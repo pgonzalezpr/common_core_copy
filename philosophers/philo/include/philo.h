@@ -55,7 +55,6 @@ typedef struct s_philo
 	pthread_mutex_t		*second;
 	pthread_t			thread_id;
 	uint64_t			last_meal;
-	int					finished;
 	size_t				index;
 	size_t				meals;
 	int					is_eating;

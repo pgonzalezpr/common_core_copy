@@ -6,7 +6,7 @@
 /*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 14:40:25 by pedro-go          #+#    #+#             */
-/*   Updated: 2023/12/16 14:08:05 by pgonzalez        ###   ########.fr       */
+/*   Updated: 2023/12/16 14:57:05 by pgonzalez        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,10 @@ void	check_times_meals(t_data *data)
 	while (i < data->num_philos)
 	{
 		time = get_time_ms() - data->start_time;
-		if (time - data->philos[i].last_meal > data->time_to_die &&
-			!data->philos[i].is_eating)
-		{
-			printf("last meal: %lu\n", data->philos[i].last_meal);
+		if (time - data->philos[i].last_meal > data->time_to_die
+			&& !data->philos[i].is_eating)
 			print_log(DEATH_CODE, data->philos[i].index, time, data);
-		}
-		if (data->philos[i].finished == 1)
+		if (data->philos[i].meals >= data->min_eat_times)
 			finished_count++;
 		i++;
 	}
@@ -77,10 +74,10 @@ void	*philo_routine(void *arg)
 	{
 		ph_eat(philo);
 		print_log(SLEEP_CODE, philo->index, get_time_ms()
-				- philo->data->start_time, philo->data);
+			- philo->data->start_time, philo->data);
 		ft_usleep(philo->data->time_to_sleep);
 		print_log(THINK_CODE, philo->index, get_time_ms()
-				- philo->data->start_time, philo->data);
+			- philo->data->start_time, philo->data);
 	}
 	return ((void *)0);
 }
