@@ -27,7 +27,7 @@ void	*monitor_routine(void *arg)
 		{
 			sem_wait(philo->data->write_sem);
 			printf("%lu %lu has died\n", time, philo->index);
-			exit_philo(philo->data, NULL, EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		sem_post(philo->data->meal_sems[philo->index - 1]);
 	}
@@ -102,4 +102,5 @@ void	create_philos(t_data *data)
 			exec_philo(&philo);
 		i++;
 	}
+	destroy_sems(data);
 }

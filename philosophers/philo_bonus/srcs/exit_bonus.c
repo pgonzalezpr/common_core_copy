@@ -23,22 +23,34 @@ void	destroy_sems(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		if (data->meal_sems && data->meal_sems[i])
-			sem_close(data->meal_sems[i]);
 		if (data->sem_names && data->sem_names[i])
 			sem_unlink(data->sem_names[i]);
 		i++;
 	}
-	sem_close(data->forks);
 	sem_unlink(FORKS_NAME);
-	sem_close(data->forks_sem);
 	sem_unlink(FORKS_SEM_NAME);
-	sem_close(data->write_sem);
 	sem_unlink(WRITE_SEM_NAME);
+}
+
+void	close_sems(t_data *data)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (i < data->num_philos)
+	{
+		if (data->meal_sems && data->meal_sems[i])
+			sem_close(data->meal_sems[i]);
+		i++;
+	}
+	sem_close(data->forks);
+	sem_close(data->forks_sem);
+	sem_close(data->write_sem);
 }
 
 void	exit_philo(t_data *data, const char *msg, int status)
 {
+	close_sems(data);
 	destroy_sems(data);
 	free_str_arr(data->sem_names, data->num_philos);
 	if (data->process_ids)
