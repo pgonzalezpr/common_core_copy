@@ -42,6 +42,8 @@ ${NAME}: ${OBJS} $(INCLUDE) Makefile
 	@${CC} ${OBJS} -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
+
+${OBJS}:
 -include ${DEPS}
 
 clean:

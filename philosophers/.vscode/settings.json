@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "'consolas', 'monospace', monospace, 'Hack Nerd Font'",
+    "editor.fontFamily": "'Jetbrains Mono'",
     "files.associations": {
         "philo.h": "c"
     },

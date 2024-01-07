@@ -1,6 +1,7 @@
 NAME = philo_bonus
 
-SRCS = ./srcs/main_bonus.c
+SRCS = ./srcs/main_bonus.c ./srcs/utils_bonus.c ./srcs/init_bonus.c ./srcs/exit_bonus.c \
+		./srcs/string_utils.c ./srcs/run_bonus.c
 			
 INCLUDE = ./include/philo_bonus.h
 
@@ -41,6 +42,7 @@ ${NAME}: ${OBJS} $(INCLUDE) Makefile
 	@${CC} ${OBJS} -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
+${OBJS}:
 -include ${DEPS}
 
 clean:
