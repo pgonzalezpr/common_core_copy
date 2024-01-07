@@ -1,7 +1,7 @@
 NAME = philo_bonus
 
 SRCS = ./srcs/main_bonus.c ./srcs/utils_bonus.c ./srcs/init_bonus.c ./srcs/exit_bonus.c \
-		./srcs/string_utils.c ./srcs/run_bonus.c
+		./srcs/string_utils_bonus.c ./srcs/run_bonus.c ./srcs/run_utils_bonus.c
 			
 INCLUDE = ./include/philo_bonus.h
 

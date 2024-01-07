@@ -21,3 +21,29 @@ int	is_numeric(char *str)
 	}
 	return (1);
 }
+
+void	ft_usleep(uint64_t ms)
+{
+	uint64_t	time;
+
+	time = get_time_ms();
+	while (get_time_ms() - time < ms)
+		usleep(ms / 10);
+}
+
+void	print_log(int log_code, uint64_t index, uint64_t time, t_data *data)
+{
+	char	*msg;
+
+	if (log_code == EAT_CODE)
+		msg = "is_eating";
+	if (log_code == THINK_CODE)
+		msg = "is_thinking";
+	if (log_code == SLEEP_CODE)
+		msg = "is sleeping";
+	if (log_code == FORK_CODE)
+		msg = "has taken a fork";
+	sem_wait(data->write_sem);
+	printf("%lu %lu %s\n", time, index, msg);
+	sem_post(data->write_sem);
+}

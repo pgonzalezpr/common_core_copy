@@ -60,5 +60,10 @@ char					*ft_itoa(uint64_t nbr);
 char					*ft_strjoin(const char *s1, const char *s2);
 void					create_philos(t_data *data);
 void					wait_philos(t_data *data);
+void					ft_usleep(uint64_t ms);
+void					print_log(int log_code, uint64_t index, uint64_t time,
+							t_data *data);
+void					take_forks(t_philo *philo);
+void					eat(t_philo *philo);
 
 #endif
