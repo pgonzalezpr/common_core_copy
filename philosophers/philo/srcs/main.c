@@ -44,14 +44,15 @@ int	run_philos(t_data *data)
 	{
 		if (pthread_create(&data->philos[i].thread_id, NULL, philo_routine,
 				&data->philos[i]) != 0)
-			printf("Error creating philo thread\n");
+			break ;
 		i++;
 	}
 	pthread_join(data->monitor_id, NULL);
 	i = 0;
 	while (i < data->num_philos)
 	{
-		pthread_join(data->philos[i].thread_id, NULL);
+		if (data->philos[i].thread_id != 0)
+			pthread_join(data->philos[i].thread_id, NULL);
 		i++;
 	}
 	return (0);
