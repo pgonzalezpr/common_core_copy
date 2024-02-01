@@ -5,7 +5,7 @@ SRCS = ./srcs/main_bonus.c ./srcs/utils_bonus.c ./srcs/init_bonus.c ./srcs/exit_
 			
 INCLUDE = ./include/philo_bonus.h
 
-CC = gcc
+CC = gcc -fsanitize=thread -pthread
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -MMD
 

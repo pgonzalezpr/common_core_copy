@@ -69,7 +69,9 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->data->meals_lock);
 	philo->last_meal = get_time_ms() - philo->data->start_time;
+	pthread_mutex_unlock(&philo->data->meals_lock);
 	while (!check_signal(philo->data))
 	{
 		ph_eat(philo);

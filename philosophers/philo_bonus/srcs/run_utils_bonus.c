@@ -38,6 +38,6 @@ void	eat(t_philo *philo)
 	sem_wait(philo->data->meal_sems[philo->index - 1]);
 	philo->is_eating = 0;
 	if (philo->meals >= philo->data->min_eat_times)
-		exit_philo(philo->data, NULL, EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 	sem_post(philo->data->meal_sems[philo->index - 1]);
 }

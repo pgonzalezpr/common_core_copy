@@ -47,7 +47,9 @@ void	exec_philo(t_philo *philo)
 		sem_post(philo->data->write_sem);
 		exit(EXIT_FAILURE);
 	}
+	sem_wait(philo->data->meal_sems[philo->index - 1]);
 	philo->last_meal = get_time_ms() - philo->data->start_time;
+	sem_post(philo->data->meal_sems[philo->index - 1]);
 	while (1)
 	{
 		take_forks(philo);
