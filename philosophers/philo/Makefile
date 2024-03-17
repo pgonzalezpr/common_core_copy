@@ -5,7 +5,7 @@ SRCS = ./srcs/main.c ./srcs/init.c ./srcs/utils.c ./srcs/run.c \
 			
 INCLUDE = ./include/philo.h
 
-CC = gcc -fsanitize=thread -pthread -ltsan
+CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -MMD
 

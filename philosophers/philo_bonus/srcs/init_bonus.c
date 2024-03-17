@@ -27,6 +27,7 @@ void	init_semaphores(t_data *data)
 
 	i = 0;
 	build_sem_names(data);
+	destroy_sems(data);
 	while (i < data->num_philos)
 	{
 		data->meal_sems[i] = sem_open(data->sem_names[i], O_CREAT, 0644, 1);

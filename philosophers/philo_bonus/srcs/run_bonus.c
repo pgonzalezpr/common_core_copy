@@ -104,5 +104,4 @@ void	create_philos(t_data *data)
 			exec_philo(&philo);
 		i++;
 	}
-	destroy_sems(data);
 }
