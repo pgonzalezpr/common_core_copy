@@ -1,12 +1,13 @@
 NAME = philo_bonus
 
-SRCS = ./srcs/main_bonus.c
+SRCS = ./srcs/main_bonus.c ./srcs/utils_bonus.c ./srcs/init_bonus.c ./srcs/exit_bonus.c \
+		./srcs/string_utils_bonus.c ./srcs/run_bonus.c ./srcs/run_utils_bonus.c
 			
 INCLUDE = ./include/philo_bonus.h
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -MMD
+CFLAGS = -Wall -Wextra -Werror -MMD -fsanitize=thread
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -38,9 +39,10 @@ DEPS = $(addsuffix .d, $(basename $(SRCS)))
 all: ${NAME}
 
 ${NAME}: ${OBJS} $(INCLUDE) Makefile
-	@${CC} ${OBJS} -o ${NAME}
+	@${CC} ${OBJS} -ltsan -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
+${OBJS}:
 -include ${DEPS}
 
 clean:
