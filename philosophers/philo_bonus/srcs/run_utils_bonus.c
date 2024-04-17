@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_utils_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/13 18:38:33 by pedro-go          #+#    #+#             */
+/*   Updated: 2024/04/13 18:38:40 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo_bonus.h"
 
 void	take_forks(t_philo *philo)
@@ -10,7 +22,7 @@ void	take_forks(t_philo *philo)
 	{
 		ft_usleep(philo->data->time_to_die);
 		sem_wait(philo->data->write_sem);
-		printf("%lu %lu has died\n", get_time_ms() - philo->data->start_time,
+		printf("%llu %llu has died\n", get_time_ms() - philo->data->start_time,
 			philo->index);
 		sem_post(philo->data->forks);
 		exit_philo(philo->data, NULL, EXIT_FAILURE);

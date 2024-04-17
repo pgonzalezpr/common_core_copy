@@ -37,7 +37,7 @@ void	print_log(int log_code, size_t index, uint64_t time, t_data *data)
 		msg = "has died";
 	pthread_mutex_lock(&data->write_lock);
 	if (!check_signal(data))
-		printf("%lu %zu %s\n", time, index, msg);
+		printf("%llu %zu %s\n", time, index, msg);
 	if (log_code == DEATH_CODE)
 	{
 		pthread_mutex_lock(&data->signal_lock);

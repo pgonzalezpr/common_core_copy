@@ -7,7 +7,7 @@ INCLUDE = ./include/philo.h
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -MMD -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -MMD 
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -39,7 +39,7 @@ DEPS = $(addsuffix .d, $(basename $(SRCS)))
 all: ${NAME}
 
 ${NAME}: ${OBJS} $(INCLUDE) Makefile
-	@${CC} ${OBJS} -ltsan -o ${NAME}
+	@${CC} ${OBJS} -o ${NAME}
 	@echo "\n$(RED) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 

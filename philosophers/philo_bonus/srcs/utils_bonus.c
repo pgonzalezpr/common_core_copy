@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/13 18:39:00 by pedro-go          #+#    #+#             */
+/*   Updated: 2024/04/13 18:39:01 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo_bonus.h"
 
 uint64_t	get_time_ms(void)
@@ -44,6 +56,6 @@ void	print_log(int log_code, uint64_t index, uint64_t time, t_data *data)
 	if (log_code == FORK_CODE)
 		msg = "has taken a fork";
 	sem_wait(data->write_sem);
-	printf("%lu %lu %s\n", time, index, msg);
+	printf("%llu %llu %s\n", time, index, msg);
 	sem_post(data->write_sem);
 }

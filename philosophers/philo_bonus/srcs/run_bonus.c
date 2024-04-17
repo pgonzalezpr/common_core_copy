@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_bonus.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedro-go <pedro-go@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/13 18:38:14 by pedro-go          #+#    #+#             */
+/*   Updated: 2024/04/13 18:38:15 by pedro-go         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo_bonus.h"
 
 void	kill_philos(t_data *data)
@@ -26,7 +38,7 @@ void	*monitor_routine(void *arg)
 			&& !philo->is_eating)
 		{
 			sem_wait(philo->data->write_sem);
-			printf("%lu %lu has died\n", time, philo->index);
+			printf("%llu %llu has died\n", time, philo->index);
 			exit(EXIT_FAILURE);
 		}
 		sem_post(philo->data->meal_sems[philo->index - 1]);
