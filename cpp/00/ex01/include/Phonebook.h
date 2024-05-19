@@ -3,6 +3,9 @@
 
 #include "Contact.h"
 #include <iomanip>
+#include <string>
+
+using namespace std;
 
 # define MAX_CONTACTS 8
 # define COLUMN_WIDTH 10
