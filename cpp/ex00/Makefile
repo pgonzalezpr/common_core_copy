@@ -1,6 +1,5 @@
 NAME = megaphone
 
-
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
 BOLD =			\033[1m
