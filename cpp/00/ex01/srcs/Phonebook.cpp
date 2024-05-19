@@ -15,6 +15,10 @@ bool    Phonebook::isIndexValid(int index) const {
     return index >= 0 && index < count;
 }
 
+bool    Phonebook::isEmpty() const {
+    return count == 0;
+}
+
 void    Phonebook::displayPhonebook() const {
     cout << setw(COLUMN_WIDTH) << right << "Index" << "|"
         << setw(COLUMN_WIDTH) << right << "First Name" << "|"

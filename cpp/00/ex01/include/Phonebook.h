@@ -15,6 +15,7 @@ class   Phonebook {
         Phonebook();
         void    addContact(const Contact& contact);
         bool    isIndexValid(int index) const;
+        bool    isEmpty() const;
         void    displayPhonebook() const;
         void    displayContactByIndex(int index) const;
 

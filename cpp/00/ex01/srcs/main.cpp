@@ -15,6 +15,8 @@ void    search(const Phonebook& phonebook) {
     cout << endl;
     phonebook.displayPhonebook();
     cout << endl;
+    if (phonebook.isEmpty())
+        return ;
     while (1) {
         input = readField("Enter contact index: ");
         index = stringToInt(input);
