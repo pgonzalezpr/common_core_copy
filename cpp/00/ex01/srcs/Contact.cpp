@@ -1,4 +1,4 @@
-#include "Contact.h"
+#include "Contact.hpp"
 
 Contact::Contact(const string& firstName, const string& lastName,
             const string& nickname, const string& phoneNumber,

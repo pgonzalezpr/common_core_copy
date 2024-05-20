@@ -1,4 +1,4 @@
-NAME = phonebook
+NAME = tests
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -20,8 +20,8 @@ MID_GRAY =		\033[38;5;245m
 DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
-SRCS = ./srcs/main.cpp ./srcs/Contact.cpp ./srcs/Phonebook.cpp ./srcs/Utils.cpp
-INCLUDE = ./include/Contact.hpp ./include/Phonebook.hpp ./include/Utils.hpp
+SRCS = ./tests.cpp ./Account.cpp
+INCLUDE = ./Account.hpp
 
 CC = c++
 RM = rm -f
@@ -31,10 +31,10 @@ DEPS = ${SRCS:.cpp=.d}
 
 %.o: %.cpp
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -I./include -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 ${NAME}: ${OBJS} ${INCLUDE} Makefile
-		@${CC} ${CFLAGS} ${SRCS} -I./include -o ${NAME}
+		@${CC} ${CFLAGS} ${SRCS} -o ${NAME}
 		@echo "\n$(GREEN) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 all:	${NAME}

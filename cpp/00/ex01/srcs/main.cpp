@@ -1,6 +1,6 @@
-#include "Contact.h"
-#include "Phonebook.h"
-#include "Utils.h"
+#include "Contact.hpp"
+#include "Phonebook.hpp"
+#include "Utils.hpp"
 #include <sstream>
 #include <stdlib.h>
 
