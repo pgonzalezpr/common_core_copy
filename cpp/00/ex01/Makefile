@@ -42,10 +42,10 @@ all:	${NAME}
 -include ${DEPS}
 
 clean:
-		@${RM} ${OBJS} ${DEPS}
+		@${RM} ${OBJS} ${DEPS} ${NAME}.d
 		@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 fclean:
-		@${RM} ${OBJS} ${DEPS} ${NAME}
+		@${RM} ${OBJS} ${DEPS} ${NAME} ${NAME}.d
 		@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 
 re: fclean all
