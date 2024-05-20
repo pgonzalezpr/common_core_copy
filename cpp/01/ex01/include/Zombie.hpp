@@ -9,13 +9,13 @@
 using namespace std;
 
 class Zombie {
-private:
-    string  name;
 public:
     Zombie(void);
     Zombie(string name);
     ~Zombie(void);
     void    announce(void);
+private:
+    string  name;
 };
 
 Zombie  *zombieHorde(int N, string name);

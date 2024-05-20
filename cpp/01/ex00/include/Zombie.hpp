@@ -10,12 +10,12 @@ using namespace std;
 
 class Zombie
 {
-private:
-    string  name;
 public:
     Zombie(string name);
     ~Zombie(void);
     void    announce(void);
+private:
+    string  name;
 };
 
 Zombie* newZombie(string name);
