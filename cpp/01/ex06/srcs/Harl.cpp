@@ -2,23 +2,53 @@
 
 Harl::Harl(void)
 {
-    map[0].level = "DEBUG";
+    map[0].level = DEBUG;
     map[0].f = &Harl::debug;
-    map[1].level = "INFO";
+    map[1].level = INFO;
     map[1].f = &Harl::info;
-    map[2].level = "WARNING";
+    map[2].level = WARNING;
     map[2].f = &Harl::warning;
-    map[3].level = "ERROR";
+    map[3].level = ERROR;
     map[3].f = &Harl::error;
 }
 
 void    Harl::complain(string level) {
-    static int  i = -1;
+    switch (getLevel(level))
+    {
+    case DEBUG:
+        debug();
+        info();
+        warning();
+        error();
+        break;
+    case INFO:
+        info();
+        warning();
+        error();
+        break;
+    case WARNING:
+        warning();
+        error();
+        break;
+    case ERROR:
+        error();
+        break;
+    default:
+        cout << DEFAULT_MSG << endl;
+    }
+}
 
-    if (i <= 3)
-        level ==map[++i].level ? (this->*map[i].f)(): complain(level);
-    i = -1;
-}   
+Level   Harl::getLevel(string level) {
+    if (level == "DEBUG")
+        return DEBUG;
+    if (level == "INFO")
+        return INFO;
+    if (level == "WARNING")
+        return WARNING;
+    if (level == "ERROR")
+        return ERROR;
+    return UNKNOWN;
+}
 
 void    Harl::debug(void) {
     cout << "[DEBUG]"
