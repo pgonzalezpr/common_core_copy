@@ -19,11 +19,12 @@ public:
 
     Fixed();
     Fixed(const Fixed& other);
+    Fixed&  operator=(const Fixed& other);
+    ~Fixed();
+    
     Fixed(const int value);
     Fixed(const float fValue);
-    ~Fixed();
 
-    Fixed&  operator=(const Fixed& other);
     bool    operator==(const Fixed& rhs) const;
     bool    operator<(const Fixed& rhs) const;
     bool    operator>(const Fixed& rhs) const; 
