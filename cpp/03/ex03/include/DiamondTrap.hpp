@@ -11,17 +11,15 @@ class DiamondTrap : public FragTrap, public ScavTrap {
 private:
     string _name;
 public:
-public:
     DiamondTrap();
-    DiamondTrap(const string& name);
+    DiamondTrap(const string name);
     DiamondTrap(const DiamondTrap& other);
     DiamondTrap& operator=(const DiamondTrap& other);
     ~DiamondTrap();
 
-    using ScavTrap::attack;
-    void whoAmI() const;
+    void attack(const string& target);
+    void whoAmI();
+    string  getName() const;
 };
-
-std::ostream	&operator<<(std::ostream &stream, DiamondTrap &diamonTrap);
 
 #endif

@@ -9,17 +9,18 @@ using namespace std;
 
 class ScavTrap : virtual public ClapTrap
 {
+protected:
+    bool    guardState;
 public:
     ScavTrap();
-    ScavTrap(const string& name);
+    ScavTrap(const string name);
     ScavTrap(const ScavTrap& other);
-    ~ScavTrap();
+    virtual ~ScavTrap();
     ScavTrap&   operator=(const ScavTrap& other);
 
     void    attack(const string& target);
     void    guardGate();
+    bool    getGuardState() const;
 };
-
-std::ostream	&operator<<(std::ostream &stream, ScavTrap &scavTrap);
 
 #endif

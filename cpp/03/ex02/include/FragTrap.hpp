@@ -7,13 +7,13 @@
 
 using namespace std;
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
 public:
     FragTrap();
-    FragTrap(const string& name);
+    FragTrap(const string name);
     FragTrap(const FragTrap& other);
-    ~FragTrap();
+    virtual ~FragTrap();
     FragTrap&   operator=(const FragTrap& other);
 
     void    highFivesGuys(void);

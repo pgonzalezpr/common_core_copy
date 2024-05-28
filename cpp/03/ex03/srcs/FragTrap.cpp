@@ -4,17 +4,11 @@
 
 using namespace std;
 
-FragTrap::FragTrap() {
-    _hitPoints = 100;
-    _energyPoints = 100;
-    _attackDamage = 30;
+FragTrap::FragTrap() : ClapTrap("default", 100, 100, 30) {
     cout << "FragTrap default constructor called" << endl;
 }
 
-FragTrap::FragTrap(const string& name) : ClapTrap(name) {
-    _hitPoints = 100;
-    _energyPoints = 100;
-    _attackDamage = 30;
+FragTrap::FragTrap(const string name) : ClapTrap(name, 100, 100, 30) {
     cout << "FragTrap " << _name << " constructor called" << endl;
 }
 
@@ -30,20 +24,11 @@ FragTrap::~FragTrap() {
 FragTrap&   FragTrap::operator=(const FragTrap& other) {
     if (this == &other)
         return *this;
-    _name = other._name;
-    _hitPoints = other._hitPoints;
-    _energyPoints = other._energyPoints;
-    _attackDamage = other._attackDamage;
+    this->_name = other.getName();
+    this->_hitPoints = other.getHitPoints();
+    this->_energyPoints = other.getEnergyPoints();
+    this->_attackDamage = other.getAttackDamage();
     return *this;
-}
-
-std::ostream	&operator<<(std::ostream &stream, FragTrap &fragTrap)
-{
-	stream << "Name: " << fragTrap.getName() << \
-	" Hitpoints: " << fragTrap.getHitPoints() << \
-	" Energy Points: " << fragTrap.getEnergyPoints() << \
-	" Attack Damage: " << fragTrap.getAttackDamage();
-	return (stream);
 }
 
 void    FragTrap::highFivesGuys(void) {

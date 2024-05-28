@@ -7,17 +7,20 @@
 
 using namespace std;
 
-class ScavTrap : public ClapTrap
+class ScavTrap : virtual public ClapTrap
 {
+protected:
+    bool    guardState;
 public:
     ScavTrap();
-    ScavTrap(const string& name);
+    ScavTrap(const string name);
     ScavTrap(const ScavTrap& other);
-    ~ScavTrap();
+    virtual ~ScavTrap();
     ScavTrap&   operator=(const ScavTrap& other);
 
     void    attack(const string& target);
     void    guardGate();
+    bool    getGuardState() const;
 };
 
 #endif

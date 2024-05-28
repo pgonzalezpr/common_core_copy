@@ -1,16 +1,12 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap() {
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 20;
+ScavTrap::ScavTrap() : ClapTrap("default", 100, 50, 20) {
+    this->guardState = false;
     cout << "ScavTrap default constructor called" << endl;
 }
 
-ScavTrap::ScavTrap(const string& name) : ClapTrap(name) {
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 20;
+ScavTrap::ScavTrap(const string name) : ClapTrap(name, 100, 50, 20) {
+    this->guardState = false;
     cout << "ScavTrap " << _name << " constructor called" << endl;
 }
 
@@ -26,42 +22,36 @@ ScavTrap::~ScavTrap() {
 ScavTrap&   ScavTrap::operator=(const ScavTrap& other) {
     if (this == &other)
         return *this;
-    _name = other._name;
-    _hitPoints = other._hitPoints;
-    _energyPoints = other._energyPoints;
-    _attackDamage = other._attackDamage;
+    this->_name = other.getName();
+    this->_hitPoints = other.getHitPoints();
+    this->_energyPoints = other.getEnergyPoints();
+    this->_attackDamage = other.getAttackDamage();
+    this->guardState = other.getGuardState();
     return *this;
-}
-
-std::ostream	&operator<<(std::ostream &stream, ScavTrap &scavTrap)
-{
-	stream << "Name: " << scavTrap.getName() << \
-	" Hitpoints: " << scavTrap.getHitPoints() << \
-	" Energy Points: " << scavTrap.getEnergyPoints() << \
-	" Attack Damage: " << scavTrap.getAttackDamage();
-	return (stream);
 }
 
 void    ScavTrap::attack(const string& target) {
     if (isDead() || hasNoEnergy())
         return;
     cout << "ScavTrap "
-        << _name
+        << this->_name
         << " attacks "
         << target
         << ", causing "
-        << _attackDamage
+        << this->_attackDamage
         << " points of damage"
         << endl;
-    _energyPoints--;
+    this->_energyPoints--;
 }
 
 void    ScavTrap::guardGate() {
     if (!isDead())
         return;
     cout << "ScavTrap "
-        << _name
+        << this->_name
         << " has entered gatekeeper mode "
         << endl;
-    _energyPoints--;   
+    this->_energyPoints--;   
 }
+
+bool    ScavTrap::getGuardState() const { return this->guardState; }
