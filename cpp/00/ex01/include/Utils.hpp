@@ -5,10 +5,8 @@
 #include <iostream>
 #include <sstream>
 
-using namespace std;
-
-string  readField(const string& prompt);
-int     stringToInt(const string& str);
-bool    is_numeric(const string& str);
+std::string readField(const std::string& prompt);
+int     stringToInt(const std::string& str);
+bool    is_numeric(const std::string& str);
 
 #endif

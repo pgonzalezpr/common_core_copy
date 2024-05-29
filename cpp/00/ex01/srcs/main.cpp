@@ -9,11 +9,11 @@
 # define EXIT_CMD "EXIT"
 
 void    search(const Phonebook& phonebook) {
-    string  input;
+    std::string  input;
 
-    cout << endl;
+    std::cout << std::endl;
     phonebook.displayPhonebook();
-    cout << endl;
+    std::cout << std::endl;
     if (phonebook.isEmpty())
         return ;
     while (1) {
@@ -21,39 +21,39 @@ void    search(const Phonebook& phonebook) {
         if (is_numeric(input) && phonebook.isIndexValid(stringToInt(input)))
             break;
         else
-            cout << "Invalid index. Try again" << endl;
+            std::cout << "Invalid index. Try again" << std::endl;
     }
-    cout << endl;
+    std::cout << std::endl;
     phonebook.displayContactByIndex(stringToInt(input));
 }
 
 void    add(Phonebook& phonebook) {
-    cout << endl;
-    string  firstName = readField("Enter first name: ");
-    string  lastName = readField("Enter last name: ");
-    string  nickname = readField("Enter nickname: ");
+    std::cout << std::endl;
+    std::string  firstName = readField("Enter first name: ");
+    std::string  lastName = readField("Enter last name: ");
+    std::string  nickname = readField("Enter nickname: ");
 
-    string  phoneNumber;
+    std::string  phoneNumber;
     while (1) {
         phoneNumber = readField("Enter phone number: ");
         if (is_numeric(phoneNumber))
             break;
         else
-            cout << "Invalid phone number. Try again" << endl;
+            std::cout << "Invalid phone number. Try again" << std::endl;
     }
-    string  darkestSecret = readField("Enter darkest secret: ");
+    std::string  darkestSecret = readField("Enter darkest secret: ");
 
     phonebook.addContact(Contact(firstName, lastName, nickname, phoneNumber,
         darkestSecret));
 }
 
 int main() {
-    string      cmd;
+    std::string      cmd;
     Phonebook   phonebook;
 
     while (1) {
-        cout << "Enter command: ";
-        getline(cin, cmd);
+        std::cout << "Enter command: ";
+        getline(std::cin, cmd);
         if (!cmd.compare(ADD_CMD))
             add(phonebook);
         else if (!cmd.compare(SEARCH_CMD))
@@ -61,7 +61,7 @@ int main() {
         else if (!cmd.compare(EXIT_CMD))
             exit(0);
         else 
-            cout << "Unknown command. Please enter ADD, SEARCH, or EXIT.";
-        cout << endl;
+            std::cout << "Unknown command. Please enter ADD, SEARCH, or EXIT.";
+        std::cout << std::endl;
     }
 }

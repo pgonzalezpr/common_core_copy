@@ -20,19 +20,19 @@ bool    Phonebook::isEmpty() const {
 }
 
 void    Phonebook::displayPhonebook() const {
-    cout << setw(COLUMN_WIDTH) << right << "Index" << "|"
-        << setw(COLUMN_WIDTH) << right << "First Name" << "|"
-        << setw(COLUMN_WIDTH) << right << "Last Name" << "|"
-        << setw(COLUMN_WIDTH) << right << "Nickname" << endl;
+    std::cout << std::setw(COLUMN_WIDTH) << std::right << "Index" << "|"
+        << std::setw(COLUMN_WIDTH) << std::right << "First Name" << "|"
+        << std::setw(COLUMN_WIDTH) << std::right << "Last Name" << "|"
+        << std::setw(COLUMN_WIDTH) << std::right << "Nickname" << std::endl;
 
     for (int i = 0; i < count; ++i) {
-        cout << setw(COLUMN_WIDTH) << right << i << "|"
-            << setw(COLUMN_WIDTH) << right 
+        std::cout << std::setw(COLUMN_WIDTH) << std::right << i << "|"
+            << std::setw(COLUMN_WIDTH) << std::right 
             << formatField(list[i].getFirstName()) << "|"
-            << setw(COLUMN_WIDTH) << right 
+            << std::setw(COLUMN_WIDTH) << std::right 
             << formatField(list[i].getLastName()) << "|"
-            << setw(COLUMN_WIDTH) << right 
-            << formatField(list[i].getNickname()) << endl;
+            << std::setw(COLUMN_WIDTH) << std::right 
+            << formatField(list[i].getNickname()) << std::endl;
     }
 }
 
@@ -42,7 +42,7 @@ void    Phonebook::displayContactByIndex(int index) const {
     list[index].displayContact();
 }
 
-string  Phonebook::formatField(const string& str) const {
+std::string  Phonebook::formatField(const std::string& str) const {
     if (str.length() > COLUMN_WIDTH) {
         return str.substr(0, COLUMN_WIDTH - 1) + ".";
     } else {

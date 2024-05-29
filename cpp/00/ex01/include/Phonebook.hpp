@@ -5,8 +5,6 @@
 #include <iomanip>
 #include <string>
 
-using namespace std;
-
 # define MAX_CONTACTS 8
 # define COLUMN_WIDTH 10
 
@@ -24,7 +22,7 @@ class   Phonebook {
         int     count;
         int     oldestIndex;
 
-        string  formatField(const string& str) const;
+        std::string  formatField(const std::string& str) const;
 };
 
 #endif
