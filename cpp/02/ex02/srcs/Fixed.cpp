@@ -136,7 +136,7 @@ const Fixed&    Fixed::max(const Fixed& first, const Fixed& second) {
     return (first >= second) ? first : second;
 }
 
-ostream& operator<<(ostream& os, const Fixed& fixed) {
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed) {
     os << fixed.toFloat();
     return os;
 }

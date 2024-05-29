@@ -4,8 +4,6 @@
 #include <iostream>
 #include <cmath>
 
-using namespace std;
-
 class Fixed
 {
 private:
@@ -24,6 +22,6 @@ public:
     int     toInt() const;
 };
 
-ostream& operator<<(ostream& os, const Fixed& obj);
+std::ostream& operator<<(std::ostream& os, const Fixed& obj);
 
 #endif

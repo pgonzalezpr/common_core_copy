@@ -5,21 +5,19 @@
 #include "FragTrap.hpp"
 #include <iostream>
 
-using namespace std;
-
 class DiamondTrap : public FragTrap, public ScavTrap {
 private:
-    string _name;
+    std::string _name;
 public:
     DiamondTrap();
-    DiamondTrap(const string name);
+    DiamondTrap(const std::string name);
     DiamondTrap(const DiamondTrap& other);
     DiamondTrap& operator=(const DiamondTrap& other);
     ~DiamondTrap();
 
-    void attack(const string& target);
+    void attack(const std::string& target);
     void whoAmI();
-    string  getName() const;
+    std::string  getName() const;
 };
 
 #endif

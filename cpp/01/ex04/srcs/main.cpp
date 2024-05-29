@@ -7,16 +7,14 @@
 #define ARGS_ERR "Invalid number of arguments"
 #define OPEN_ERR "Error opening file"
 
-using namespace std;
-
-void    error(string msg) {
-    cerr << msg << endl;
+void    error(std::string msg) {
+    std::cerr << msg << std::endl;
     exit(EXIT_FAILURE);
 }
 
-void    lineReplace(string &line, const string &s1, const string &s2) {
-    string  newLine;
-    string  token;
+void    lineReplace(std::string &line, const std::string &s1, const std::string &s2) {
+    std::string  newLine;
+    std::string  token;
     char    c;
     bool    inToken;
 
@@ -50,9 +48,9 @@ void    lineReplace(string &line, const string &s1, const string &s2) {
 
 int main(int argc, char *argv[]) {
 
-    ifstream    fileRead(argv[1]);
-    string      line;
-    string      processed;
+    std::ifstream    fileRead(argv[1]);
+    std::string      line;
+    std::string      processed;
 
     if (argc != 4)
         error(ARGS_ERR);
@@ -64,7 +62,7 @@ int main(int argc, char *argv[]) {
         processed += line;
     }
     fileRead.close();
-    ofstream    fileWrite(argv[1]);
+    std::ofstream    fileWrite(argv[1]);
     if (!fileWrite.is_open())
         error(OPEN_ERR);
     fileWrite << processed;

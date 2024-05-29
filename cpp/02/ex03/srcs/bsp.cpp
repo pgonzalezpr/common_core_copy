@@ -41,7 +41,7 @@ int main() {
     Point   point2(5,0);
     Point   point3(6,5);
 
-    cout << bsp(a, b, c, point1) << endl;
-    cout << bsp(a, b, c, point2) << endl;
-    cout << bsp(a, b, c, point3) << endl;
+    std::cout << bsp(a, b, c, point1) << std::endl;
+    std::cout << bsp(a, b, c, point2) << std::endl;
+    std::cout << bsp(a, b, c, point3) << std::endl;
 }

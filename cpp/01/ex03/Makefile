@@ -25,7 +25,7 @@ INCLUDE = ./include/Weapon.hpp ./include/HumanA.hpp ./include/HumanB.hpp
 
 CC = c++
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address
 OBJS = ${SRCS:.cpp=.o}
 DEPS = ${SRCS:.cpp=.d}
 

@@ -5,20 +5,20 @@
 using namespace std;
 
 FragTrap::FragTrap() : ClapTrap("default", 100, 100, 30) {
-    cout << "FragTrap default constructor called" << endl;
+    std::cout << "FragTrap default constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(const string name) : ClapTrap(name, 100, 100, 30) {
-    cout << "FragTrap " << _name << " constructor called" << endl;
+FragTrap::FragTrap(const std::string name) : ClapTrap(name, 100, 100, 30) {
+    std::cout << "FragTrap " << _name << " constructor called" << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
     *this = other;
-    cout << "FragTrap " << _name << " created with copy constructor" << endl;
+    std::cout << "FragTrap " << _name << " created with copy constructor" << std::endl;
 }
 
 FragTrap::~FragTrap() {
-    cout << "FragTrap " << _name << " destructor called" << endl;
+    std::cout << "FragTrap " << _name << " destructor called" << std::endl;
 }
 
 FragTrap&   FragTrap::operator=(const FragTrap& other) {
@@ -32,5 +32,5 @@ FragTrap&   FragTrap::operator=(const FragTrap& other) {
 }
 
 void    FragTrap::highFivesGuys(void) {
-    cout << "FragTrap " << _name << " HIGH FIVE GUYS!" << endl;
+    std::cout << "FragTrap " << _name << " HIGH FIVE GUYS!" << std::endl;
 }

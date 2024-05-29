@@ -3,12 +3,10 @@
 
 #include <iostream>
 
-using namespace std;
-
 class ClapTrap
 {
 protected:
-    string          _name;
+    std::string          _name;
     unsigned int    _hitPoints;
     unsigned int    _energyPoints;
     unsigned int    _attackDamage;
@@ -17,23 +15,23 @@ protected:
     bool    hasNoEnergy();
 public:
     ClapTrap();
-    ClapTrap(string name);
-    ClapTrap(string name, unsigned int hitPoints, unsigned int energyPoints,
+    ClapTrap(std::string name);
+    ClapTrap(std::string name, unsigned int hitPoints, unsigned int energyPoints,
         unsigned int attackDamage);
     ClapTrap(const ClapTrap& other);
     virtual ~ClapTrap();
     ClapTrap&   operator=(const ClapTrap& other);
 
-    void    attack(const string& target);
+    void    attack(const std::string& target);
     void    takeDamage(unsigned int amount);
     void    beRepaired(unsigned int amount);
 
-    virtual string  getName() const;
+    virtual std::string  getName() const;
     unsigned int    getHitPoints() const;
     unsigned int    getEnergyPoints() const;
     unsigned int    getAttackDamage() const;
 
-    void    setName(string name);
+    void    setName(std::string name);
     void    setHitPoints(unsigned int hitPoints);
     void    setEnergyPoints(unsigned int energyPoints);
     void    setAttackDamage(unsigned int attackDamage);

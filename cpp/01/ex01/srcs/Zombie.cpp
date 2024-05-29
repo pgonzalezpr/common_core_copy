@@ -3,17 +3,17 @@
 
 Zombie::Zombie(void) {}
 
-Zombie::Zombie(string name) : name(name) {}
+Zombie::Zombie(std::string name) : name(name) {}
 
 Zombie::~Zombie(void) {
-    cout << name
+    std::cout << name
          << " died!"
-         << endl;
+         << std::endl;
 }
 
 void    Zombie::announce(void) {
-    cout << name
+    std::cout << name
          << ": "
          << ANNOUNCE_MSG
-         << endl;
+         << std::endl;
 }

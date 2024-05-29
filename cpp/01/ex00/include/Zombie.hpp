@@ -6,19 +6,17 @@
 
 #define ANNOUNCE_MSG "BraiiiiiiinnnzzzZ..."
 
-using namespace std;
-
 class Zombie
 {
 public:
-    Zombie(string name);
+    Zombie(std::string name);
     ~Zombie(void);
     void    announce(void);
 private:
-    string  name;
+    std::string  name;
 };
 
-Zombie* newZombie(string name);
-void    randomChump(string name);
+Zombie* newZombie(std::string name);
+void    randomChump(std::string name);
 
 #endif

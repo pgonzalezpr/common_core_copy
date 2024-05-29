@@ -3,15 +3,13 @@
 
 #include <string>
 
-using namespace std;
-
 class Weapon {
 public:
-    Weapon(const string &type);
-    const string&   getType() const;
-    void            setType(const string &newType);
+    Weapon(const std::string &type);
+    const std::string&   getType() const;
+    void            setType(const std::string &newType);
 private:
-    string  type;
+    std::string  type;
 };
 
 #endif

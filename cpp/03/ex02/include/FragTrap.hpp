@@ -5,13 +5,11 @@
 
 #include <iostream>
 
-using namespace std;
-
 class FragTrap : virtual public ClapTrap
 {
 public:
     FragTrap();
-    FragTrap(const string name);
+    FragTrap(const std::string name);
     FragTrap(const FragTrap& other);
     virtual ~FragTrap();
     FragTrap&   operator=(const FragTrap& other);

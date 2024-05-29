@@ -4,14 +4,12 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
-
 class Harl
 {
 private:
     struct _map
 	{
-		string	level;
+		std::string	level;
 		void	(Harl::*f)(void);
 	};
     struct _map map[4];
@@ -21,7 +19,7 @@ private:
     void    error(void);
 public:
     Harl();
-    void    complain(string level);
+    void    complain(std::string level);
 };
 
 #endif

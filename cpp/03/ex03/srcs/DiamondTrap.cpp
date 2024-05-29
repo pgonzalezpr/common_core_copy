@@ -6,27 +6,27 @@ DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), FragTrap(),
         this->ClapTrap::setHitPoints(100);
         this->ClapTrap::setEnergyPoints(50);
         this->ClapTrap::setAttackDamage(30);
-        cout << "DiamondTrap default constructor called" << endl;
+        std::cout << "DiamondTrap default constructor called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(const string name) : ClapTrap(name + "_clap_name"), 
+DiamondTrap::DiamondTrap(const std::string name) : ClapTrap(name + "_clap_name"), 
     FragTrap(name), ScavTrap(name) {
         this->_name = name;
         this->ClapTrap::setHitPoints(100);
         this->ClapTrap::setEnergyPoints(50);
         this->ClapTrap::setAttackDamage(30);     
-        cout << "DiamondTrap " << _name << " constructor called" << endl;
+        std::cout << "DiamondTrap " << _name << " constructor called" << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other) :
     ClapTrap(other.getName() + "_clap_name"), FragTrap(other.getName()),
         ScavTrap(other.getName()) {
             *this = other;
-            cout << "DiamondTrap " << _name << " created with copy constructor" << endl;
+            std::cout << "DiamondTrap " << _name << " created with copy constructor" << std::endl;
 }
 
 DiamondTrap::~DiamondTrap() {
-    cout << "DiamondTrap " << _name << " destructor called" << endl;
+    std::cout << "DiamondTrap " << _name << " destructor called" << std::endl;
 }
     
 DiamondTrap&    DiamondTrap::operator=(const DiamondTrap& other) {
@@ -41,7 +41,7 @@ DiamondTrap&    DiamondTrap::operator=(const DiamondTrap& other) {
     return *this;
 }
 
-void DiamondTrap::attack(const string& target) {
+void DiamondTrap::attack(const std::string& target) {
     ScavTrap::attack(target);
 }
 
@@ -55,14 +55,14 @@ std::ostream	&operator<<(std::ostream &stream, DiamondTrap &diamondTrap)
 }
 
 void	DiamondTrap::whoAmI(void) {
-	cout << "Hello i am a DiamondTrap named " 
+	std::cout << "Hello i am a DiamondTrap named " 
          << this->_name 
          << " and i am originated from the ClapTrap named " 
          << ClapTrap::getName() 
          << "." 
-         << endl;
+         << std::endl;
 }
 
-string  DiamondTrap::getName() const {  return this->_name; }
+std::string  DiamondTrap::getName() const {  return this->_name; }
 
 

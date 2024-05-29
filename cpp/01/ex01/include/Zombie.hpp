@@ -6,18 +6,16 @@
 
 #define ANNOUNCE_MSG "BraiiiiiiinnnzzzZ..."
 
-using namespace std;
-
 class Zombie {
 public:
     Zombie(void);
-    Zombie(string name);
+    Zombie(std::string name);
     ~Zombie(void);
     void    announce(void);
 private:
-    string  name;
+    std::string  name;
 };
 
-Zombie  *zombieHorde(int N, string name);
+Zombie  *zombieHorde(int N, std::string name);
 
 #endif

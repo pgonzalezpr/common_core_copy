@@ -12,7 +12,7 @@ Harl::Harl(void)
     map[3].f = &Harl::error;
 }
 
-void    Harl::complain(string level) {
+void    Harl::complain(std::string level) {
     switch (getLevel(level))
     {
     case DEBUG:
@@ -34,11 +34,11 @@ void    Harl::complain(string level) {
         error();
         break;
     default:
-        cout << DEFAULT_MSG << endl;
+        std::cout << DEFAULT_MSG << std::endl;
     }
 }
 
-Level   Harl::getLevel(string level) {
+Level   Harl::getLevel(std::string level) {
     if (level == "DEBUG")
         return DEBUG;
     if (level == "INFO")
@@ -51,35 +51,35 @@ Level   Harl::getLevel(string level) {
 }
 
 void    Harl::debug(void) {
-    cout << "[DEBUG]"
-         << endl
+    std::cout << "[DEBUG]"
+         << std::endl
          << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special ketchup burger."
-         << endl
+         << std::endl
          << "I really do!"
-         << endl << endl;
+         << std::endl << std::endl;
 }
 
 void    Harl::info(void) {
-    cout << "[INFO]"
-         << endl
+    std::cout << "[INFO]"
+         << std::endl
          << "I cannot believe adding extra bacon costs more money." 
          << "You didn’t put enough bacon in my burger!"
          << "If you did, I wouldn’t be asking for more!"
-         << endl << endl;
+         << std::endl << std::endl;
 }
 
 void    Harl::warning(void) {
-    cout << "[WARNING]"
-         << endl
+    std::cout << "[WARNING]"
+         << std::endl
          << "I think I deserve to have some extra bacon for free."
-         << endl
+         << std::endl
          << "I’ve been coming for years whereas you started working here since last month."
-         << endl << endl;
+         << std::endl << std::endl;
 }
 
 void    Harl::error(void) {
-    cout << "[ERROR]"
-         << endl
+    std::cout << "[ERROR]"
+         << std::endl
          << "This is unacceptable! I want to speak to the manager now."
-         << endl << endl;
+         << std::endl << std::endl;
 }

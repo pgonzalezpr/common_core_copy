@@ -5,15 +5,13 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
-
 class HumanB {
 public:
-    HumanB(const string &name);
+    HumanB(const std::string &name);
     void    attack() const;
     void    setWeapon(Weapon &weapon);
 private:
-    string  name;
+    std::string  name;
     Weapon  *weapon;
 };
 

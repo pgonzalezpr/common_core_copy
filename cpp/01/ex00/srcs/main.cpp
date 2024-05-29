@@ -7,7 +7,7 @@ int main(void) {
     (*zombie_ptr).announce();
     randomChump("first_stack_zombie");
     randomChump("second_stack_zombie");
-    cout << "Deleting heap zombie" << endl;
+    std::cout << "Deleting heap zombie" << std::endl;
     delete(zombie_ptr);
     return 0;
 }

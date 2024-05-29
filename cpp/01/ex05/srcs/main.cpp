@@ -3,31 +3,31 @@
 void    nonExistingTest() {
     Harl    harl;
 
-    cout << "Non existing test:" << endl << endl;
+    std::cout << "Non existing test:" << std::endl << std::endl;
     harl.complain("NONEXISTING");
-    cout << endl;
+    std::cout << std::endl;
 }
 
 void    randomOrderTest() {
     Harl    harl;
 
-    cout << "Random order test:" << endl << endl;
+    std::cout << "Random order test:" << std::endl << std::endl;
     harl.complain("WARNING");
     harl.complain("INFO");
     harl.complain("ERROR");
     harl.complain("DEBUG");
-    cout << endl;
+    std::cout << std::endl;
 }
 
 void    simpleTest() {
     Harl    harl;
 
-    cout << "Simple test:" << endl << endl;
+    std::cout << "Simple test:" << std::endl << std::endl;
     harl.complain("DEBUG");
     harl.complain("INFO");
     harl.complain("WARNING");
     harl.complain("ERROR");
-    cout << endl;
+    std::cout << std::endl;
 }
 
 int main(void) {
