@@ -6,7 +6,8 @@ std::string  readField(const std::string& prompt) {
     field = "";
     while (!field.compare("")) {
         std::cout << prompt;
-        getline(std::cin, field);
+        if (!getline(std::cin, field))
+            exit(EXIT_SUCCESS);
     }
     return field;
 }   

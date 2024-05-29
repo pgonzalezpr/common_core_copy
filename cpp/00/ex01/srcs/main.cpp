@@ -54,6 +54,8 @@ int main() {
     while (1) {
         std::cout << "Enter command: ";
         getline(std::cin, cmd);
+        if (std::cin.eof())
+            exit(EXIT_SUCCESS);
         if (!cmd.compare(ADD_CMD))
             add(phonebook);
         else if (!cmd.compare(SEARCH_CMD))
