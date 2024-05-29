@@ -10,7 +10,6 @@
 
 void    search(const Phonebook& phonebook) {
     string  input;
-    int     index;
 
     cout << endl;
     phonebook.displayPhonebook();
@@ -19,14 +18,13 @@ void    search(const Phonebook& phonebook) {
         return ;
     while (1) {
         input = readField("Enter contact index: ");
-        index = stringToInt(input);
-        if (phonebook.isIndexValid(index))
+        if (is_numeric(input) && phonebook.isIndexValid(stringToInt(input)))
             break;
         else
             cout << "Invalid index. Try again" << endl;
     }
     cout << endl;
-    phonebook.displayContactByIndex(index);
+    phonebook.displayContactByIndex(stringToInt(input));
 }
 
 void    add(Phonebook& phonebook) {
@@ -34,7 +32,15 @@ void    add(Phonebook& phonebook) {
     string  firstName = readField("Enter first name: ");
     string  lastName = readField("Enter last name: ");
     string  nickname = readField("Enter nickname: ");
-    string  phoneNumber = readField("Enter phone number: ");
+
+    string  phoneNumber;
+    while (1) {
+        phoneNumber = readField("Enter phone number: ");
+        if (is_numeric(phoneNumber))
+            break;
+        else
+            cout << "Invalid phone number. Try again" << endl;
+    }
     string  darkestSecret = readField("Enter darkest secret: ");
 
     phonebook.addContact(Contact(firstName, lastName, nickname, phoneNumber,

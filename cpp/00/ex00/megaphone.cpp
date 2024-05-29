@@ -15,7 +15,7 @@ int main (int argc, char *argv[]) {
   for (int i = 1; i < argc; i++) {
     str = argv[i];
     for (string::size_type k = 0; k < str.length(); k++) {
-      str[k] = toupper(static_cast<unsigned char>(str[i]));
+      str[k] = toupper(static_cast<unsigned char>(str[k]));
     }
     cout << str;
   }

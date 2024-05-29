@@ -11,6 +11,14 @@ string  readField(const string& prompt) {
     return field;
 }   
 
+bool    is_numeric(const string& str) {
+    for (string::size_type k = 0; k < str.length(); k++) {
+      if (!isdigit(str[k]))
+        return 0;
+    }
+    return 1;
+}
+
 int stringToInt(const string& str) {
     int value;
 
