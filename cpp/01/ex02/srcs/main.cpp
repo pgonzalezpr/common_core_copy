@@ -7,10 +7,10 @@ int main(void) {
     std::string& stringREF = str;
 
     std::cout << "String variable address: " << &str << std::endl;
-    std::cout << "Address held by std::stringPTR: " << stringPTR << std::endl;
-    std::cout << "Address held by std::stringREF: " << &stringREF << std::endl;
+    std::cout << "Address held by stringPTR: " << stringPTR << std::endl;
+    std::cout << "Address held by stringREF: " << &stringREF << std::endl;
     std::cout << std::endl;
     std::cout << "String variable value: " << str << std::endl;
-    std::cout << "Value pointed to by std::stringPTR: " << *stringPTR << std::endl;
-    std::cout << "Value pointed to by std::stringREF: " << stringREF << std::endl;
+    std::cout << "Value pointed to by stringPTR: " << *stringPTR << std::endl;
+    std::cout << "Value pointed to by stringREF: " << stringREF << std::endl;
 }
