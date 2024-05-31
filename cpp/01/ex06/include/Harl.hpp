@@ -8,14 +8,6 @@
 #define DEFAULT_MSG "[ Probably complaining about insignificant problems ]"
 #define ARGC_ERR "Incorrect number of arguments"
 
-enum Level {
-    DEBUG,
-    INFO,
-    WARNING,
-    ERROR,
-    UNKNOWN
-};
-
 class Harl
 {
 public:
@@ -24,12 +16,11 @@ public:
 private:
     struct _map
 	{
-		Level       level;
-        std::string level_str;
+        std::string level;
 		void	(Harl::*f)(void);
 	};
 
-    Level   mapLevel(std::string level);
+    int     mapLevel(std::string level);
     struct _map map[NBR_MSG];
     void    debug(void);
     void    info(void);
