@@ -13,8 +13,8 @@ void    error(std::string msg) {
 }
 
 std::string lineReplace(std::string &line, const std::string &s1, const std::string &s2) {
-    size_t      begin;
-    size_t      oldLen = s1.size();
+    std::size_t begin;
+    std::size_t oldLen = s1.size();
     std::string newLine;
 
     while (1) {
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         error(OPEN_ERR);
 
     processed = "";
-    while (getline(fileRead, line)) {
+    while (std::getline(fileRead, line)) {
         processed += lineReplace(line, argv[2], argv[3]);
     }
     fileRead.close();

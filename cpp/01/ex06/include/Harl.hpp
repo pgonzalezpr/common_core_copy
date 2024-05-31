@@ -24,11 +24,12 @@ public:
 private:
     struct _map
 	{
-		Level   level;
+		Level       level;
+        std::string level_str;
 		void	(Harl::*f)(void);
 	};
 
-    Level   getLevel(std::string level);
+    Level   mapLevel(std::string level);
     struct _map map[NBR_MSG];
     void    debug(void);
     void    info(void);
