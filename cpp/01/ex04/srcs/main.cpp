@@ -29,27 +29,32 @@ std::string lineReplace(std::string &line, const std::string &s1, const std::str
 
 int main(int argc, char *argv[]) {
 
-    std::string      line;
-    std::string      processed;
+    std::string     line;
+    std::string     processed;
+    std::ifstream   input;
+    std::ofstream   output;
 
     if (argc != 4 || !argv[2][0] || !argv[3][0])
         error(ARGS_ERR);
 
-    std::ifstream    fileRead(argv[1]);
-    if (!fileRead.is_open())
+    input.open(argv[1]);
+    if (!input.is_open())
         error(OPEN_ERR);
 
     processed = "";
-    while (std::getline(fileRead, line)) {
+    while (std::getline(input, line)) {
         processed += lineReplace(line, argv[2], argv[3]);
     }
-    fileRead.close();
+    input.close();
 
-    std::ofstream    fileWrite(argv[1]);
-    if (!fileWrite.is_open())
+    std::string infile(argv[1]);
+    std::string ext(".replace");
+
+    output.open((infile + ext).c_str());
+    if (!output.is_open())
         error(OPEN_ERR);
-    fileWrite << processed;
-    fileWrite.close();
+    output << processed;
+    output.close();
 
     return (0);
 }
