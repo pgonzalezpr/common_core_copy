@@ -13,9 +13,12 @@ Point::~Point() {}
 Point&  Point::operator=(const Point& other) {
     if (this == &other)
         return *this;
-    _x = other.getX();
-    _y = other.getY();
     return *this;
+}
+
+Point   Point::operator-(const Point& other) const {
+    Point   result((_x - other.getX()).toFloat(), (_y - other.getY()).toFloat());
+    return result;
 }
 
 const Fixed&    Point::getX() const { return _x; }
