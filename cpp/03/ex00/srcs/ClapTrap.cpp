@@ -16,7 +16,8 @@ ClapTrap::ClapTrap(std::string name) {
     std::cout << "ClapTrap " << _name << " constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage) {
+ClapTrap::ClapTrap(std::string name, unsigned int hitPoints,
+    unsigned int energyPoints, unsigned int attackDamage) {
     this->_name = name;
     this->_hitPoints = hitPoints;
     this->_energyPoints = energyPoints;

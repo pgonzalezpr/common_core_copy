@@ -11,9 +11,10 @@ int	main()
 	ScavTrap	ScavTrapA("ScavTrapA");
 	ScavTrap	ScavTrapB("ScavTrapB");
 
+	ScavTrap	ScavTrapC(ScavTrapA);
 	std::cout << std::endl;
 
-	std::cout << ScavTrapA << "\n" << ScavTrapB << std::endl;
+	std::cout << ScavTrapA << "\n" << ScavTrapB << "\n" << ScavTrapC << std::endl;
 
 	ScavTrapA.attack("ScavTrapB");
 	ScavTrapB.takeDamage(ScavTrapA.getAttackDamage());
@@ -26,11 +27,9 @@ int	main()
 
 	std::cout << std::endl;
 
-	std::cout << ScavTrapA << "\n" << ScavTrapB << std::endl;
-
 	ScavTrapB.guardGate();
 
-	std::cout << std::endl;
-
+	std::cout << ScavTrapA << "\n" << ScavTrapB << std::endl;
+	
 	return (0);
 }

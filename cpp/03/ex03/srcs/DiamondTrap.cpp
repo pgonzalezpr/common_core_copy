@@ -50,7 +50,9 @@ std::ostream	&operator<<(std::ostream &stream, DiamondTrap &diamondTrap)
 	stream << "Name: " << diamondTrap.ClapTrap::getName() << \
 	" Hitpoints: " << diamondTrap.ClapTrap::getHitPoints() << \
 	" Energy Points: " << diamondTrap.ClapTrap::getEnergyPoints() << \
-	" Attack Damage: " << diamondTrap.ClapTrap::getAttackDamage();
+	" Energy Points: " << diamondTrap.ClapTrap::getEnergyPoints() << \
+	" Attack Damage: " << diamondTrap.ClapTrap::getAttackDamage() << \
+    " Guard State: " << diamondTrap.ScavTrap::getGuardState();
 	return (stream);
 }
 

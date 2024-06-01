@@ -21,4 +21,6 @@ public:
     bool    getGuardState() const;
 };
 
+std::ostream	&operator<<(std::ostream &stream, ScavTrap &ScavTrap);
+
 #endif

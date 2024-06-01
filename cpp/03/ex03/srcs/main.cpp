@@ -30,6 +30,10 @@ int	main() {
 	std::cout << DiamondTrapA << "\n" << DiamondTrapB << std::endl;
 
 	DiamondTrapB.whoAmI();
+	DiamondTrapB.highFivesGuys();
+	DiamondTrapB.guardGate();
+
+	std::cout << DiamondTrapB << std::endl;
 	
 	std::cout << std::endl;
 	return (0);

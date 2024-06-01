@@ -20,4 +20,6 @@ public:
     std::string  getName() const;
 };
 
+std::ostream	&operator<<(std::ostream &stream, DiamondTrap &diamondTrap);
+
 #endif

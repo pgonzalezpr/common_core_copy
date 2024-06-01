@@ -1,4 +1,4 @@
-NAME = main
+NAME = fragtrap
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m

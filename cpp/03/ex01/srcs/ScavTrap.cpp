@@ -45,8 +45,9 @@ void    ScavTrap::attack(const std::string& target) {
 }
 
 void    ScavTrap::guardGate() {
-    if (!isDead())
+    if (isDead())
         return;
+    this->guardState = 1;
     std::cout << "ScavTrap "
         << this->_name
         << " has entered gatekeeper mode "
@@ -54,4 +55,13 @@ void    ScavTrap::guardGate() {
     this->_energyPoints--;   
 }
 
-bool    ScavTrap::getGuardState() const { return this->guardState; }
+std::ostream	&operator<<(std::ostream &stream, ScavTrap &scavTrap) {
+	stream << "Name: " << scavTrap.getName() << \
+	" Hitpoints: " << scavTrap.getHitPoints() << \
+	" Energy Points: " << scavTrap.getEnergyPoints() << \
+	" Attack Damage: " << scavTrap.getAttackDamage() << \
+    " Guard State: " << scavTrap.getGuardState();
+	return (stream);
+}
+
+bool    ScavTrap::getGuardState() const {return this->guardState; }
