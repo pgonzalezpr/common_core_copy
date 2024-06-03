@@ -30,6 +30,15 @@ bool bsp(Point const a, Point const b, Point const c, Point const point)
         || (dot1 <= 0 && dot2 <= 0 && dot3 <= 0));
 }
 
+void    test(Point const a, Point const b, Point const c, Point const point) {
+    if (bsp(a, b, c, point))
+        std::cout << "Point " << point << " is inside triangle "
+                  << a << ", " << b << ", " << c << std::endl;
+    else
+        std::cout << "Point " << point << " is not inside triangle "
+                  << a << ", " << b << ", " << c << std::endl;
+}
+
 int main() {
     Point   a(0, 0);
     Point   b(5, 0);
@@ -45,8 +54,20 @@ int main() {
 
     if (area == 0)
 		return (std::cerr << "Error: Invalid triangle" << std::endl, 1);
+    
+    test(a, b, c, point1);
+    test(a, c, b, point1);
+    test(b, a, c, point1);
 
-    std::cout << bsp(a, b, c, point1) << std::endl;
-    std::cout << bsp(a, b, c, point2) << std::endl;
-    std::cout << bsp(a, b, c, point3) << std::endl;
+    std::cout << std::endl;
+
+    test(b, c, a, point2);
+    test(c, a, b, point2);
+    test(c, b, a, point2);
+
+    std::cout << std::endl;
+
+    test(a, b, c, point3);
+    test(c, a, b, point3);
+    test(b, a, c, point3);
 }

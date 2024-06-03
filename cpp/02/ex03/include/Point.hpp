@@ -20,4 +20,6 @@ public:
     const Fixed&  getY() const ;
 };
 
+std::ostream& operator<<(std::ostream& os, const Point& point);
+
 #endif
