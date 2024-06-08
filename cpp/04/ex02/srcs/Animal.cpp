@@ -20,10 +20,6 @@ Animal::~Animal() {
     std::cout << "Animal destructor called" << std::endl;
 }
 
-void    Animal::makeSound() const {
-    std::cout << "* ANIMAL MAKES DEFAULT SOUND *" << std::endl;
-}
-
 std::string Animal::getType() const { return this->_type; }
 
 void    Animal::setType(std::string& type) { this->_type = type; }
