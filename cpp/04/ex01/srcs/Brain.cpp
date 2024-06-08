@@ -13,7 +13,7 @@ Brain& Brain::operator=(const Brain& other) {
     if (this == &other)
         return *this;
     for (size_t i = 0; i < SIZE; i++) {
-        this->_ideas[i] = other._ideas[i];
+        this->_ideas[i] = other.getIdeaAtIndex(i);
     }
     return *this;
 }
@@ -22,7 +22,7 @@ Brain::~Brain() {
     std::cout << "Brain destructor called" << std::endl;
 }
 
-std::string Brain::getIdeaAtIndex(size_t idx) {
+std::string Brain::getIdeaAtIndex(size_t idx) const {
     if (idx < SIZE)
         return this->_ideas[idx];
     std::cout << "Invalid idea index" << std::endl;

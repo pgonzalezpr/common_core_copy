@@ -13,7 +13,7 @@ public:
     Brain& operator=(const Brain& other);
     ~Brain();
     void        setIdeaAtIndex(std::string str, size_t idx);
-    std::string getIdeaAtIndex(size_t idx);
+    std::string getIdeaAtIndex(size_t idx) const;
 private:
     std::string _ideas[SIZE];
 };
