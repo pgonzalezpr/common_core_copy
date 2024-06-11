@@ -27,7 +27,7 @@ INCLUDE = ./include/Animal.hpp ./include/Dog.hpp ./include/Cat.hpp \
 
 CC = c++
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address
 OBJS = ${SRCS:.cpp=.o}
 DEPS = ${SRCS:.cpp=.d}
 

@@ -20,13 +20,15 @@ MID_GRAY =		\033[38;5;245m
 DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
-SRCS = ./srcs/main.cpp ./srcs/AMateria.cpp ./srcs/Ice.cpp
+SRCS = ./srcs/main.cpp ./srcs/AMateria.cpp ./srcs/Ice.cpp ./srcs/Cure.cpp \
+		./srcs/Character.cpp ./srcs/MateriaBag.cpp ./srcs/MateriaSource.cpp 
 INCLUDE = ./include/AMateria.hpp ./include/ICharacter.hpp ./include/Ice.hpp \
-			./include/IMateriaSource.hpp
+			./include/IMateriaSource.hpp ./include/Character.hpp ./include/Cure.hpp \
+			./include/MateriaSource.hpp ./include/MateriaBag.hpp
 
 CC = c++
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address
 OBJS = ${SRCS:.cpp=.o}
 DEPS = ${SRCS:.cpp=.d}
 
