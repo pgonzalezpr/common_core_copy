@@ -3,13 +3,13 @@
 Bureaucrat::GradeTooHighException::GradeTooHighException() {}
 
 const char *Bureaucrat::GradeTooHighException::what() const throw() {
-    return "Grade is too high";
+    return "Bureaucrat exception: grade is too high";
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException() {}
 
 const char *Bureaucrat::GradeTooLowException::what() const throw() {
-    return "Grade is too low";
+    return "Bureaucrat exception: grade is too low";
 }
 
 Bureaucrat::Bureaucrat() : _name("default"), _grade(MIN_GRADE) {}
@@ -36,6 +36,17 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
 }
 
 Bureaucrat::~Bureaucrat() {}
+
+void Bureaucrat::signForm(Form& form) {
+    try {
+        form.beSigned(*this);
+        std::cout << "Bureaucrat " << this->_name << " signed format "
+        << form.getName() << std::endl;
+    } catch(const Form::GradeTooLowException e) {
+        std::cerr << "Bureaucrat " << this->_name << " can't sign format "
+        << form.getName() << " because its grade is too low" << std::endl;
+    }
+}
 
 void Bureaucrat::incrementGrade() {
     if (this->_grade - 1 < MAX_GRADE)

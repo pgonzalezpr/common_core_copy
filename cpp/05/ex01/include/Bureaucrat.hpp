@@ -1,10 +1,13 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
+#include "Form.hpp"
 #include <iostream>
 
 #define MIN_GRADE 150
 #define MAX_GRADE 1
+
+class Form;
 
 class Bureaucrat {
 public:
@@ -26,6 +29,7 @@ public:
     Bureaucrat& operator=(const Bureaucrat& other);
     ~Bureaucrat();
 
+    void signForm(Form& form);
     void incrementGrade();
     void decrementGrade();
     std::string getName() const;
