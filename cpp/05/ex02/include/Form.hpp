@@ -30,7 +30,7 @@ public:
     Form(const std::string& name, int signGrade, int executeGrade);
     Form(const Form& other);
     Form& operator=(const Form& other);
-    ~Form();
+    virtual ~Form();
 
     void beSigned(const Bureaucrat& bureaucrat);
     void execute(Bureaucrat const & executor);
