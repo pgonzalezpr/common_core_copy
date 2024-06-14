@@ -24,28 +24,32 @@ SRCS = ./srcs/main.cpp ./srcs/Bureaucrat.cpp
 INCLUDE = ./include/Bureaucrat.hpp
 
 CC = c++
-RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address
-OBJS = ${SRCS:.cpp=.o}
-DEPS = ${SRCS:.cpp=.d}
+RM = rm -rf
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MF .deps/$(@F:.o=.d) -fsanitize=address
+OBJS = $(addprefix .objs/, $(notdir ${SRCS:.cpp=.o}))
+DEPS = $(addprefix .deps/, $(notdir ${SRCS:.cpp=.d}))
 
-%.o: %.cpp
+.objs/%.o: ./srcs/%.cpp | .objs .deps
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 
 ${NAME}: ${OBJS} ${INCLUDE} Makefile
-		@${CC} ${CFLAGS} -I./include ${SRCS} -o ${NAME}
+		@${CC} $(CFLAGS) -I./include ${OBJS} -o ${NAME}
 		@echo "\n$(GREEN) Created $(NAME) ✓ $(DEF_COLOR)\n"
 
 all:	${NAME}
 
+.objs .deps:
+		@mkdir -p .objs .deps
+
 -include ${DEPS}
 
 clean:
-		@${RM} ${OBJS} ${DEPS} ${NAME}.d
+		@${RM} .objs .deps
 		@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
-fclean:
-		@${RM} ${OBJS} ${DEPS} ${NAME} ${NAME}.d
+
+fclean: clean
+		@${RM} ${NAME}
 		@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 
 re: fclean all
