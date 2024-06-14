@@ -20,10 +20,16 @@ AForm *Intern::makeForm(const std::string& name, const std::string& target) {
     
     switch (i) {
         case 0:
+            std::cout << "Intern creates " << name << " form with target " 
+            << target << std::endl;
             return new ShrubberyCreationForm(target);
         case 1:
+            std::cout << "Intern creates " << name << " form with target " 
+            << target << std::endl;
             return new RobotomyRequestForm(target);
         case 2:
+            std::cout << "Intern creates " << name << " form with target " 
+            << target << std::endl;
             return new PresidentialPardonForm(target);
         default:
             std::cerr << "Invalid form type" << std::endl;
