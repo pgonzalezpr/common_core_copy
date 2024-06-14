@@ -21,9 +21,10 @@ DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
 SRCS = ./srcs/main.cpp ./srcs/Bureaucrat.cpp ./srcs/AForm.cpp ./srcs/ShrubberyCreationForm.cpp \
-		./srcs/RobotomyRequestForm.cpp ./srcs/PresidentialPardonForm.cpp
+		./srcs/RobotomyRequestForm.cpp ./srcs/PresidentialPardonForm.cpp ./srcs/Intern.cpp
 INCLUDE = ./include/Bureaucrat.hpp ./include/AForm.hpp ./include/ShrubberyCreationForm.hpp \
-			./include/RobotomyRequestForm.hpp ./include/PresidentialPardonForm.hpp
+			./include/RobotomyRequestForm.hpp ./include/PresidentialPardonForm.hpp \
+			./include/Intern.hpp
 
 CC = c++
 RM = rm -rf

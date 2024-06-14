@@ -1,4 +1,4 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 
 AForm::GradeTooHighException::GradeTooHighException() {}
 
@@ -52,7 +52,7 @@ void AForm::beSigned(const Bureaucrat& bureaucrat) {
     this->_isSigned = true;
 }
 
-void AForm::execute(Bureaucrat const & executor) {
+void AForm::execute(Bureaucrat const & executor) const {
     if (!this->_isSigned)
         throw AForm::FormNotSignedException();
     if (executor.getGrade() > this->_executeGrade)
@@ -69,7 +69,7 @@ int AForm::getSignGrade() const { return this->_signGrade; }
 int AForm::getExecuteGrade() const { return this->_executeGrade; }
 
 std::ostream&  operator<<(std::ostream& os, const AForm& obj) {
-    os << "Format " << obj.getName() << " signed: " << obj.getIsSigned()
+    os << "AFormat " << obj.getName() << " signed: " << obj.getIsSigned()
     << ", signGrade: " << obj.getSignGrade() << ", executeGrade: " 
     << obj.getExecuteGrade();
     return os; 

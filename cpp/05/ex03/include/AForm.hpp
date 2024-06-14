@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include "Bureaucrat.hpp"
 #include <iostream>
@@ -33,7 +33,7 @@ public:
     virtual ~AForm();
 
     void beSigned(const Bureaucrat& bureaucrat);
-    void execute(Bureaucrat const & executor);
+    void execute(Bureaucrat const & executor) const;
     virtual void action() const = 0;
     
     const std::string& getName() const;

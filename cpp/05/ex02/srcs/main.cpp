@@ -1,10 +1,10 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
-Form *createForm(std::string& type, std::string& target) {
+AForm *createAForm(std::string& type, std::string& target) {
     if (type == "shrubbery")
         return new ShrubberyCreationForm(target);
     if (type == "robotomy")
@@ -15,7 +15,7 @@ Form *createForm(std::string& type, std::string& target) {
 }
 
 void signExecuteTest(std::string type, std::string target, std::string name, int grade) {
-    Form *form = NULL;
+    AForm *form = NULL;
     Bureaucrat *bureaucrat = NULL;
 
     std::cout << "Creating bureaucrat " << name << " with grade " 
@@ -29,7 +29,7 @@ void signExecuteTest(std::string type, std::string target, std::string name, int
 
     std::cout << "Creating " << type << " format with " << target 
     << " target" << std::endl;
-    form = createForm(type, target);
+    form = createAForm(type, target);
     if (!form) {
         std::cout << "Invalid form type" << std::endl;
         delete bureaucrat;
@@ -38,12 +38,8 @@ void signExecuteTest(std::string type, std::string target, std::string name, int
 
     std::cout << "Bureaucrat " << name << " attempting to sign and execute "
     << type << " format" << std::endl;
-    bureaucrat->signForm(*form);
-    try {
-        form->execute(*bureaucrat);
-    } catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
+    bureaucrat->signAForm(*form);
+    bureaucrat->executeForm(*form);
     delete form;
     delete bureaucrat;
 }
