@@ -7,16 +7,4 @@ int main(int argc, char *argv[]) {
     }
     ScalarConverter::convert(argv[1]);
     return 0;
-   /*
-   std::stringstream ss(argv[1]);
-   double value;
-   (void) argc;
-   ss >> value;
-   if (ss.fail() || !ss.eof()) {
-    std::cout << "error" << std::endl;
-    return 0;
-   }
-   std::cout << value << std::endl;
-   */
-
 }

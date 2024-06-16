@@ -6,6 +6,7 @@
 #include <string>
 #include <iomanip>
 #include <limits.h>
+#include <cfloat>
 
 class ScalarConverter {
 public:
@@ -16,8 +17,8 @@ private:
     ScalarConverter& operator=(const ScalarConverter& other);
     ~ScalarConverter();
 
-    static void printInt(int value);
     static void printDouble(double value);
+    static bool handleSpecial(const std::string& str);
 };
 
 #endif
