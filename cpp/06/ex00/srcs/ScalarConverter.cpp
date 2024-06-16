@@ -59,14 +59,14 @@ void ScalarConverter::printDouble(double value) {
     else
         std::cout << "int: " << static_cast<int>(value) << std::endl;
     
-    isInt = (value == (int) value);
+    isInt = (value == static_cast<int>(value));
     if (isInt)
         std::cout << std::fixed << std::setprecision(1);
 
     if (value < -FLT_MAX || value > FLT_MAX)
         std::cout << "float: impossible" << std::endl;
     else {
-        std::cout << "float: " << value << "f" << std::endl;
+        std::cout << "float: " << static_cast<float>(value)<< "f" << std::endl;
     }
     std::cout << "double: " << value << std::endl;
 }
