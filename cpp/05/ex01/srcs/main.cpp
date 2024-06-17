@@ -42,11 +42,7 @@ int main() {
     jhon.signForm(format);
 
     std::cout << "Gian trying to sign format" << std::endl;
-    try {
-        format.beSigned(gian);
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
+    gian.signForm(format);
 
     std::cout << format << std::endl;
     std::cout << std::endl;

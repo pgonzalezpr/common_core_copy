@@ -63,7 +63,7 @@ int main() {
 
     std::cout << "Test 3: Enough grade for shrubbery format" << std::endl;
     std::cout << std::endl;
-    signExecuteTest("shrubbery", "home", "gwen", 130);
+    signExecuteTest("shrubbery", "correct", "gwen", 130);
     printTestEnd();
 
     std::cout << "Test 4: Not enough grade to sign robotomy format" << std::endl;
