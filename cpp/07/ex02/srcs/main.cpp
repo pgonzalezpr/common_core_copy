@@ -1,9 +1,19 @@
 #include "Array.hpp"
 
+typedef struct person {
+    std::string name;
+    int age;
+} Person;
+
 void testEpilogue() {
     std::cout << std::endl;
     std::cout << "==================================" << std::endl;
     std::cout << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const Person& obj) {
+    os << "Name: " << obj.name << ", Age: " << obj.age << std::endl;
+    return os;
 }
 
 int main () {
@@ -78,6 +88,7 @@ int main () {
     std::cout << "Copied array => ";
     myArray8.print();
 
+    std::cout << std::endl;
     std::cout << "Modyfing copied array to test deep copy" << std::endl;
     myArray8[3] = "modified three";
 
@@ -85,4 +96,23 @@ int main () {
     myArray7.print();
     std::cout << "Copied array => ";
     myArray8.print();
+    testEpilogue();
+
+    std::cout << "Test5: Creating array of structs" << std::endl;
+    std::cout << std::endl;
+
+    Person laura = {"Laura", 20};
+    Person maria = {"Maria", 18};
+    Person andres = {"Andres", 25};
+
+    Array<Person> myArray9(3);
+    try {
+        myArray9[0] = laura;
+        myArray9[1] = maria;
+        myArray9[2] = andres;
+
+        std::cout << myArray9[0] << myArray9[1] << myArray9[2];
+    } catch (std::exception& e) {
+        std::cout << "Index out of bounds exception" << std::endl;
+    }
 }
