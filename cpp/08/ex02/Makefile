@@ -1,4 +1,4 @@
-NAME = easyfind
+NAME = mutantStack
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -20,8 +20,8 @@ MID_GRAY =		\033[38;5;245m
 DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
-SRCS = ./srcs/main.cpp 
-INCLUDE = ./include/easyfind.hpp
+SRCS = ./srcs/main.cpp
+INCLUDE = ./include/MutantStack.hpp
 
 CC = c++
 RM = rm -rf

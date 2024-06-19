@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = span
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m

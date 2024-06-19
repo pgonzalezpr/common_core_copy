@@ -44,6 +44,9 @@
         "ostream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "mutantstack.hpp": "c",
+        "stack": "cpp",
+        "*.tpp": "c"
     }
 }
