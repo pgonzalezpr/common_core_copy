@@ -40,7 +40,7 @@ Array<T>& Array<T>::operator=(const Array& other) {
 template <typename T>
 T& Array<T>::operator[](unsigned int index) {
     if (index >= this->_size)
-        throw std::exception();
+        throw InvalidIndexException();
     return this->_arr[index];
 }
 
@@ -60,6 +60,11 @@ template <typename T>
 Array<T>::~Array() {
     if (this->_arr)
         delete[] this->_arr;
+}
+
+template<typename T>
+const char* Array<T>::InvalidIndexException::what() const throw() {
+    return "Error: Trying to access invalid array index";
 }
 
 #endif

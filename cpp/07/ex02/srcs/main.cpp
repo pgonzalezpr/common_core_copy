@@ -39,7 +39,7 @@ int main () {
         myArray4[3] = 2;
         myArray4[4] = 1;
     } catch (std::exception& e) {
-        std::cout << "Index out of bounds exception" << std::endl;
+        std::cout << e.what() << std::endl;
     }
     myArray4.print();
 
@@ -49,7 +49,7 @@ int main () {
         myArray5[1] = "array";
         myArray5[2] = "test";
     } catch (std::exception& e) {
-        std::cout << "Index out of bounds exception" << std::endl;
+        std::cout << e.what() << std::endl;
     }
     myArray5.print();
     testEpilogue();
@@ -63,7 +63,7 @@ int main () {
         myArray6[7] = 3.4;
         myArray6[1] = 2.3;
     } catch (std::exception& e) {
-        std::cout << "Index out of bounds exception" << std::endl;
+        std::cout << e.what() << std::endl;
     }
     myArray6.print();
     testEpilogue();
@@ -79,7 +79,7 @@ int main () {
         myArray7[3] = "three";
         myArray7[4] = "four";
     } catch (std::exception& e) {
-        std::cout << "Index out of bounds exception" << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     std::cout << "Original array => ";
@@ -113,6 +113,6 @@ int main () {
 
         std::cout << myArray9[0] << myArray9[1] << myArray9[2];
     } catch (std::exception& e) {
-        std::cout << "Index out of bounds exception" << std::endl;
+        std::cout << e.what() << std::endl;
     }
 }

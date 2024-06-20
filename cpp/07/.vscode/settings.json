@@ -46,6 +46,8 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "*.tpp": "c",
-        "array.hpp": "c"
+        "array.hpp": "c",
+        "optional": "cpp",
+        "ranges": "cpp"
     }
 }

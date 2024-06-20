@@ -6,6 +6,11 @@
 template <typename T>
 class Array {
 public:
+    class InvalidIndexException : public std::exception {
+    public:
+        const char *what() const throw ();
+    };
+    
     Array();
     Array(unsigned int n);
     Array(const Array& other);
