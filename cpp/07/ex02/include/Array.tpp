@@ -1,5 +1,5 @@
 #ifndef ARRAY_TPP
-#define ARRAY_HPP
+#define ARRAY_TPP
 
 #include "Array.hpp"
 
