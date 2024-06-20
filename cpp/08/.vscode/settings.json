@@ -47,6 +47,9 @@
         "typeinfo": "cpp",
         "mutantstack.hpp": "c",
         "stack": "cpp",
-        "*.tpp": "c"
+        "*.tpp": "c",
+        "ctime": "cpp",
+        "optional": "cpp",
+        "ranges": "cpp"
     }
 }

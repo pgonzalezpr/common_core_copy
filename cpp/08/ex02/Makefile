@@ -1,4 +1,4 @@
-NAME = mutantStack
+NAME = a.out
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
