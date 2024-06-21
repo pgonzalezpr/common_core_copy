@@ -10,7 +10,7 @@
 class BitcoinExchange {
 public:
 
-    class FileReadErrorException : public std::exception {
+    class FileOpenErrorException : public std::exception {
     public:
         const char *what() const throw();
     };
@@ -20,9 +20,10 @@ public:
     ~BitcoinExchange();
 
     void init(const char *filename);
-    //float getTotalValue(const std::string& date, int amount) const;
+    float getValue(const std::string& date) const;
 private:
     std::map<std::string, float> _data;
+    typedef std::map<std::string, float>::const_iterator iterator;
 };
 
 #endif

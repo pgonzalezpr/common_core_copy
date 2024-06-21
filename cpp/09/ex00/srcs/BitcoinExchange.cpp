@@ -21,7 +21,7 @@ void BitcoinExchange::init(const char *filename) {
 
     infile.open(filename);
     if (!infile.is_open())
-        throw FileReadErrorException();
+        throw FileOpenErrorException();
     std::getline(infile, line);
     while (std::getline(infile, line)) {
         pos = line.find(',');
@@ -29,14 +29,17 @@ void BitcoinExchange::init(const char *filename) {
         this->_data.insert(std::make_pair(line.substr(0, pos), value));
     }
     infile.close();
-    for (std::map<std::string, float>::iterator it = this->_data.begin(); it != this->_data.end(); ++it) {
-        std::cout << "Date: " << it->first << ", Value = " << it->second << std::endl;
-    }
 }
 
-const char *BitcoinExchange::FileReadErrorException::what() const throw() {
-    return "Error reading file";;
+const char *BitcoinExchange::FileOpenErrorException::what() const throw() {
+    return "Error opening bitcoin database file";;
 }
 
-
-
+float BitcoinExchange::getValue(const std::string& date) const {
+    BitcoinExchange::iterator it = this->_data.lower_bound(date);
+    if (it->first == date)
+        return it->second;
+    if (it != this->_data.begin())
+        return (--it)->second;
+    return (++it)->second;
+}
