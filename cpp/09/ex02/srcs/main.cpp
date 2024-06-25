@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++) {
         std::stringstream ss(argv[i]);
         ss >> val;
-        if (ss.fail() || !ss.eof()) {
+        if (ss.fail() || !ss.eof() || val < 0) {
             std::cerr << "Bad argument: " << argv[i] << std::endl;
             return 1;
         }
@@ -58,10 +58,8 @@ int main(int argc, char *argv[]) {
     double vec_time = runSorter(elements, vec);
     double lst_time = runSorter(elements, lst);
 
-    std::cout << "After [vector]: ";
+    std::cout << "After: ";
     printContainer(vec);
-    std::cout << "After [list]: ";
-    printContainer(lst);
     std::cout << "Time to process a range of "
     << vec.size() << " elements with std::vector : " 
     << vec_time << " us" << std::endl;

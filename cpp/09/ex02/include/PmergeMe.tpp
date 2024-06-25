@@ -37,7 +37,7 @@ void PmergeMe<Container>::fordJohnsonSort(Container& elements) {
             smaller.push_back(*next);
             larger.push_back(*it);
         }
-        ++it;
+        std::advance(it, 1);
     }
 
     this->fordJohnsonSort(smaller);
