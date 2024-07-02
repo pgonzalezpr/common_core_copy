@@ -16,8 +16,8 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/mysql
       o: bind
+      device: /home/pedro-go/data/mysql
 networks:
   inception:
     driver: bridge
