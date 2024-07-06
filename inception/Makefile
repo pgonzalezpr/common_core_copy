@@ -7,13 +7,13 @@ clean:
 
 fclean: clean
 	@sudo hostsed rm 127.0.0.1 pedro-go.42.fr && echo "successfully removed pedro-go.42.fr to /etc/hosts"
-	@if [ -d "/home/pgonzalezpr/data/wordpress" ]; then \
-	sudo rm -rf /home/pgonzalezpr/data/wordpress/* && \
+	@if [ -d "/home/pedro-go/data/wordpress" ]; then \
+	sudo rm -rf /home/pedro-go/data/wordpress/* && \
 	echo "successfully removed all contents from /home/pgonzalezpr/data/wordpress/"; \
 	fi;
 
-	@if [ -d "/home/pgonzalezpr/data/mariadb" ]; then \
-	sudo rm -rf /home/pgonzalezpr/data/mariadb/* && \
+	@if [ -d "/home/pedro-go/data/mariadb" ]; then \
+	sudo rm -rf /home/pedro-go/data/mariadb/* && \
 	echo "successfully removed all contents from /home/pgonzalezpr/data/mariadb/"; \
 	fi;
 

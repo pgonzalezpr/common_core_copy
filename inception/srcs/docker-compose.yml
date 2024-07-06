@@ -45,13 +45,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/pgonzalezpr/data/mysql
+      device: /home/pedro-go/data/mysql
   wordpress_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/pgonzalezpr/data/wordpress
+      device: /home/pedro-go/data/wordpress
 networks:
   inception:
     driver: bridge
