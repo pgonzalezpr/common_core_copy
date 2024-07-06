@@ -1,10 +1,12 @@
-#! /bin/bash
+#!/bin/bash
 
-if [ ! -d /var/lib/mysql/${MYSQL_DATABASE} ];
-then
-mysql -u ${MYSQL_ROOT_USER} -p${MYSQL_ROOT_PASSWORD} < /usr/local/bin/init.sql
-fi
+mysqld_safe &
 
-mysqladmin -u ${MYSQL_ROOT_USER} -p${MYSQL_ROOT_PASSWORD} shutdown
+while ! mysqladmin ping --silent; do
+    sleep 1
+done
 
-mysqld
+mysql < /usr/local/bin/init.sql
+
+tail -f /dev/null
+
