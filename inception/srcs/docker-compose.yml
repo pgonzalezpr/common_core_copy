@@ -1,58 +1,65 @@
+version: '3.5'
+
+networks:
+  inception: {}
+
 services:
   mariadb:
     container_name: mariadb
+    image: mariadb
     build:
       context: ./requirements/mariadb
-    image: mariadb
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    restart: always
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
     networks:
       - inception
-    env_file:
-      - .env
-  nginx:
-    container_name: nginx
-    build:
-      context: ./requirements/nginx
-    image: nginx
-    ports:
-      - "443:443"
     volumes:
-      - wordpress_data:/var/www/html
-    restart: always
-    networks:
-      - inception
-    depends_on:
-      - wordpress
+      - mariadb_v:/var/lib/mysql
+    restart: unless-stopped
+
   wordpress:
     container_name: wordpress
-    build:
-      context: ./requirements/wordpress
     image: wordpress
-    volumes:
-      - wordpress_data:/var/www/html
-    restart: always
+    build: ./requirements/wordpress
     networks:
       - inception
-    env_file:
-      - .env
+    volumes:
+      - wordpress_v:/var/www/wordpress
+    env_file: .env
     depends_on:
       - mariadb
-volumes:
-  mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/pedro-go/data/mysql
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/pedro-go/data/wordpress
-networks:
-  inception:
-    driver: bridge
+    restart: unless-stopped
 
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    volumes:
+      - wordpress_v:/var/www/wordpress
+    depends_on:
+      - wordpress
+      - mariadb
+    restart: unless-stopped
+
+
+volumes:
+  mariadb_v:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/pgonzalezpr/data/mariadb
+
+  wordpress_v:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/pgonzalezpr/data/wordpress

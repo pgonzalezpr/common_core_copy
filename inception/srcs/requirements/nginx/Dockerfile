@@ -1,15 +1,14 @@
-FROM debian:11
+FROM debian:buster
 
-RUN apt-get update \
-    && apt-get install -y nginx openssl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+	nginx \
+	openssl && \
+	rm -rf /var/lib/apt/lists/*
 
-COPY ./conf/default /etc/nginx/sites-enabled/default
-COPY ./tools/nginx_script.sh /var/www
+COPY ./conf/nginx.conf /etc/nginx/sites-available/default
 
-RUN chmod +x /var/www/nginx_script.sh
-
-ENTRYPOINT [ "var/www/nginx_script.sh" ]
+RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 \
+	-keyout /etc/ssl/private/nginx.key \
+	-out /etc/ssl/certs/nginx.crt -sha256 -subj "/CN=pedro-go.42.fr"
 
 CMD ["nginx", "-g", "daemon off;"]
